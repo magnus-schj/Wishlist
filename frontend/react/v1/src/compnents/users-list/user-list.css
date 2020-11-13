@@ -4,3 +4,6 @@
   align-items: center;
   justify-content: center;
 }
+.user-list ul li {
+  list-style-type: none;
+}

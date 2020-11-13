@@ -1,4 +1,5 @@
 import React from "react";
+import "./user-list.css";
 
 const UserList = () => (
     <div className="user-list">
