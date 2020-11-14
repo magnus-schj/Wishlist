@@ -5,7 +5,7 @@ import "../user/user.component";
 import User from "../user/user.component";
 
 const UserList = () => (
-    <div className="user-list">
+    <section className="user-list">
         <h1>Navn</h1>
         <ul>
             <User name="Magnus" />
@@ -13,6 +13,6 @@ const UserList = () => (
             <User name="Bjørn" />
             <User name="Sunniva" />
         </ul>
-    </div>
+    </section>
 );
 export default UserList;
