@@ -1,14 +1,17 @@
 import React from "react";
 import "./user-list.css";
 
+import "../user/user.component";
+import User from "../user/user.component";
+
 const UserList = () => (
     <div className="user-list">
         <h1>Navn</h1>
         <ul>
-            <li>Magnus</li>
-            <li>Hanne</li>
-            <li>Bjørn</li>
-            <li>Sunniva</li>
+            <User name="Magnus" />
+            <User name="Hanne" />
+            <User name="Bjørn" />
+            <User name="Sunniva" />
         </ul>
     </div>
 );
