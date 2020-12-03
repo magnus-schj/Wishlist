@@ -3,7 +3,7 @@ import "./user.component.css";
 
 const User = (props) => (
     <li>
-        <button className="user">{props.name}</button>
+        <button className="user" onClick={props.onClick}>{props.name}</button>
     </li>
 )
 

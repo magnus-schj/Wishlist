@@ -4,9 +4,12 @@ import "./WishList.component.css";
 import "../wish/wish.component";
 import Wish from "../wish/wish.component";
 
-const WishList = ()=> (
+const WishList = (props)=> (
     <div className="WishList">
         <h1>Wishlist component</h1>
+        {console.log(
+            props
+        )}
         <ul>
             <Wish wish="Wish 1"/>
             <Wish wish="Wish 2"/>
