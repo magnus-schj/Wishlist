@@ -4,6 +4,7 @@ import UserList from './components/user-list/user-list.component'
 import HomePage from './pages/homepage/homepage.component'
 import {Switch, Route} from 'react-router-dom'
 import SignInSignUp from './pages/sign-in-sign-up/sign-in-sign-up.page';
+import WishPage from './pages/wishes/wishes.page';
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/sign-in-sign-up" component={SignInSignUp} />
+        <Route exact path="/wish-page" component={WishPage} />
       </Switch>
     </div>
   );
