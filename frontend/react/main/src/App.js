@@ -2,15 +2,17 @@ import "./App.css";
 import UserMenu from "./components/user-menu/UserMenu.component";
 import MOCK_DATA from "./assets/MockData";
 import { Route } from "react-router-dom";
-import WishList from "./components/wish-list/WishList.component";
+import WishPage from "./pages/wish-page/WishPage.component";
 
 const App = () => {
   return (
     <div className="App">
       <UserMenu />
-      <h1>Ønskelister</h1>
+      <div className="header">
+        <h1>Ønskelister</h1>
+      </div>
       {MOCK_DATA.map((user) => {
-        const component = <WishList name={user.name} wishes={user.wishes} />;
+        const component = <WishPage name={user.name} wishes={user.wishes} />;
         return <Route exact path={`/${user.name}`} render={() => component} />;
       })}
     </div>

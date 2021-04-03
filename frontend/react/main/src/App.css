@@ -6,3 +6,13 @@
 .App {
   text-align: center;
 }
+
+li {
+  list-style-type: none;
+}
+
+.header {
+  font-size: 1.7rem;
+  min-height: 10vh;
+  padding: 0.5rem;
+}
