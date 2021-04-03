@@ -1,6 +1,6 @@
 import "./main.styles.css";
 
-const Main = () => {
+const Main = ({ isLoggedIn }) => {
   return (
     <div className="main">
       <h2>Velkommen til den nye ønskeliste-siden!</h2>
