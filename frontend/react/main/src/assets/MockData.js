@@ -20,8 +20,15 @@ const MOCK_DATA = [
       "Noe hjemmelaget, spiselig, drikkbart, en boks med te, sjokolade..",
     ],
   },
-  { name: "Lilja", wishes: ["wish 1", "wish 2", "wish 3"] },
-  { name: "User 5", wishes: ["wish 1", "wish 2", "wish 3"] },
+  { name: "Lilja", wishes: ["Nytt Skateboard", "Nintendo switch", "Penger"] },
+  {
+    name: "Liv Annika",
+    wishes: [
+      "New black converse",
+      "Dr. Lip freak buzzing chapstick- cherry",
+      "Perfume",
+    ],
+  },
 ];
 
 export default MOCK_DATA;
