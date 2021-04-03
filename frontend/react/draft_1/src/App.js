@@ -1,11 +1,11 @@
-import './App.css';
-import UserMenu from './components/user-menu/UserMenu.component';
+import "./App.css";
+import UserMenu from "./components/user-menu/UserMenu.component";
 
 function App() {
   return (
     <div className="App">
-      <h1>Ønskeliste</h1>
       <UserMenu />
+      <h1>Ønskelister</h1>
     </div>
   );
 }

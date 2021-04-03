@@ -1,0 +1,10 @@
+.user-menu {
+  background: green;
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  padding: 2rem;
+}
+.user-menu ul {
+  list-style-type: none;
+}
