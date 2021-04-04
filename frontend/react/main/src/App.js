@@ -18,7 +18,13 @@ const App = () => {
           <h1>Ønskelister</h1>
         </Link>
       </div>
-      <Route exact path="/" render={() => <Main isLoggedIn={isLoggedIn} />} />
+      <Route
+        exact
+        path="/"
+        render={() => (
+          <Main isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        )}
+      />
       {MOCK_DATA.map((user) => {
         const component = <WishPage name={user.name} wishes={user.wishes} />;
         return <Route exact path={`/${user.name}`} render={() => component} />;

@@ -1,6 +1,10 @@
+import { useState } from "react";
 import "./main.styles.css";
 
-const Main = ({ isLoggedIn }) => {
+const Main = ({ isLoggedIn, setIsLoggedIn }) => {
+  const [userNameValue, setUserNameValue] = useState("");
+  const [passwordValue, setPasswordValue] = useState("");
+  // validator
   return (
     <div className="main">
       <h2>Velkommen til den nye ønskeliste-siden!</h2>
@@ -17,14 +21,21 @@ const Main = ({ isLoggedIn }) => {
           <h2>Logg inn her:</h2>
           <span>
             Brukernavn:
-            <input type="text" /> <br />
+            <input
+              type="text"
+              onChange={(e) => setUserNameValue(e.target.value)}
+            />{" "}
+            <br />
           </span>
           <span>
             Passord:
-            <input type="password" />
+            <input
+              type="password"
+              onChange={(e) => setPasswordValue(e.target.value)}
+            />
           </span>
           <br />
-          <button>Logg inn</button>
+          <button onClick={() => console.log()}>Logg inn</button>
         </div>
       )}
     </div>
