@@ -1,24 +1,28 @@
 import { useState } from "react";
+
+import MOCK_DATA from "../../assets/MockData";
 import "./main.styles.css";
 
 const Main = ({ isLoggedIn, setIsLoggedIn }) => {
   const [userNameValue, setUserNameValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
-  // validator
-  const validator = () => {
-    if (userNameValue === "" || passwordValue === "") {
-      return false;
-    }
-    return true;
+  const [wrongLogin, setWrongLogin] = useState(false);
+
+  const validator = (user) => {
+    return user.name === userNameValue && user.password === passwordValue;
   };
+
   const handleLogIn = () => {
-    if (validator()) {
-      console.log("Gyldig input!");
+    const currentUser = MOCK_DATA.find(validator);
+    if (currentUser) {
+      console.log(currentUser);
       setIsLoggedIn(true);
+      setWrongLogin(false);
     } else {
-      console.log("Ugyldig input!");
+      setWrongLogin(true);
     }
   };
+
   return (
     <div className="main">
       <h2>Velkommen til den nye ønskeliste-siden!</h2>
@@ -50,6 +54,9 @@ const Main = ({ isLoggedIn, setIsLoggedIn }) => {
           </span>
           <br />
           <button onClick={() => handleLogIn()}>Logg inn</button>
+          {wrongLogin ? (
+            <span style={{ color: "red" }}>Feil brukernavn eller passord</span>
+          ) : null}
         </div>
       )}
     </div>
