@@ -5,6 +5,20 @@ const Main = ({ isLoggedIn, setIsLoggedIn }) => {
   const [userNameValue, setUserNameValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   // validator
+  const validator = () => {
+    if (userNameValue === "" || passwordValue === "") {
+      return false;
+    }
+    return true;
+  };
+  const handleLogIn = () => {
+    if (validator()) {
+      console.log("Gyldig input!");
+      setIsLoggedIn(true);
+    } else {
+      console.log("Ugyldig input!");
+    }
+  };
   return (
     <div className="main">
       <h2>Velkommen til den nye ønskeliste-siden!</h2>
@@ -35,7 +49,7 @@ const Main = ({ isLoggedIn, setIsLoggedIn }) => {
             />
           </span>
           <br />
-          <button onClick={() => console.log()}>Logg inn</button>
+          <button onClick={() => handleLogIn()}>Logg inn</button>
         </div>
       )}
     </div>
