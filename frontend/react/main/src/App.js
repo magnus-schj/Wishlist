@@ -9,7 +9,6 @@ import WishPage from "./pages/wish-page/WishPage.component";
 import Main from "./pages/main/Main.component";
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState(undefined);
   return (
     <div className="App">
@@ -23,12 +22,7 @@ const App = () => {
         exact
         path="/"
         render={() => (
-          <Main
-            isLoggedIn={isLoggedIn}
-            setIsLoggedIn={setIsLoggedIn}
-            userLoggedIn={userLoggedIn}
-            setUserLoggedIn={setUserLoggedIn}
-          />
+          <Main userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn} />
         )}
       />
       {MOCK_DATA.map((user) => {
