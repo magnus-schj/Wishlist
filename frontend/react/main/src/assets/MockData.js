@@ -1,5 +1,6 @@
 const MOCK_DATA = [
   {
+    id: 0,
     name: "Bjorn",
     password: "1234",
     wishes: [
@@ -10,11 +11,13 @@ const MOCK_DATA = [
     ],
   },
   {
+    id: 1,
     name: "Helena",
     password: "1234",
     wishes: ["videos from when I was little ", "Anti by Rihanna"],
   },
   {
+    id: 2,
     name: "Kine",
     password: "1234",
     wishes: [
@@ -24,11 +27,13 @@ const MOCK_DATA = [
     ],
   },
   {
+    id: 3,
     name: "Lilja",
     password: "1234",
     wishes: ["Nytt Skateboard", "Nintendo switch", "Penger"],
   },
   {
+    id: 4,
     name: "Liv Annika",
     password: "1234",
     wishes: [

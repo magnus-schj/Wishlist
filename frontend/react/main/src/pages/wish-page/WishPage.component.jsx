@@ -1,6 +1,6 @@
 import "./wish-page.styles.css";
 
-const WishPage = ({ name, wishes }) => (
+const WishPage = ({ name, wishes, isLoggedIn }) => (
   <div className="wish-page">
     <h1>{name}s wishlist</h1>
     <div className="wish-list">
@@ -8,7 +8,12 @@ const WishPage = ({ name, wishes }) => (
         {wishes.map((wish) => {
           return (
             <tr>
-              <td>{wish}</td>
+              {" "}
+              {isLoggedIn ? (
+                <input type="text" value={wish} />
+              ) : (
+                <td>{wish} </td>
+              )}
             </tr>
           );
         })}
