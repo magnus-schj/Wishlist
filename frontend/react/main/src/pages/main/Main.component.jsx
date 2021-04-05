@@ -3,7 +3,7 @@ import { useState } from "react";
 import MOCK_DATA from "../../assets/MockData";
 import "./main.styles.css";
 
-const Main = ({ isLoggedIn, setIsLoggedIn }) => {
+const Main = ({ isLoggedIn, setIsLoggedIn, userLoggedIn, setUserLoggedIn }) => {
   const [userNameValue, setUserNameValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [wrongLogin, setWrongLogin] = useState(false);
@@ -18,6 +18,7 @@ const Main = ({ isLoggedIn, setIsLoggedIn }) => {
       console.log(currentUser);
       setIsLoggedIn(true);
       setWrongLogin(false);
+      setUserLoggedIn(currentUser);
     } else {
       setWrongLogin(true);
     }
@@ -32,7 +33,7 @@ const Main = ({ isLoggedIn, setIsLoggedIn }) => {
       </h2>
       <br />
       {isLoggedIn ? (
-        <h2>Du er logget inn.</h2>
+        <h2>Du er logget inn som {userLoggedIn.name}</h2>
       ) : (
         <div className="log-in">
           <h2>Du er for øyeblikket ikke logget inn.</h2>
