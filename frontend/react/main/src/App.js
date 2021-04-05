@@ -10,6 +10,7 @@ import Main from "./pages/main/Main.component";
 
 const App = () => {
   const [userLoggedIn, setUserLoggedIn] = useState(undefined);
+  const [mockData, setMockData] = useState(MOCK_DATA);
   return (
     <div className="App">
       <UserMenu />

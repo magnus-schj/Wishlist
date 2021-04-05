@@ -1,3 +1,5 @@
+import Wish from "../../components/wish/Wish.Component";
+
 import "./wish-page.styles.css";
 
 const WishPage = ({ name, wishes, isLoggedIn }) => (
@@ -7,14 +9,7 @@ const WishPage = ({ name, wishes, isLoggedIn }) => (
       <table>
         {wishes.map((wish) => {
           return (
-            <tr>
-              {" "}
-              {isLoggedIn ? (
-                <input type="text" value={wish} />
-              ) : (
-                <td>{wish} </td>
-              )}
-            </tr>
+            <tr> {isLoggedIn ? <Wish wish={wish} /> : <td>{wish} </td>}</tr>
           );
         })}
       </table>
