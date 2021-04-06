@@ -23,7 +23,11 @@ const App = () => {
         exact
         path="/"
         render={() => (
-          <Main userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn} />
+          <Main
+            userLoggedIn={userLoggedIn}
+            setUserLoggedIn={setUserLoggedIn}
+            mockData={mockData}
+          />
         )}
       />
       {MOCK_DATA.map(({ id, name, wishes }) => {
@@ -33,10 +37,11 @@ const App = () => {
         }
         const component = (
           <WishPage
-            key={id}
+            key={name}
             name={name}
             wishes={wishes}
             isLoggedIn={isLoggedIn}
+            setMockData={setMockData}
           />
         );
         return <Route exact path={`/${name}`} render={() => component} />;

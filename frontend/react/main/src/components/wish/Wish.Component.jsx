@@ -1,8 +1,8 @@
-const Wish = ({ wish }) => {
+const Wish = ({ wish, deleted, deleteWish, id }) => {
   return (
     <div className="wish">
       <input type="text" value={wish} />
-      <button>X</button>
+      <button onClick={() => deleteWish(id)}>X</button>
     </div>
   );
 };

@@ -1,9 +1,8 @@
 import { useState } from "react";
 
-import MOCK_DATA from "../../assets/MockData";
 import "./main.styles.css";
 
-const Main = ({ userLoggedIn, setUserLoggedIn }) => {
+const Main = ({ userLoggedIn, setUserLoggedIn, mockData }) => {
   const [userNameValue, setUserNameValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [wrongLogin, setWrongLogin] = useState(false);
@@ -13,7 +12,7 @@ const Main = ({ userLoggedIn, setUserLoggedIn }) => {
   };
 
   const handleLogIn = () => {
-    const currentUser = MOCK_DATA.find(validator);
+    const currentUser = mockData.find(validator);
     if (currentUser) {
       console.log(currentUser);
       setWrongLogin(false);
