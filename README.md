@@ -12,7 +12,12 @@ cd frontend/react/main/ && npm start
 # Docker
 
 ```bash
-  sudo docker build -t wishl .
+sudo docker build -t wishl .
 
-  sudo docker run -it --rm -v ${PWD}:/app -v /app/node_modules -p 3001:3000 wishl
+# Interactive run:
+sudo docker run -it -p 3000:3000 wishl
+
+# Background/standalone run:
+sudo docker run -d --name wishlist -p 3000:3000 wishl
+
 ```
