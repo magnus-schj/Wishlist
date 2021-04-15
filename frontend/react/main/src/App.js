@@ -9,7 +9,7 @@ import WishPage from "./pages/wish-page/WishPage.component";
 import Main from "./pages/main/Main.component";
 
 const App = () => {
-  const [userLoggedIn, setUserLoggedIn] = useState(undefined);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [mockData, setMockData] = useState(MOCK_DATA);
   return (
     <div className="App">
