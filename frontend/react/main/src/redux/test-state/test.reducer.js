@@ -1,5 +1,6 @@
 const INITIAL_STATE = {
   message: "suksess!",
+  number: 0,
 };
 
 const testReducer = (state = INITIAL_STATE, action) => {
@@ -10,6 +11,11 @@ const testReducer = (state = INITIAL_STATE, action) => {
         wishes: action.payload,
       };
 
+    case "SET_NUMBER":
+      return {
+        ...state,
+        number: state.number + action.payload,
+      };
     default:
       return state;
   }
