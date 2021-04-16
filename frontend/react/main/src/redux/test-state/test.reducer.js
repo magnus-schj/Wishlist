@@ -1,20 +1,20 @@
 import MOCK_DATA from "../../assets/MockData";
 
-const INITIAL_STATE = MOCK_DATA;
+const INITIAL_STATE = {
+  message: "suksess!",
+};
 
-const mockDataReducer = (state = INITIAL_STATE, action) => {
+const testReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case "SET_WISHES":
+    case "SET_TEST":
       return {
         ...state,
         wishes: action.payload,
       };
-      break;
 
     default:
       return state;
-      break;
   }
 };
 
-export default mockDataReducer;
+export default testReducer;

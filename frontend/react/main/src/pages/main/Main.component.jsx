@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { connect } from "react-redux";
 
 import "./main.styles.css";
 
-const Main = ({ userLoggedIn, setUserLoggedIn, mockData }) => {
+const Main = ({ userLoggedIn, setUserLoggedIn, mockData, testRedux }) => {
+  console.log(testRedux);
   const [userNameValue, setUserNameValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [wrongLogin, setWrongLogin] = useState(false);
@@ -58,8 +60,13 @@ const Main = ({ userLoggedIn, setUserLoggedIn, mockData }) => {
           ) : null}
         </div>
       )}
+      <h1>test</h1>
     </div>
   );
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  test: state,
+});
+
+export default connect(mapStateToProps)(Main);
