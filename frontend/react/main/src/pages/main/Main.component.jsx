@@ -65,8 +65,6 @@ const Main = ({ userLoggedIn, setUserLoggedIn, mockData, testRedux }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  test: state,
-});
+const mapStateToProps = (state) => state.mockData;
 
 export default connect(mapStateToProps)(Main);

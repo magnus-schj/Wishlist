@@ -1,5 +1,3 @@
-import MOCK_DATA from "../../assets/MockData";
-
 const INITIAL_STATE = {
   message: "suksess!",
 };
