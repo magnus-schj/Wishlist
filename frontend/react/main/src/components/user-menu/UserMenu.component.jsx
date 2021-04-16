@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import MOCK_DATA from "../../assets/MockData";
+import { connect } from "react-redux";
 import "./UserMenu.styles.css";
 
-const UserMenu = () => (
+const UserMenu = ({ mockData }) => (
   <div className="user-menu">
     <h1>Users</h1>
     <div className="user-list">
       <ul>
-        {MOCK_DATA.map((user) => {
+        {mockData.map((user) => {
           return (
             <Link to={`/${user.name}`}>
               <li>{user.name}</li>
@@ -20,4 +20,6 @@ const UserMenu = () => (
   </div>
 );
 
-export default UserMenu;
+const mapStateToProps = (state) => state.mockData;
+
+export default connect(mapStateToProps)(UserMenu);
