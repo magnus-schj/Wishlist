@@ -1,17 +1,22 @@
 import { useState } from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import { setNumber, setTest } from "../../redux/test-state/test.actions";
+import { setNumber } from "../../redux/test-state/test.actions";
 import "./main.styles.css";
 
-const Main = ({ userLoggedIn, setUserLoggedIn, mockData, test, setNumber }) => {
-  const handleClick = () => {
-    setNumber(1);
-  };
+const Main = ({ userLoggedIn, setUserLoggedIn }) => {
+  const dispatch = useDispatch();
+
+  const mockData = useSelector((state) => state.mockData);
+  const test = useSelector((state) => state.test);
 
   const [userNameValue, setUserNameValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [wrongLogin, setWrongLogin] = useState(false);
+
+  const testFunc = () => {
+    dispatch(setNumber(1));
+  };
 
   const validator = (user) => {
     return user.name === userNameValue && user.password === passwordValue;
@@ -20,7 +25,6 @@ const Main = ({ userLoggedIn, setUserLoggedIn, mockData, test, setNumber }) => {
   const handleLogIn = () => {
     const currentUser = mockData.mockData.find(validator);
     if (currentUser) {
-      console.log(currentUser);
       setWrongLogin(false);
       setUserLoggedIn(currentUser);
     } else {
@@ -64,18 +68,9 @@ const Main = ({ userLoggedIn, setUserLoggedIn, mockData, test, setNumber }) => {
           ) : null}
         </div>
       )}
-      <button onClick={() => handleClick()}>{test.number}</button>
+      <button onClick={() => testFunc()}>{test.number}</button>
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  mockData: state.mockData,
-  test: state.test,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setNumber: (test) => dispatch(setNumber(test)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

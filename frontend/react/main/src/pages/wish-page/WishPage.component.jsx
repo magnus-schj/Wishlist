@@ -17,18 +17,19 @@ const WishPage = ({ name, wishes, isLoggedIn, setMockData }) => {
       <h1>{name}s wishlist</h1>
       <div className="wish-list">
         <table>
-          {wishes.map((wish, i) => {
-            return (
-              <tr>
-                {" "}
-                {isLoggedIn ? (
-                  <Wish wish={wish} id={i} key={i} deleteWish={deleteWish} />
-                ) : (
-                  <td>{wish} </td>
-                )}
-              </tr>
-            );
-          })}
+          <tbody>
+            {wishes.map((wish, i) => {
+              return (
+                <tr>
+                  {isLoggedIn ? (
+                    <Wish wish={wish} id={i} key={i} deleteWish={deleteWish} />
+                  ) : (
+                    <td key={i}>{wish} </td>
+                  )}
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       </div>
     </div>
