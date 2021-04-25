@@ -7,7 +7,7 @@ import "./main.styles.css";
 const Main = ({ userLoggedIn, setUserLoggedIn }) => {
   const dispatch = useDispatch();
 
-  const mockData = useSelector((state) => state.mockData);
+  const userInfo = useSelector((state) => state.userInfo);
   const test = useSelector((state) => state.test);
 
   const [userNameValue, setUserNameValue] = useState("");
@@ -23,7 +23,7 @@ const Main = ({ userLoggedIn, setUserLoggedIn }) => {
   };
 
   const handleLogIn = () => {
-    const currentUser = mockData.mockData.find(validator);
+    const currentUser = userInfo.mockData.find(validator);
     if (currentUser) {
       setWrongLogin(false);
       setUserLoggedIn(currentUser);

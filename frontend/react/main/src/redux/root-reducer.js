@@ -4,5 +4,5 @@ import testReducer from "./test-state/test.reducer";
 
 export default combineReducers({
   test: testReducer,
-  mockData: mockDataReducer,
+  userInfo: mockDataReducer,
 });
