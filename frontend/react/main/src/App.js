@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, Route } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -8,7 +9,9 @@ import UserMenu from "./components/user-menu/UserMenu.component";
 import WishPage from "./pages/wish-page/WishPage.component";
 import Main from "./pages/main/Main.component";
 
-const App = ({ mockData }) => {
+const App = () => {
+  const mockData = useSelector((state) => state.mockData.mockData);
+
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   return (
     <div className="App">
@@ -44,6 +47,4 @@ const App = ({ mockData }) => {
   );
 };
 
-const mapStateToProps = (state) => state.mockData;
-
-export default connect(mapStateToProps)(App);
+export default App;
