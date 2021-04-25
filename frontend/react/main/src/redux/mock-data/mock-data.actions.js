@@ -3,7 +3,7 @@ export const setMockData = (data) => ({
   payload: data,
 });
 
-export const deletWish = (data) => ({
+export const deleteWish = (data) => ({
   type: "DELETE_WISH",
   payload: data,
 });

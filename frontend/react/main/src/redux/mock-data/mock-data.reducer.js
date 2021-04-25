@@ -11,6 +11,13 @@ const mockDataReducer = (state = INITIAL_STATE, action) => {
         mockData: action.payload,
       };
 
+    case "DELETE_WISH":
+      const newState = state;
+      const currentUserInfo = newState.mockData.find(
+        (user) => user.name === action.payload.name
+      );
+      currentUserInfo.wishes.splice(action.payload.id, 1);
+      return newState;
     default:
       return state;
   }
