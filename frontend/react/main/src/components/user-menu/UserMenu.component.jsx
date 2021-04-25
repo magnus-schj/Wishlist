@@ -4,13 +4,13 @@ import { useSelector } from "react-redux";
 import "./UserMenu.styles.css";
 
 const UserMenu = () => {
-  const userInfo = useSelector((state) => state.userInfo.mockData);
+  const mockData = useSelector((state) => state.mockData);
   return (
     <div className="user-menu">
       <h1>Users</h1>
       <div className="user-list">
         <ul>
-          {userInfo.map((user) => {
+          {mockData.map((user) => {
             return (
               <Link to={`/${user.name}`}>
                 <li>{user.name}</li>

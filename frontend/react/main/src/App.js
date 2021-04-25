@@ -9,9 +9,11 @@ import WishPage from "./pages/wish-page/WishPage.component";
 import Main from "./pages/main/Main.component";
 
 const App = () => {
-  const userInfo = useSelector((state) => state.userInfo.mockData);
+  const mockData = useSelector((state) => state.mockData);
 
   const [userLoggedIn, setUserLoggedIn] = useState(false);
+
+  console.log(mockData);
   return (
     <div className="App">
       <UserMenu />
@@ -27,7 +29,7 @@ const App = () => {
           <Main userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn} />
         )}
       />
-      {userInfo.map(({ id, name, wishes }) => {
+      {mockData.map(({ id, name, wishes }) => {
         let isLoggedIn = false;
         if (userLoggedIn) {
           isLoggedIn = userLoggedIn.id === id;

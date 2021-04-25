@@ -1,9 +1,8 @@
+import { findAndDelete } from "./mock-data.utils";
 import MOCK_DATA from "../../assets/MockData";
 import MockDataActionTypes from "./mock-data.types";
 
-const INITIAL_STATE = {
-  mockData: MOCK_DATA,
-};
+const INITIAL_STATE = MOCK_DATA;
 
 const mockDataReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -13,12 +12,7 @@ const mockDataReducer = (state = INITIAL_STATE, action) => {
       };
 
     case MockDataActionTypes.DELETE_WISH:
-      const newState = state;
-      const currentUserInfo = newState.mockData.find(
-        (user) => user.name === action.payload.name
-      );
-      currentUserInfo.wishes.splice(action.payload.id, 1);
-      return newState;
+      return findAndDelete(state, action.payload);
     default:
       return state;
   }
