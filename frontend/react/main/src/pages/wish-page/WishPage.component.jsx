@@ -1,14 +1,14 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteWish } from "../../redux/mock-data/mock-data.actions";
 import Wish from "../../components/wish/Wish.Component";
 
 import "./wish-page.styles.css";
 
-const WishPage = ({ name, wishes, isLoggedIn }) => {
+const WishPage = ({ name, isLoggedIn, primaryKey }) => {
   const dispatch = useDispatch();
 
+  const wishes = useSelector((state) => state.mockData[primaryKey].wishes);
   const handleClick = (id) => {
-    console.log("triggered here!");
     dispatch(deleteWish({ name: name, id: id }));
   };
   return (

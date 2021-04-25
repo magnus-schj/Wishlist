@@ -37,8 +37,8 @@ const App = () => {
         const component = (
           <WishPage
             key={name}
+            primaryKey={id}
             name={name}
-            wishes={wishes}
             isLoggedIn={isLoggedIn}
           />
         );
