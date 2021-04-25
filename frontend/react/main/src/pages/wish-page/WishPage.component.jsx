@@ -1,17 +1,8 @@
-import { useState } from "react";
 import Wish from "../../components/wish/Wish.Component";
 
 import "./wish-page.styles.css";
 
-const WishPage = ({ name, wishes, isLoggedIn, setMockData }) => {
-  const [wishesDeleted, setWishesDeleted] = useState(
-    Array(wishes.length).fill(false)
-  );
-  const deleteWish = (i) => {
-    const newDeletedWishes = wishesDeleted;
-    newDeletedWishes[i] = true;
-    setWishesDeleted(() => newDeletedWishes);
-  };
+const WishPage = ({ name, wishes, isLoggedIn }) => {
   return (
     <div className="wish-page">
       <h1>{name}s wishlist</h1>
@@ -22,7 +13,7 @@ const WishPage = ({ name, wishes, isLoggedIn, setMockData }) => {
               return (
                 <tr>
                   {isLoggedIn ? (
-                    <Wish wish={wish} id={i} key={i} deleteWish={deleteWish} />
+                    <Wish wish={wish} id={i} key={i} />
                   ) : (
                     <td key={i}>{wish} </td>
                   )}

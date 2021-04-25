@@ -1,8 +1,11 @@
-const Wish = ({ wish, deleted, deleteWish, id }) => {
+import { useDispatch } from "react-redux";
+const Wish = ({ wish, id }) => {
+  const dispatch = useDispatch();
+
   return (
     <div className="wish">
       <input type="text" value={wish} />
-      <button onClick={() => deleteWish(id)}>X</button>
+      <button>X</button>
     </div>
   );
 };
