@@ -22,7 +22,7 @@ const WishPage = ({ name, isLoggedIn, primaryKey }) => {
                 {isLoggedIn ? (
                   <Wish
                     wish={wish}
-                    id={i}
+                    id={wish}
                     name={name}
                     handleClick={handleClick}
                   />
