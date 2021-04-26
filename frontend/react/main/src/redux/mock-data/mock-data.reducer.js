@@ -1,4 +1,3 @@
-import { findAndDelete } from "./mock-data.utils";
 import MOCK_DATA from "../../assets/MockData";
 import MockDataActionTypes from "./mock-data.types";
 
