@@ -10,9 +10,9 @@ const UserMenu = () => {
       <h1>Users</h1>
       <div className="user-list">
         <ul>
-          {mockData.map((user) => {
+          {mockData.map((user, index) => {
             return (
-              <Link to={`/${user.name}`}>
+              <Link key={index} to={`/${user.name}`}>
                 <li>{user.name}</li>
               </Link>
             );

@@ -17,23 +17,20 @@ const WishPage = ({ name, isLoggedIn, primaryKey }) => {
       <div className="wish-list">
         <table>
           <tbody>
-            {wishes.map((wish, i) => {
-              return (
-                <tr>
-                  {isLoggedIn ? (
-                    <Wish
-                      wish={wish}
-                      id={i}
-                      key={i}
-                      name={name}
-                      handleClick={handleClick}
-                    />
-                  ) : (
-                    <td key={i}>{wish} </td>
-                  )}
-                </tr>
-              );
-            })}
+            {wishes.map((wish, i) => (
+              <tr key={i}>
+                {isLoggedIn ? (
+                  <Wish
+                    wish={wish}
+                    id={i}
+                    name={name}
+                    handleClick={handleClick}
+                  />
+                ) : (
+                  <td>{wish} </td>
+                )}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
