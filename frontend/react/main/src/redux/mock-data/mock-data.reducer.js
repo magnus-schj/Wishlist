@@ -12,7 +12,7 @@ const mockDataReducer = (state = INITIAL_STATE, action) => {
       };
 
     case MockDataActionTypes.DELETE_WISH:
-      return findAndDelete(state, action.payload);
+      return state;
     default:
       return state;
   }
