@@ -29,21 +29,6 @@ const App = () => {
           <Main userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn} />
         )}
       />
-      {mockData.map(({ id, name, wishes }) => {
-        let isLoggedIn = false;
-        if (userLoggedIn) {
-          isLoggedIn = userLoggedIn.id === id;
-        }
-        const component = (
-          <WishPage
-            key={name}
-            primaryKey={id}
-            name={name}
-            isLoggedIn={isLoggedIn}
-          />
-        );
-        return <Route exact path={`/${name}`} render={() => component} />;
-      })}
     </div>
   );
 };
