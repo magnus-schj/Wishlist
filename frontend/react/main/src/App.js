@@ -5,12 +5,11 @@ import { Link, Route } from "react-router-dom";
 import "./App.css";
 
 import UserMenu from "./components/user-menu/UserMenu.component";
-import WishPage from "./pages/wish-page/WishPage.component";
 import Main from "./pages/main/Main.component";
+import WishPages from "./pages/wish-pages/wish-pages.component";
 
 const App = () => {
   const mockData = useSelector((state) => state.mockData);
-
   const [userLoggedIn, setUserLoggedIn] = useState(false);
 
   console.log(mockData);
@@ -29,6 +28,7 @@ const App = () => {
           <Main userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn} />
         )}
       />
+      <WishPages />
     </div>
   );
 };
