@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, Route } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
 
 import "./App.css";
 
@@ -22,28 +22,33 @@ const App = () => {
           <h1>Ønskelister</h1>
         </Link>
       </div>
-      <Route
-        exact
-        path="/"
-        render={() => (
-          <Main userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn} />
-        )}
-      />
-      {mockData.map(({ id, name, wishes }) => {
-        let isLoggedIn = false;
-        if (userLoggedIn) {
-          isLoggedIn = userLoggedIn.id === id;
-        }
-        const component = (
-          <WishPage
-            key={name}
-            primaryKey={id}
-            name={name}
-            isLoggedIn={isLoggedIn}
-          />
-        );
-        return <Route exact path={`/${name}`} render={() => component} />;
-      })}
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <Main
+              userLoggedIn={userLoggedIn}
+              setUserLoggedIn={setUserLoggedIn}
+            />
+          )}
+        />
+        {mockData.map(({ id, name, wishes }) => {
+          let isLoggedIn = false;
+          if (userLoggedIn) {
+            isLoggedIn = userLoggedIn.id === id;
+          }
+          const component = (
+            <WishPage
+              key={name}
+              primaryKey={id}
+              name={name}
+              isLoggedIn={isLoggedIn}
+            />
+          );
+          return <Route exact path={`/${name}`} render={() => component} />;
+        })}
+      </Switch>
     </div>
   );
 };
