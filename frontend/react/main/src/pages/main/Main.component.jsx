@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Route } from "react-router";
+import WishPage from "../../components/wish-page/WishPage.component";
 
 import { setNumber } from "../../redux/test-state/test.actions";
 import "./main.styles.css";
 
-const Main = ({ userLoggedIn, setUserLoggedIn }) => {
+const Main = ({ userLoggedIn, setUserLoggedIn, routeProps }) => {
+  console.log(routeProps);
+
   const dispatch = useDispatch();
 
   const mockData = useSelector((state) => state.mockData);

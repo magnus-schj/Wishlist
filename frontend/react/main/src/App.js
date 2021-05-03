@@ -6,13 +6,11 @@ import "./App.css";
 
 import UserMenu from "./components/user-menu/UserMenu.component";
 import Main from "./pages/main/Main.component";
-import WishPages from "./pages/wish-pages/wish-pages.component";
-
+import WishPage from "./components/wish-page/WishPage.component";
 const App = () => {
   const mockData = useSelector((state) => state.mockData);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
 
-  console.log(mockData);
   return (
     <div className="App">
       <UserMenu />
@@ -24,11 +22,15 @@ const App = () => {
       <Route
         exact
         path="/"
-        render={() => (
-          <Main userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn} />
+        render={(routeProps) => (
+          <Main
+            userLoggedIn={userLoggedIn}
+            setUserLoggedIn={setUserLoggedIn}
+            routeProps={routeProps}
+          />
         )}
       />
-      <WishPages />
+      <Route exact path="/:userID" component={WishPage} />
     </div>
   );
 };
