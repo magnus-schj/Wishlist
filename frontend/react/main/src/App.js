@@ -6,7 +6,7 @@ import "./App.css";
 
 import UserMenu from "./components/user-menu/UserMenu.component";
 import Main from "./pages/main/Main.component";
-import WishPage from "./components/wish-page/WishPage.component";
+import WishPage from "./pages/wish-page/WishPage.component";
 const App = () => {
   const mockData = useSelector((state) => state.mockData);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
