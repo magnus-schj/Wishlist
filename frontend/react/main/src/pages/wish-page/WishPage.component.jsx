@@ -1,39 +1,22 @@
-import { useDispatch, useSelector } from "react-redux";
-import { deleteWish } from "../../redux/mock-data/mock-data.actions";
-import Wish from "../../components/wish/Wish.Component";
-
+import { useSelector } from "react-redux";
 import "./wish-page.styles.css";
 
-const WishPage = ({ name, isLoggedIn, primaryKey }) => {
-  const dispatch = useDispatch();
-
-  const wishes = useSelector((state) => state.mockData[primaryKey].wishes);
-  const handleClick = (id) => {
-    dispatch(deleteWish({ name: name, id: id }));
-  };
+const WishPage = ({ match }) => {
+  console.log("props:");
+  console.log(match.params.userID);
+  const userInfo = useSelector((state) =>
+    state.mockData.find((user) => user.name === match.params.userID)
+  );
+  console.log(userInfo);
   return (
     <div className="wish-page">
-      <h1>{name}s wishlist</h1>
-      <div className="wish-list">
-        <table>
-          <tbody>
-            {wishes.map((wish, i) => (
-              <tr key={i}>
-                {isLoggedIn ? (
-                  <Wish
-                    wish={wish}
-                    id={wish}
-                    name={name}
-                    handleClick={handleClick}
-                  />
-                ) : (
-                  <td>{wish} </td>
-                )}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {userInfo ? (
+        <div className="wish-page">
+          <h1>{userInfo.name}'s wishes</h1>
+        </div>
+      ) : (
+        <h1>Denne siden finnes ikke!</h1>
+      )}
     </div>
   );
 };
