@@ -5,7 +5,7 @@ import { setNumber } from "../../redux/test-state/test.actions";
 import "./main.styles.css";
 
 const Main = ({ userLoggedIn, setUserLoggedIn, routeProps }) => {
-  console.log(routeProps);
+  // console.log(routeProps);
 
   const dispatch = useDispatch();
 
