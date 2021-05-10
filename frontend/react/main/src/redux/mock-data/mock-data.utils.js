@@ -12,3 +12,15 @@ export const removeWish = (state, payload) => {
 
   return newState;
 };
+
+export const findCurrentUser = (state, payload) => {
+  const { name } = payload;
+  return state.indexOf(state.find((user) => user.name === name));
+};
+
+export const logIn = (state, payload) => {
+  const currentUser = findCurrentUser(state, payload);
+  let newState = [...state];
+  newState[currentUser].isLoggedIn = true;
+  return newState;
+};

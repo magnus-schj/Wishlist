@@ -33,7 +33,6 @@ const Main = ({ userLoggedIn, setUserLoggedIn, routeProps }) => {
       setWrongLogin(true);
     }
   };
-
   return (
     <div className="main">
       <h2>Velkommen til den nye ønskeliste-siden!</h2>

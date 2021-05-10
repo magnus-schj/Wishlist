@@ -28,7 +28,13 @@ const App = () => {
           />
         )}
       />
-      <Route exact path="/:userID" component={WishPage} />
+      <Route
+        exact
+        path="/:userID"
+        render={(routeProps) => (
+          <WishPage routeProps={routeProps} userLoggedIn={userLoggedIn} />
+        )}
+      />
     </div>
   );
 };
