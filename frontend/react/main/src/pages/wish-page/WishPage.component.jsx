@@ -4,32 +4,40 @@ import Wish from "../../components/wish/Wish.Component";
 import "./wish-page.styles.css";
 import { useEffect, useState } from "react";
 
-const WishPage = ({ routeProps: { match }, userLoggedIn }) => {
-  console.log(match);
-  console.log("userLoggedIn:", userLoggedIn);
-
-  const [currentUser, setCurrentUser] = useState(null);
+const WishPage = ({ routeProps: { match } }) => {
+  const userLoggedIn = useSelector((state) => state.userLoggedIn);
+  const [userInfo, setUserInfo] = useState(null);
   const mockData = useSelector((state) => state.mockData.data);
 
   useEffect(() => {
-    setCurrentUser(mockData.find((user) => user.name === match.params.userID));
-  }, [match, mockData, setCurrentUser]);
+    setUserInfo(mockData.find((user) => user.name === match.params.userID));
+  }, [match, mockData, setUserInfo]);
 
-  const isLoggedIn = userLoggedIn === currentUser.name;
+  console.log("userLoggedIn:", userLoggedIn);
+
+  console.log("userInfo:", userInfo);
+  // userInfo ? (isLoggedIn = (userInfo.name === match.params.userID) ) : (const isLoggedIn = false)
+  let isLoggedIn;
+  userInfo
+    ? (isLoggedIn = userLoggedIn === match.params.userID)
+    : (isLoggedIn = false);
+  console.log("isLoggedIn:", isLoggedIn);
 
   return (
     <div className="wish-page">
-      {currentUser ? (
+      {userInfo ? (
         <div className="wish-page">
-          <h1>{currentUser.name}'s wishes</h1>
+          <h1>{userInfo.name}'s wishes</h1>
           <div className="wish-list">
             {isLoggedIn ? (
-              currentUser.wishes.map((wish) => (
-                <Wish key={wish} name={currentUser.name} wish={wish} />
+              userInfo.wishes.map((wish) => (
+                <Wish key={wish} name={userInfo.name} wish={wish} />
               ))
             ) : (
               <ul>
-                <li>Test</li>
+                {userInfo.wishes.map((wish) => (
+                  <li key={wish}>{wish}</li>
+                ))}
               </ul>
             )}
           </div>

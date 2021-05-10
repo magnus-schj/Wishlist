@@ -5,13 +5,14 @@ import { setNumber } from "../../redux/test-state/test.actions";
 import { logIn } from "../../redux/userLoggedIn/userLoggedIn.actions";
 import "./main.styles.css";
 
-const Main = ({ userLoggedIn, setUserLoggedIn, routeProps }) => {
+const Main = ({ setUserLoggedIn, routeProps }) => {
   // console.log(routeProps);
 
   const dispatch = useDispatch();
 
   const mockData = useSelector((state) => state.mockData.data);
   const test = useSelector((state) => state.test);
+  const userLoggedIn = useSelector((state) => state.userLoggedIn);
 
   const [userNameValue, setUserNameValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
@@ -25,15 +26,6 @@ const Main = ({ userLoggedIn, setUserLoggedIn, routeProps }) => {
     return user.name === userNameValue && user.password === passwordValue;
   };
 
-  // const handleLogIn = () => {
-  //   const currentUser = mockData.find(validator);
-  //   if (currentUser) {
-  //     setWrongLogin(false);
-  //     setUserLoggedIn(currentUser);
-  //   } else {
-  //     setWrongLogin(true);
-  //   }
-  // };
   const handleLogIn = () => {
     const currentUser = mockData.find(validator);
     if (currentUser) {
@@ -52,7 +44,7 @@ const Main = ({ userLoggedIn, setUserLoggedIn, routeProps }) => {
       </h2>
       <br />
       {userLoggedIn ? (
-        <h2>Du er logget inn som {userLoggedIn.name}</h2>
+        <h2>Du er logget inn som {userLoggedIn}</h2>
       ) : (
         <div className="log-in">
           <h2>Du er for øyeblikket ikke logget inn.</h2>

@@ -1,6 +1,6 @@
 import UserLoggedInTypes from "./userLoggedIn.types";
 
-const INITIAL_STATE = null;
+const INITIAL_STATE = false;
 const userLoggedInReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case UserLoggedInTypes.LOG_IN:
