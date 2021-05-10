@@ -1,9 +1,27 @@
-<mxfile host="app.diagrams.net" modified="2021-05-10T14:38:16.858Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36" etag="zUIlz9R44ZJ7wJ1IDFZH" version="14.6.11" type="github">
+<mxfile host="app.diagrams.net" modified="2021-05-10T14:42:40.574Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36" etag="MrS0brsj5v_1taQng3sT" version="14.6.11" type="github">
   <diagram name="Page-1" id="5f0bae14-7c28-e335-631c-24af17079c00">
     <mxGraphModel dx="640" dy="660" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#ffffff" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="5gdE1bRl6CsMhmlNMG4k-2" value="Database" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="440" y="270" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="5gdE1bRl6CsMhmlNMG4k-3" value="Storage-API" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="440" y="170" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="5gdE1bRl6CsMhmlNMG4k-4" value="User&#39;s browser" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="20" y="110" width="210" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="5gdE1bRl6CsMhmlNMG4k-1" value="Web form (React)" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="60" y="150" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="5gdE1bRl6CsMhmlNMG4k-6" value="Web server" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="110" y="360" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="5gdE1bRl6CsMhmlNMG4k-7" value="Web backend" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="280" y="440" width="100" height="50" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
