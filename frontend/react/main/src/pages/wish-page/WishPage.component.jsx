@@ -13,15 +13,14 @@ const WishPage = ({ routeProps: { match } }) => {
     setUserInfo(mockData.find((user) => user.name === match.params.userID));
   }, [match, mockData, setUserInfo]);
 
-  console.log("userLoggedIn:", userLoggedIn);
+  // console.log("userLoggedIn:", userLoggedIn);
 
-  console.log("userInfo:", userInfo);
-  // userInfo ? (isLoggedIn = (userInfo.name === match.params.userID) ) : (const isLoggedIn = false)
+  // console.log("userInfo:", userInfo);
   let isLoggedIn;
   userInfo
     ? (isLoggedIn = userLoggedIn === match.params.userID)
     : (isLoggedIn = false);
-  console.log("isLoggedIn:", isLoggedIn);
+  // console.log("isLoggedIn:", isLoggedIn);
 
   return (
     <div className="wish-page">
