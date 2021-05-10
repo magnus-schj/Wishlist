@@ -18,9 +18,9 @@ export const findCurrentUser = (state, payload) => {
   return state.indexOf(state.find((user) => user.name === name));
 };
 
-export const logIn = (state, payload) => {
-  const currentUser = findCurrentUser(state, payload);
-  let newState = [...state];
-  newState[currentUser].isLoggedIn = true;
-  return newState;
-};
+// export const logIn = (state, payload) => {
+//   const currentUser = findCurrentUser(state, payload);
+//   let newState = [...state];
+//   newState[currentUser].isLoggedIn = true;
+//   return newState;
+// };

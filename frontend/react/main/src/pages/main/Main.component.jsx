@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setNumber } from "../../redux/test-state/test.actions";
+import { logIn } from "../../redux/userLoggedIn/userLoggedIn.actions";
 import "./main.styles.css";
 
 const Main = ({ userLoggedIn, setUserLoggedIn, routeProps }) => {
@@ -24,11 +25,20 @@ const Main = ({ userLoggedIn, setUserLoggedIn, routeProps }) => {
     return user.name === userNameValue && user.password === passwordValue;
   };
 
+  // const handleLogIn = () => {
+  //   const currentUser = mockData.find(validator);
+  //   if (currentUser) {
+  //     setWrongLogin(false);
+  //     setUserLoggedIn(currentUser);
+  //   } else {
+  //     setWrongLogin(true);
+  //   }
+  // };
   const handleLogIn = () => {
     const currentUser = mockData.find(validator);
     if (currentUser) {
       setWrongLogin(false);
-      setUserLoggedIn(currentUser);
+      dispatch(logIn(userNameValue));
     } else {
       setWrongLogin(true);
     }
@@ -52,7 +62,7 @@ const Main = ({ userLoggedIn, setUserLoggedIn, routeProps }) => {
             <input
               type="text"
               onChange={(e) => setUserNameValue(e.target.value)}
-            />{" "}
+            />
             <br />
           </span>
           <span>
