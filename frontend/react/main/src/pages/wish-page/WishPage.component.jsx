@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
 
 import Wish from "../../components/wish/Wish.Component";
+import AddWish from "../../components/add-wish/AddWish.Component";
+
 import "./wish-page.styles.css";
 import { useEffect, useState } from "react";
 
@@ -39,6 +41,7 @@ const WishPage = ({ routeProps: { match } }) => {
                 ))}
               </ul>
             )}
+            <AddWish />
           </div>
         </div>
       ) : (
