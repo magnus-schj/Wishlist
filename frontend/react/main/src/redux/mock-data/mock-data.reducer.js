@@ -1,25 +1,23 @@
 import MOCK_DATA from "../../assets/MockData";
 import MockDataActionTypes from "./mock-data.types";
+import { removeWish } from "./mock-data.utils";
 
-const INITIAL_STATE = MOCK_DATA;
+const INITIAL_STATE = {
+  data: MOCK_DATA,
+};
 
 const mockDataReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case MockDataActionTypes.SET_MOCK_DATA:
+    case MockDataActionTypes.DELETE_WISH:
       return {
-        mockData: action.payload,
+        ...state,
+        data: removeWish(state.data, action.payload),
       };
 
-    case MockDataActionTypes.DELETE_WISH:
-      const currentUserIndex = state.indexOf(
-        state.find((user) => user.name === action.payload.name)
-      );
-      const wishesLeft = state[currentUserIndex].wishes.filter(
-        (wish) => wish !== action.payload.id
-      );
-      let newState = state;
-      newState[currentUserIndex].wishes = wishesLeft;
-      return newState;
+    // case MockDataActionTypes.SET_MOCK_DATA:
+    //   return {
+    //     mockData: action.payload,
+    //   };
 
     // case MockDataActionTypes.TEST_CASE:
     //   const currentUserIndex = state.indexOf(

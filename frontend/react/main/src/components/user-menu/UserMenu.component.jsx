@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import "./UserMenu.styles.css";
 
 const UserMenu = () => {
-  const mockData = useSelector((state) => state.mockData);
+  const mockData = useSelector((state) => state.mockData.data);
   return (
     <div className="user-menu">
       <h1>Users</h1>

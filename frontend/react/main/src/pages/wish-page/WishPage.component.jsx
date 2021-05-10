@@ -1,6 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
-
-import { setNumber } from "../../redux/test-state/test.actions";
+import { useSelector } from "react-redux";
 
 import Wish from "../../components/wish/Wish.Component";
 import "./wish-page.styles.css";
@@ -8,10 +6,7 @@ import { useEffect, useState } from "react";
 
 const WishPage = ({ match }) => {
   const [currentUser, setCurrentUser] = useState(null);
-
-  const mockData = useSelector((state) => state.mockData);
-
-  console.log("mockData:", mockData);
+  const mockData = useSelector((state) => state.mockData.data);
 
   useEffect(() => {
     setCurrentUser(mockData.find((user) => user.name === match.params.userID));

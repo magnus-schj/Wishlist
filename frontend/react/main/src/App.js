@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { Link, Route, Switch } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 
 import "./App.css";
 

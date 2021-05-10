@@ -9,7 +9,7 @@ const Main = ({ userLoggedIn, setUserLoggedIn, routeProps }) => {
 
   const dispatch = useDispatch();
 
-  const mockData = useSelector((state) => state.mockData);
+  const mockData = useSelector((state) => state.mockData.data);
   const test = useSelector((state) => state.test);
 
   const [userNameValue, setUserNameValue] = useState("");
