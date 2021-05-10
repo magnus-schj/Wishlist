@@ -4,34 +4,29 @@ import { setNumber } from "../../redux/test-state/test.actions";
 
 import Wish from "../../components/wish/Wish.Component";
 import "./wish-page.styles.css";
+import { useEffect, useState } from "react";
 
 const WishPage = ({ match }) => {
-  const dispatch = useDispatch();
+  const [currentUser, setCurrentUser] = useState(null);
 
-  // TEST
-  const test = useSelector((state) => state.test);
-  const testFunc = (n) => {
-    dispatch(setNumber(n));
-  };
+  const mockData = useSelector((state) => state.mockData);
 
-  const userInfo = useSelector((state) =>
-    state.mockData.find((user) => user.name === match.params.userID)
-  );
-  console.log("wishes:");
-  console.log(userInfo.wishes);
+  console.log("mockData:", mockData);
 
-  console.log("counter");
+  useEffect(() => {
+    setCurrentUser(mockData.find((user) => user.name === match.params.userID));
+  }, [match, mockData, setCurrentUser]);
+
   return (
     <div className="wish-page">
-      {userInfo ? (
+      {currentUser ? (
         <div className="wish-page">
-          <h1>{userInfo.name}'s wishes</h1>
+          <h1>{currentUser.name}'s wishes</h1>
           <div className="wish-list">
-            {userInfo.wishes.map((wish, i) => (
-              <Wish key={wish} name={userInfo.name} wish={wish} />
+            {currentUser.wishes.map((wish) => (
+              <Wish key={wish} name={currentUser.name} wish={wish} />
             ))}
           </div>
-          <button onClick={() => testFunc(1)}>{test.number}</button>
         </div>
       ) : (
         <h1>Denne siden finnes ikke!</h1>

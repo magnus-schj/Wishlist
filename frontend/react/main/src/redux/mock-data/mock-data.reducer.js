@@ -17,8 +17,15 @@ const mockDataReducer = (state = INITIAL_STATE, action) => {
       const wishesLeft = state[currentUserIndex].wishes.filter(
         (wish) => wish !== action.payload.id
       );
-      state[currentUserIndex].wishes = wishesLeft;
-      return state;
+      let newState = state;
+      newState[currentUserIndex].wishes = wishesLeft;
+      return newState;
+
+    // case MockDataActionTypes.TEST_CASE:
+    //   const currentUserIndex = state.indexOf(
+    //     state.find((user) => user.name === action.payload.name)
+    //   );
+
     default:
       return state;
   }

@@ -7,3 +7,8 @@ export const deleteWish = (data) => ({
   type: "DELETE_WISH",
   payload: data,
 });
+
+export const testCase = (data) => ({
+  type: "TEST_CASE",
+  payload: data,
+});
