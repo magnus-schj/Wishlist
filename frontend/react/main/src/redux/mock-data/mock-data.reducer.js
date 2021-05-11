@@ -1,6 +1,6 @@
 import MOCK_DATA from "../../assets/MockData";
 import MockDataActionTypes from "./mock-data.types";
-import { removeWish } from "./mock-data.utils";
+import { addWish, removeWish } from "./mock-data.utils";
 
 const INITIAL_STATE = {
   data: MOCK_DATA,
@@ -14,6 +14,8 @@ const mockDataReducer = (state = INITIAL_STATE, action) => {
         data: removeWish(state.data, action.payload),
       };
 
+    case MockDataActionTypes.ADD_WISH:
+      return { ...state, data: addWish(state.data, action.payload) };
     // case MockDataActionTypes.LOG_IN:
     //   return {
     //     ...state,

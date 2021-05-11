@@ -29,11 +29,14 @@ const WishPage = ({ routeProps: { match } }) => {
       {userInfo ? (
         <div className="wish-page">
           <h1>{userInfo.name}'s wishes</h1>
-          <div className="wish-list">
+          <div className="wish-list-container">
             {isLoggedIn ? (
-              userInfo.wishes.map((wish) => (
-                <Wish key={wish} name={userInfo.name} wish={wish} />
-              ))
+              <div>
+                {userInfo.wishes.map((wish) => (
+                  <Wish key={wish} name={userInfo.name} wish={wish} />
+                ))}
+                <AddWish name={userInfo.name} wishes={userInfo.wishes} />
+              </div>
             ) : (
               <ul>
                 {userInfo.wishes.map((wish) => (
@@ -41,7 +44,6 @@ const WishPage = ({ routeProps: { match } }) => {
                 ))}
               </ul>
             )}
-            <AddWish />
           </div>
         </div>
       ) : (

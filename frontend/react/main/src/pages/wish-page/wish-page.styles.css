@@ -11,7 +11,7 @@
   margin-top: 1rem;
   font-size: 2.7rem;
 }
-.wish-list {
+.wish-list-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,6 +20,6 @@
   font-size: 1.5rem;
 }
 
-.wish-list tr {
+.wish-list-container tr {
   background: rgb(173, 173, 173);
 }

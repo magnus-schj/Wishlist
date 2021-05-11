@@ -13,7 +13,15 @@ export const removeWish = (state, payload) => {
   return newState;
 };
 
-export const findCurrentUser = (state, payload) => {
-  const { name } = payload;
+export const findCurrentUser = (state, name) => {
   return state.indexOf(state.find((user) => user.name === name));
+};
+
+export const addWish = (state, payload) => {
+  const { wish, name } = payload;
+  console.log("payload:", payload);
+  const currentUserIndex = findCurrentUser(state, name);
+  let newState = [...state];
+  newState[currentUserIndex].wishes.push(wish);
+  return newState;
 };

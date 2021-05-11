@@ -7,3 +7,8 @@ export const deleteWish = (data) => ({
   type: "DELETE_WISH",
   payload: data,
 });
+
+export const addWish = (data) => ({
+  type: "ADD_WISH",
+  payload: data,
+});
