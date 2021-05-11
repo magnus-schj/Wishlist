@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
-import Wish from "../../components/wish/Wish.Component";
 import AddWish from "../../components/add-wish/AddWish.Component";
+import WishLoggedIn from "../../components/wish-logged-in/WishLoggedIn.Component";
 
 import "./wish-page.styles.css";
 import { useEffect, useState } from "react";
@@ -33,7 +33,7 @@ const WishPage = ({ routeProps: { match } }) => {
             {isLoggedIn ? (
               <div>
                 {userInfo.wishes.map((wish) => (
-                  <Wish key={wish} name={userInfo.name} wish={wish} />
+                  <WishLoggedIn key={wish} name={userInfo.name} wish={wish} />
                 ))}
                 <AddWish name={userInfo.name} wishes={userInfo.wishes} />
               </div>

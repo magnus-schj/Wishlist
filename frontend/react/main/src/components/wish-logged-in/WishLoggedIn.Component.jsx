@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { deleteWish } from "../../redux/mock-data/mock-data.actions";
 
-const Wish = ({ wish, name }) => {
+const WishLoggedIn = ({ wish, name }) => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -15,4 +15,4 @@ const Wish = ({ wish, name }) => {
   );
 };
 
-export default Wish;
+export default WishLoggedIn;
