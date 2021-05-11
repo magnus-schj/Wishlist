@@ -5,6 +5,7 @@ import WishLoggedIn from "../../components/wish-logged-in/WishLoggedIn.Component
 
 import "./wish-page.styles.css";
 import { useEffect, useState } from "react";
+import WishLoggedOut from "../../components/wish-logged-out/WishLoggedOut.component";
 
 const WishPage = ({ routeProps: { match } }) => {
   const userLoggedIn = useSelector((state) => state.userLoggedIn);
@@ -40,7 +41,7 @@ const WishPage = ({ routeProps: { match } }) => {
             ) : (
               <ul>
                 {userInfo.wishes.map((wish) => (
-                  <li key={wish}>{wish}</li>
+                  <WishLoggedOut key={wish} wish={wish} />
                 ))}
               </ul>
             )}
