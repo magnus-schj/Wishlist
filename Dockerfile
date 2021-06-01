@@ -9,6 +9,7 @@ COPY frontend/react/main/package.json ./
 COPY frontend/react/main/package-lock.json ./
 RUN yarn import
 RUN yarn install
+RUN yarn add react
 #RUN npm install -g npm@7.15.1
 #RUN npm install --production
 
