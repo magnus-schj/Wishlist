@@ -13,7 +13,9 @@ cd frontend/react/main/ && npm start
 # Docker
 
 ```bash
-sudo docker build -network=host -t wishl .
+sudo docker build -t wishl .
+
+(add --network=host if hanging)
 
 # Interactive run:
 sudo docker run -it --rm -p 3000:3000 wishl
