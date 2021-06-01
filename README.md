@@ -6,13 +6,14 @@ Nå skal det oppdateres!
 ```bash
 sudo apt install npm
 npm install react
+npm install babel-cli
 cd frontend/react/main/ && npm start
 ```
 
 # Docker
 
 ```bash
-sudo docker build -t wishl .
+sudo docker build -network=host -t wishl .
 
 # Interactive run:
 sudo docker run -it --rm -p 3000:3000 wishl
