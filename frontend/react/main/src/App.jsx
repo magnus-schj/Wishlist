@@ -2,18 +2,17 @@ import React, { useState, useEffect } from "react";
 
 import { auth, signInWithGoogle } from "./firebase/firebase.utils";
 
-import { CssBaseline } from "@material-ui/core";
+import { CssBaseline, Button } from "@material-ui/core";
+import SignInAndSignUp from "./components/signInAndSignUp/SignInAndSignUp.component";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   let unsubscribeFromAuth = null;
   useEffect(() => {
     unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      console.log("user:", user);
       setCurrentUser(user);
-
+      console.log(user.uid);
       return () => {
-        console.log("unmounted.");
         unsubscribeFromAuth();
       };
     });
@@ -24,10 +23,23 @@ function App() {
       <div className="App">
         <h1>App</h1>
         {currentUser ? (
-          <button onClick={() => auth.signOut()}>Sign out</button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => auth.signOut()}
+          >
+            Sign out
+          </Button>
         ) : (
-          <button onClick={signInWithGoogle}>Sign in with google</button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={signInWithGoogle}
+          >
+            Sign in with google
+          </Button>
         )}
+        <SignInAndSignUp />
       </div>
     </>
   );
