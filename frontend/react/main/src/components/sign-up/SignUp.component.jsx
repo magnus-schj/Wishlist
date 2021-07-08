@@ -19,9 +19,14 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState({
+    passwordError: false,
+    confirmPasswordError: false,
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    e.target.error = true;
     alert("submitted!");
   };
   return (
