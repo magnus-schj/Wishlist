@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const CurrentUserSlice = createSlice({
   name: "current user",
-  initialState: { name: "testUser" },
+  initialState: { loaded: false },
   reducers: {
-    setCurrentUser(state) {
-      state.name = "new user";
+    setCurrentUser(state, action) {
+      state.loaded = false;
+      state.userInfo = action.payload;
+      state.loaded = true;
     },
   },
 });
