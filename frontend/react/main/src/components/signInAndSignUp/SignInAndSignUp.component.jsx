@@ -1,39 +1,41 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrentUser } from "../../features/currentUser/currentUser.slice";
 
 import { signInWithGoogle, auth } from "../../firebase/firebase.utils";
 
-import { Container, Button } from "@material-ui/core";
+import SignIn from "../sign-in/SignIn.component";
+import SignUp from "../sign-up/SignUp.component";
+
+import { Container, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  signInWrapper: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
 
 const SignInAndSignUp = () => {
-  const dispatch = useDispatch();
+  const classes = useStyles();
   const currentUser = useSelector((state) => state.currentUser.userInfo);
 
-  let unsubscribeFromAuth = null;
-  useEffect(() => {
-    unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      dispatch(setCurrentUser(user));
-      return () => {
-        unsubscribeFromAuth();
-      };
-    });
-  }, []);
   return (
-    <Container className="">
-      {currentUser ? (
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => auth.signOut()}
-        >
-          Sign out
-        </Button>
-      ) : (
-        <Button variant="contained" color="primary" onClick={signInWithGoogle}>
-          Sign in with google
-        </Button>
-      )}
+    <Container className={classes.root}>
+      <Typography variant="h2" color="initial">
+        Du er for øyeblikket logget inn.
+      </Typography>
+      <Container className={classes.signInWrapper}>
+        <SignIn />
+        <SignUp />
+      </Container>
     </Container>
   );
 };
