@@ -1,23 +1,35 @@
 import React, { useState } from "react";
 
-import {
-  Container,
-  Typography,
-  TextField,
-  FormControl,
-} from "@material-ui/core";
+import { Container, Typography, TextField, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  root: {},
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    justifyContent: "center",
+  },
+});
 
 const SignUp = () => {
+  const classes = useStyles();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("submitted!");
+  };
   return (
     <Container>
       <Typography variant="h3" color="initial">
         Sign up
       </Typography>
-      <FormControl>
+      <form className={classes.form}>
         <TextField
           id="name"
           label="Name"
@@ -45,7 +57,10 @@ const SignUp = () => {
           type="password"
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-      </FormControl>
+        <Button type="submit" onClick={handleSubmit}>
+          Submit
+        </Button>
+      </form>
     </Container>
   );
 };
