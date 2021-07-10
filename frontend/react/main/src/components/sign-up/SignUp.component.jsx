@@ -44,7 +44,6 @@ const SignUp = () => {
           password
         );
 
-        console.log("user:", user);
         await createUserProfileDocument(user, { name });
 
         clearInputs();

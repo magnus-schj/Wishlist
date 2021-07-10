@@ -1,15 +1,30 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { auth } from "./firebase/firebase.utils";
 import { setCurrentUser } from "./features/currentUser/currentUser.slice";
 
 import SignInAndSignUp from "./components/signInAndSignUp/SignInAndSignUp.component";
+import UserMenu from "./components/user-menu/UserMenu.component";
+
 import { CssBaseline, Container } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  contentContainer: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+});
 
 function App() {
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.currentUser.userInfo);
+  const classes = useStyles();
 
   let unsubscribeFromAuth = null;
   useEffect(() => {
@@ -23,9 +38,13 @@ function App() {
   return (
     <>
       <CssBaseline />
-      <Container className="App">
+      <Container className={classes.root}>
         <h1>App</h1>
-        <SignInAndSignUp />
+
+        <Container className={classes.contentContainer}>
+          <UserMenu />
+          <SignInAndSignUp />
+        </Container>
       </Container>
     </>
   );
