@@ -7,7 +7,9 @@ export const CurrentUserSlice = createSlice({
     setCurrentUser(state, action) {
       state.loaded = false;
       state.userInfo = action.payload;
-      state.loaded = true;
+      if (action.payload) {
+        state.loaded = true;
+      }
     },
   },
 });

@@ -30,7 +30,7 @@ export const signInWithGoogle = () => auth.signInWithPopup(provider);
 export default firebase;
 
 // ? Create user profile
-export const createUserProfile = async (userAuth, additionalData) => {
+export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
   const userRef = await db.doc(`users/${userAuth.uid}`);
@@ -38,12 +38,11 @@ export const createUserProfile = async (userAuth, additionalData) => {
   const snapShot = await userRef.get();
 
   if (!snapShot.exists) {
-    const { displayName, email } = userAuth;
+    const { email } = userAuth;
     const createdAt = new Date();
 
     try {
       await userRef.set({
-        displayName,
         email,
         createdAt,
         ...additionalData,
