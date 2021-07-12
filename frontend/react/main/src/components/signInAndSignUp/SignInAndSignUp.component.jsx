@@ -27,12 +27,12 @@ const useStyles = makeStyles({
 
 const SignInAndSignUp = () => {
   const classes = useStyles();
-  const currentUser = useSelector((state) => state.currentUser.userInfo);
+  // const currentUser = useSelector((state) => state.currentUser.userInfo);
 
   return (
     <Container className={classes.root}>
       <Typography variant="h2" color="initial">
-        Du er for øyeblikket logget inn.
+        Du er for øyeblikket ikke logget inn.
       </Typography>
       <Container className={classes.signInWrapper}>
         <SignIn />
