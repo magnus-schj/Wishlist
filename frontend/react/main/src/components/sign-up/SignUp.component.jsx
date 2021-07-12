@@ -16,49 +16,65 @@ const useStyles = makeStyles({
 
 const SignUp = () => {
   const classes = useStyles();
-
-  const [inputValues, setInputValues] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+  const [name, setName] = useState({
+    value: "",
+    error: false,
+    helperText: "",
   });
-
-  const [errors, setErrors] = useState({
-    name: false,
-    email: false,
-    password: false,
+  const [email, setEmail] = useState({
+    value: "",
+    error: false,
+    helperText: "",
   });
-
-  const [helperText, setHelperText] = useState({
-    name: "",
-    email: "",
-    password: "",
+  const [password, setPassword] = useState({
+    value: "",
+    error: false,
+    helperText: "",
+  });
+  const [confirmPassword, setConfirmPassword] = useState({
+    value: "",
+    error: false,
+    helperText: "",
   });
 
   const clearInputs = () => {
-    setName("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
+    setName({ ...name, value: "" });
+    setEmail({ ...email, value: "" });
+    setPassword({ ...password, value: "" });
+    setConfirmPassword({ ...confirmPassword, value: "" });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      // setPasswordError(true);
-      setHelperText("Passwords does not match.");
+
+    // ! Local validation:
+    // ! x Name is not null
+    // ! x passwords match
+
+    if (name.value === "") {
+      setName({ ...name, error: true, helperText: "Please write a name" });
       return;
     }
-    // setPasswordError(false);
-    setHelperText("");
+    setName({ ...name, error: false, helperText: "" });
+
+    if (password.value !== confirmPassword.value) {
+      setPassword({
+        ...password,
+        error: true,
+        helperText: "Passwords don't match",
+      });
+      return;
+    }
+    setPassword({ ...password, error: false });
+    setConfirmPassword({ ...confirmPassword, error: false });
     try {
       const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
+        email.value,
+        password.value
       );
 
-      await createUserProfileDocument(user, { name });
+      const nameValue = name.value;
+      await createUserProfileDocument(user, { nameValue });
 
       clearInputs();
       console.log("signed up!");
@@ -75,45 +91,41 @@ const SignUp = () => {
         <TextField
           id="name"
           label="Name"
-          value={inputValues.name}
-          error={errors.name}
-          helperText={helperText.name}
-          onChange={(e) =>
-            setInputValues({ ...inputValues, name: e.target.value })
-          }
+          value={name.value}
+          error={name.error}
+          helperText={name.helperText}
+          onChange={(e) => setName({ ...name, value: e.target.value })}
         />
         <TextField
           id="email"
           label="Email"
-          value={inputValues.email}
+          value={email.value}
           type="email"
-          error={errors.email}
-          helperText={helperText.email}
-          onChange={(e) =>
-            setInputValues({ ...inputValues, email: e.target.value })
-          }
+          error={email.error}
+          helperText={email.helperText}
+          onChange={(e) => setEmail({ ...email, value: e.target.value })}
         />
         <TextField
           id="password"
           label="Password"
-          value={inputValues.password}
+          value={password.value}
           type="password"
-          error={errors.password}
-          helperText={helperText.password}
-          onChange={(e) =>
-            setInputValues({ ...inputValues, password: e.target.value })
-          }
+          error={password.error}
+          helperText={password.helperText}
+          onChange={(e) => setPassword({ ...password, value: e.target.value })}
         />
         <TextField
-          helperText={helperText}
           id="confirm-password"
           label="Confirm password"
-          value={inputValues.confirmPassword}
+          value={confirmPassword.value}
           type="password"
-          error={errors.password}
-          helperText={helperText.password}
+          error={password.error}
+          helperText={password.helperText}
           onChange={(e) =>
-            setInputValues({ ...inputValues, confirmPassword: e.target.value })
+            setConfirmPassword({
+              ...confirmPassword,
+              value: e.target.value,
+            })
           }
         />
         <Button type="submit" onClick={handleSubmit}>
