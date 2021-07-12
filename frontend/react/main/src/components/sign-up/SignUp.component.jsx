@@ -36,7 +36,12 @@ const SignUp = () => {
     error: false,
     helperText: "",
   });
-
+  const reset = () => {
+    setName({ ...name, error: false, helperText: "" });
+    setEmail({ ...email, error: false, helperText: "" });
+    setPassword({ ...password, error: false, helperText: "" });
+    setConfirmPassword({ ...confirmPassword, error: false, helperText: "" });
+  };
   const clearInputs = () => {
     setName({ ...name, value: "" });
     setEmail({ ...email, value: "" });
@@ -46,7 +51,7 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    reset();
     // ! Local validation:
     // ! x Name is not null
     // ! x passwords match
@@ -80,6 +85,18 @@ const SignUp = () => {
       console.log("signed up!");
     } catch (error) {
       console.log(error);
+      switch (error.code) {
+        case "auth/invalid-email":
+          setEmail({ ...email, error: true, helperText: error.message });
+          break;
+        case "auth/weak-password":
+          setPassword({ ...password, error: true, helperText: error.message });
+          setConfirmPassword({ ...password, error: true });
+          break;
+        case "auth/email-already-in-use":
+          setEmail({ ...email, error: true, helperText: error.message });
+          break;
+      }
     }
   };
   return (
