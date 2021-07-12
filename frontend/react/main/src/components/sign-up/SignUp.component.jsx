@@ -43,10 +43,10 @@ const SignUp = () => {
     setConfirmPassword({ ...confirmPassword, error: false, helperText: "" });
   };
   const clearInputs = () => {
-    setName({ ...name, value: "" });
-    setEmail({ ...email, value: "" });
-    setPassword({ ...password, value: "" });
-    setConfirmPassword({ ...confirmPassword, value: "" });
+    setName({ ...name, value: "", error: false });
+    setEmail({ ...email, value: "", error: false });
+    setPassword({ ...password, value: "", error: false });
+    setConfirmPassword({ ...confirmPassword, value: "", error: false });
   };
 
   const handleSubmit = async (e) => {
