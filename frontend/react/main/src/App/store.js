@@ -1,10 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
-import { CurrentUserSlice } from "../features/currentUser/currentUser.slice";
+
+import { currentUserSlice } from "../features/currentUser/currentUser.slice";
+import { allUsersSlice } from "../features/allUsers/allUsers.slice";
 
 export const store = configureStore({
   reducer: {
-    currentUser: CurrentUserSlice.reducer,
+    currentUser: currentUserSlice.reducer,
+    allUsers: allUsersSlice.reducer,
   },
   middleware: [thunk],
 });
