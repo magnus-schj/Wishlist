@@ -7,7 +7,7 @@ Nå skal det oppdateres!
 sudo apt install npm
 npm install react
 npm install babel-cli
-cd frontend/react/main/ && npm start
+cd frontend/react/main/ && npm run dev
 ```
 
 # Docker
