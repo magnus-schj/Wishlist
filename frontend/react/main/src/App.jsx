@@ -42,7 +42,6 @@ function App() {
       <CssBaseline />
       <Container className={classes.root}>
         <h1>App</h1>
-
         <Container className={classes.contentContainer}>
           <UserMenu />
           <SignInAndSignUp />

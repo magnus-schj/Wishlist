@@ -2,12 +2,25 @@ import React from "react";
 
 import { useSelector } from "react-redux";
 
-import { Container, Typography } from "@material-ui/core";
+import { Link } from "react-router-dom";
+
+import {
+  Container,
+  Typography,
+  List,
+  ListItem,
+  Button,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
-    marginLeft: 0,
+    position: "fixed",
+    left: 0,
+    top: 0,
+    height: "100vh",
+    width: "10vw",
+    paddingTop: "5vh",
   },
 });
 
@@ -20,13 +33,19 @@ const UserMenu = () => {
       <Typography variant="h3" color="initial">
         Users
       </Typography>
-      <ul>
+      <List component="nav">
         {loaded ? (
-          users.map((user) => <li>{user.nameValue}</li>)
+          users.map((user, i) => (
+            <ListItem key={i}>
+              <Link to={`/${user.nameValue}`}>
+                <Button>{user.nameValue}</Button>
+              </Link>
+            </ListItem>
+          ))
         ) : (
           <div>Loading...</div>
         )}
-      </ul>
+      </List>
     </Container>
   );
 };
