@@ -6,7 +6,6 @@ import { fetchAllUserInfo } from "./features/allUsers/allUsers.slice";
 import { auth } from "./firebase/firebase.utils";
 
 import { Route } from "react-router-dom";
-import SignInAndSignUp from "./components/signInAndSignUp/SignInAndSignUp.component";
 import UserMenu from "./components/user-menu/UserMenu.component";
 import Main from "./components/main/Main.component";
 
@@ -16,12 +15,9 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   root: {
     display: "flex",
-    flexDirection: "column",
-  },
-  contentContainer: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
+    paddingLeft: 0,
+    margin: 0,
   },
 });
 
@@ -45,10 +41,6 @@ function App() {
       <Container className={classes.root}>
         <UserMenu />
         <Route exact path="/" component={Main} />
-        {/* <Container className={classes.contentContainer}>
-          <UserMenu />
-          <SignInAndSignUp />
-        </Container> */}
       </Container>
     </>
   );

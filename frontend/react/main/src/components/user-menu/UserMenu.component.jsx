@@ -15,12 +15,10 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
-    position: "fixed",
-    left: 0,
-    top: 0,
     height: "100vh",
-    width: "10vw",
-    paddingTop: "5vh",
+    width: "10px",
+    paddingTop: "50vh",
+    flex: "1 1",
   },
 });
 
@@ -29,7 +27,7 @@ const UserMenu = () => {
 
   const { loaded, users } = useSelector((state) => state.allUsers);
   return (
-    <Container className={classes.root}>
+    <Container classes={classes.root}>
       <Typography variant="h3" color="initial">
         Users
       </Typography>

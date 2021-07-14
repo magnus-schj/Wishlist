@@ -6,11 +6,20 @@ import { Container, Typography, TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
-  root: {},
-  form: {
+  root: {
+    minWidth: "30rem",
     display: "flex",
     flexDirection: "column",
-    alignItems: "flex-start",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  form: {
+    maxWidth: "100%",
+    margin: "2rem auto",
+    minWidth: "30rem",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
 });
 
@@ -100,7 +109,7 @@ const SignUp = () => {
     }
   };
   return (
-    <Container>
+    <Container className={classes.root}>
       <Typography variant="h3" color="initial">
         Sign up
       </Typography>
