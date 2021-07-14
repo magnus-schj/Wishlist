@@ -54,3 +54,19 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   }
   return userRef;
 };
+
+// ? GET USERS
+const fetchUsers = async () => {
+  const response = await db.collection("users").get();
+  return response;
+};
+
+// format users
+
+export const formatCollection = (collection) => {
+  let collectionFormatted = [];
+  collection.forEach((doc) => {
+    collectionFormatted.push(doc.data());
+  });
+  return collectionFormatted;
+};

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { setCurrentUser } from "./features/currentUser/currentUser.slice";
 
 import { auth } from "./firebase/firebase.utils";
-import { setCurrentUser } from "./features/currentUser/currentUser.slice";
 
 import SignInAndSignUp from "./components/signInAndSignUp/SignInAndSignUp.component";
 import UserMenu from "./components/user-menu/UserMenu.component";
