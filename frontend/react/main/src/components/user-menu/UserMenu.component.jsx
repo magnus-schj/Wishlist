@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 
-import { fetchAllUserInfo } from "../../features/allUsers/allUsers.slice";
+import { useSelector } from "react-redux";
 
-import { Container, Typography } from "@material-ui/core";
+import { Container, Typography, Tabs, Tab } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
@@ -14,17 +13,20 @@ const useStyles = makeStyles({
 
 const UserMenu = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log("mounted");
-    dispatch(fetchAllUserInfo());
-  }, []);
+  const { loaded, users } = useSelector((state) => state.allUsers);
   return (
     <Container className={classes.root}>
       <Typography variant="h3" color="initial">
         Users
       </Typography>
+      <ul>
+        {loaded ? (
+          users.map((user) => <li>{user.nameValue}</li>)
+        ) : (
+          <div>Loading...</div>
+        )}
+      </ul>
     </Container>
   );
 };
