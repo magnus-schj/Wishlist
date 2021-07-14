@@ -41,12 +41,14 @@ function App() {
       <CssBaseline />
       <Container className={classes.root}>
         <UserMenu />
-        <Route exact path="/" component={Main} />
-        <Route
-          exact
-          path="/:nameValue"
-          render={(routeProps) => <WishPage routeProps={routeProps} />}
-        />
+        <div>
+          <Route exact path="/" component={Main} />
+          <Route
+            exact
+            path="/:nameValue"
+            render={(routeProps) => <WishPage routeProps={routeProps} />}
+          />
+        </div>
       </Container>
     </>
   );

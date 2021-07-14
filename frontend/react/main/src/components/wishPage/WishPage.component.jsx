@@ -2,12 +2,13 @@ import React from "react";
 
 import { Container, Typography } from "@material-ui/core";
 
-const WishPage = ({ routeProps }) => {
-  console.log("props:", routeProps);
+const WishPage = ({ routeProps: { match } }) => {
+  console.log("props:", match);
+  const { nameValue } = match.params;
   return (
     <Container>
       <Typography variant="h3" color="initial">
-        Wish page
+        {nameValue}'s Wish page
       </Typography>
     </Container>
   );
