@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "./features/currentUser/currentUser.slice";
+import { fetchAllUserInfo } from "./features/allUsers/allUsers.slice";
 
 import { auth } from "./firebase/firebase.utils";
 
@@ -28,6 +29,7 @@ function App() {
 
   let unsubscribeFromAuth = null;
   useEffect(() => {
+    dispatch(fetchAllUserInfo());
     unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
       dispatch(setCurrentUser(user));
       return () => {
