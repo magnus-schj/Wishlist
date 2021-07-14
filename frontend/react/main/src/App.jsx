@@ -5,8 +5,10 @@ import { fetchAllUserInfo } from "./features/allUsers/allUsers.slice";
 
 import { auth } from "./firebase/firebase.utils";
 
+import { Route } from "react-router-dom";
 import SignInAndSignUp from "./components/signInAndSignUp/SignInAndSignUp.component";
 import UserMenu from "./components/user-menu/UserMenu.component";
+import Main from "./components/main/Main.component";
 
 import { CssBaseline, Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -41,11 +43,12 @@ function App() {
     <>
       <CssBaseline />
       <Container className={classes.root}>
-        <h1>App</h1>
-        <Container className={classes.contentContainer}>
+        <UserMenu />
+        <Route exact path="/" component={Main} />
+        {/* <Container className={classes.contentContainer}>
           <UserMenu />
           <SignInAndSignUp />
-        </Container>
+        </Container> */}
       </Container>
     </>
   );
