@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   root: {
     height: "100vh",
     width: "10px",
-    paddingTop: "50vh",
+    paddingTop: "5vh",
     flex: "1 1",
   },
 });
@@ -27,7 +27,7 @@ const UserMenu = () => {
 
   const { loaded, users } = useSelector((state) => state.allUsers);
   return (
-    <Container classes={classes.root}>
+    <Container className={classes.root}>
       <Typography variant="h3" color="initial">
         Users
       </Typography>
