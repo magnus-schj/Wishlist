@@ -1,9 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
+import { auth } from "../../firebase/firebase.utils";
+
 import SignInAndSignUp from "../signInAndSignUp/SignInAndSignUp.component";
 
-import { Container, Typography } from "@material-ui/core";
+import { Container, Typography, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
@@ -19,13 +21,23 @@ const useStyles = makeStyles({
 const Main = () => {
   const classes = useStyles();
 
-  const userLoggedIn = useSelector((state) => state.currentUser);
+  const currentUser = useSelector((state) => state.currentUser);
+  const { userInfo } = currentUser;
   return (
     <Container className={classes.root}>
       <Typography variant="h1" color="initial">
         Main Page!
       </Typography>
-      <SignInAndSignUp />
+      {userInfo ? (
+        <div>
+          <h1>Du er logget inn!</h1>
+          <Button variant="text" color="default" onClick={() => auth.signOut()}>
+            Logg ut
+          </Button>
+        </div>
+      ) : (
+        <SignInAndSignUp />
+      )}
     </Container>
   );
 };
