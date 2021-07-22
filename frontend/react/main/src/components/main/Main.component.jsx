@@ -10,6 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
+    margin: "1rem 6rem",
     padding: "1rem 5rem",
     display: "flex",
     flexDirection: "column",
@@ -22,15 +23,22 @@ const Main = () => {
   const classes = useStyles();
 
   const currentUser = useSelector((state) => state.currentUser);
+  const allUsers = useSelector((state) => state.allUsers);
   const { userInfo } = currentUser;
+
+  let userLoggedIn;
+  if (currentUser.userInfo) {
+    userLoggedIn = allUsers.users.find((user) => user.email === userInfo.email);
+  }
+  console.log("userLoggedIn:", userLoggedIn);
   return (
     <Container className={classes.root}>
       <Typography variant="h1" color="initial">
-        Main Page!
+        Velkommen til ny ønskeliste!
       </Typography>
       {userInfo ? (
         <div>
-          <h1>Du er logget inn!</h1>
+          <h1>Du er logget inn som {userLoggedIn.nameValue}!</h1>
           <Button variant="text" color="default" onClick={() => auth.signOut()}>
             Logg ut
           </Button>
