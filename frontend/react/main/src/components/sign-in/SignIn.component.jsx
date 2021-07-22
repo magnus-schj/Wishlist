@@ -1,10 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "../../custom-hooks/useForm";
 
-import { Container, Typography, TextField } from "@material-ui/core";
+import { auth } from "../../firebase/firebase.utils";
+
+import { Container, Typography, TextField, Button } from "@material-ui/core";
 
 const SignIn = () => {
-  const [values, handleChange] = useForm({ email: "", password: "" });
+  const [values, handleChange, setValues] = useForm({
+    email: "",
+    password: "",
+  });
+  const { email, password } = values;
+  const initialError = { value: false, helperText: "" };
+  const [errors, setErrors] = useState(initialError);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      setValues({ email: "", password: "" });
+      setErrors(initialError);
+    } catch (error) {
+      console.log(error);
+      if (
+        error.code === "auth/wrong-password" ||
+        error.code === "auth/invalid-email"
+      ) {
+        setErrors({ value: true, helperText: error.message });
+      }
+    }
+  };
   return (
     <Container>
       <Typography variant="h3" color="initial">
@@ -17,6 +42,8 @@ const SignIn = () => {
           name="email"
           value={values.email}
           onChange={handleChange}
+          helperText={errors.helperText}
+          error={errors.value}
         />
         <TextField
           id="password"
@@ -25,7 +52,17 @@ const SignIn = () => {
           name="password"
           value={values.password}
           onChange={handleChange}
+          helperText={errors.helperText}
+          error={errors.value}
         />
+        <Button
+          type="submit"
+          variant="text"
+          color="default"
+          onClick={handleSubmit}
+        >
+          Log in
+        </Button>
       </form>
     </Container>
   );

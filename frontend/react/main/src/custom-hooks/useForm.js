@@ -8,5 +8,8 @@ export const useForm = (initialValues) => {
     (e) => {
       setValues({ ...values, [e.target.name]: e.target.value });
     },
+    (value) => {
+      setValues(value);
+    },
   ];
 };

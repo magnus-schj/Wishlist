@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 import SignInAndSignUp from "../signInAndSignUp/SignInAndSignUp.component";
 
@@ -17,6 +18,8 @@ const useStyles = makeStyles({
 });
 const Main = () => {
   const classes = useStyles();
+
+  const userLoggedIn = useSelector((state) => state.currentUser);
   return (
     <Container className={classes.root}>
       <Typography variant="h1" color="initial">
