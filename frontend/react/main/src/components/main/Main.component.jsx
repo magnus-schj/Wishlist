@@ -31,6 +31,9 @@ const Main = () => {
     userLoggedIn = allUsers.users.find((user) => user.email === userInfo.email);
   }
   console.log("userLoggedIn:", userLoggedIn);
+
+  let name;
+  userLoggedIn ? (name = userLoggedIn.nameValue) : (name = "");
   return (
     <Container className={classes.root}>
       <Typography variant="h1" color="initial">
@@ -38,7 +41,7 @@ const Main = () => {
       </Typography>
       {userInfo ? (
         <div>
-          <h1>Du er logget inn som {userLoggedIn.nameValue}!</h1>
+          <h1>Du er logget inn som {name} </h1>
           <Button variant="text" color="default" onClick={() => auth.signOut()}>
             Logg ut
           </Button>
