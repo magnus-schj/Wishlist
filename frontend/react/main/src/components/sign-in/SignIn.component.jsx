@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "../../custom-hooks/useForm";
 
 import { auth } from "../../firebase/firebase.utils";
@@ -14,14 +14,23 @@ const SignIn = () => {
   const initialError = { value: false, helperText: "" };
   const [errors, setErrors] = useState(initialError);
 
+  let isMounted = true;
+  useEffect(() => {
+    isMounted = true;
+    return () => {
+      isMounted = false;
+    };
+  }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isMounted) {
+      return;
+    }
     try {
       await auth.signInWithEmailAndPassword(email, password);
       setValues({ email: "", password: "" });
       setErrors(initialError);
     } catch (error) {
-      console.log(error);
       if (
         error.code === "auth/wrong-password" ||
         error.code === "auth/invalid-email"
