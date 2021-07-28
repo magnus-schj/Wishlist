@@ -1,9 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
+import Wish from "../wish/Wish.component";
+import AddWish from "../add-wish/AddWish.component";
+
 import { Container, Typography, Card } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Wish from "../wish/Wish.component";
 
 const useStyles = makeStyles({
   wishList: {
@@ -19,6 +21,13 @@ const WishList = ({ wishes, nameValue }) => {
   const hasWishes = wishes.length !== 0;
 
   const currentUser = useSelector((state) => state.currentUser);
+
+  const renderWishForm = () => {
+    if (!currentUser.loaded) {
+      return null;
+    }
+    return <AddWish />;
+  };
   return (
     <Container maxWidth="xs" className={classes.wishList}>
       {!hasWishes ? (
@@ -33,6 +42,7 @@ const WishList = ({ wishes, nameValue }) => {
           // </Card>
         ))
       )}
+      {renderWishForm()}
     </Container>
   );
 };

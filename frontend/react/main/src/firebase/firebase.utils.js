@@ -70,3 +70,15 @@ export const formatCollection = (collection) => {
   });
   return collectionFormatted;
 };
+
+// ? ADD wish
+
+export const addWish = async (uid, wish) => {
+  const userRef = await db.doc(`users/${uid}`);
+  const snapShot = (await userRef.get()).data("wishes");
+  userRef.update({
+    ...snapShot,
+    wishes: firebase.firestore.FieldValue.arrayUnion(wish),
+  });
+  console.log("snapShot", snapShot);
+};
