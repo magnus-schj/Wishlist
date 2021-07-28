@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 import { Container, Typography, Card } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import Wish from "../wish/Wish.component";
 
 const useStyles = makeStyles({
   wishList: {
@@ -24,11 +25,12 @@ const WishList = ({ wishes, nameValue }) => {
         <h1>{nameValue} har visst ingen ønsker enda.</h1>
       ) : (
         wishes.map((wish, i) => (
-          <Card key={i}>
-            <Typography variant="h4" color="initial">
-              {wish}
-            </Typography>
-          </Card>
+          <Wish key={i} wish={wish} userLoggedIn={false} />
+          // <Card key={i}>
+          //   <Typography variant="h4" color="initial">
+          //     {wish}
+          //   </Typography>
+          // </Card>
         ))
       )}
     </Container>
