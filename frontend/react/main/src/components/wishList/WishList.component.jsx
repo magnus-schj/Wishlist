@@ -16,17 +16,17 @@ const useStyles = makeStyles({
   },
 });
 
-const WishList = ({ wishes, nameValue }) => {
+const WishList = ({ wishes, nameValue, uid }) => {
   const classes = useStyles();
   const hasWishes = wishes.length !== 0;
 
-  const currentUser = useSelector((state) => state.currentUser);
+  const uidLoggedIn = useSelector((state) => state.currentUser.userInfo.uid);
 
   const renderWishForm = () => {
-    if (!currentUser.loaded) {
-      return null;
+    if (uid === uidLoggedIn) {
+      return <AddWish />;
     }
-    return <AddWish />;
+    return null;
   };
   return (
     <Container maxWidth="xs" className={classes.wishList}>

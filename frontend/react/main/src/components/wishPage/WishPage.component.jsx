@@ -20,7 +20,7 @@ const WishPage = ({ routeProps: { match } }) => {
           <Typography variant="h3" color="initial">
             {nameValue} sin ønskeliste
           </Typography>
-          <WishList wishes={userInfo.wishes} nameValue={userInfo.nameValue} />
+          <WishList {...userInfo} />
         </div>
       ) : (
         <Typography variant="h3" color="initial">
