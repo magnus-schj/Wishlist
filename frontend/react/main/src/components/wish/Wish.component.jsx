@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Card, Container, Typography, TextField } from "@material-ui/core";
 
 const Wish = ({ wish, userLoggedIn }) => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(wish);
   return (
     <Card>
       {userLoggedIn ? (
@@ -12,7 +12,7 @@ const Wish = ({ wish, userLoggedIn }) => {
             id="wish"
             label=""
             onChange={(e) => setValue(e.target.value)}
-            defaultValue={wish}
+            value={value}
           />
         </form>
       ) : (

@@ -21,9 +21,10 @@ const WishList = ({ wishes, nameValue, uid }) => {
   const hasWishes = wishes.length !== 0;
 
   const uidLoggedIn = useSelector((state) => state.currentUser.userInfo.uid);
+  const userLoggedIn = uid === uidLoggedIn;
 
   const renderWishForm = () => {
-    if (uid === uidLoggedIn) {
+    if (userLoggedIn) {
       return <AddWish />;
     }
     return null;
@@ -34,12 +35,7 @@ const WishList = ({ wishes, nameValue, uid }) => {
         <h1>{nameValue} har visst ingen ønsker enda.</h1>
       ) : (
         wishes.map((wish, i) => (
-          <Wish key={i} wish={wish} userLoggedIn={false} />
-          // <Card key={i}>
-          //   <Typography variant="h4" color="initial">
-          //     {wish}
-          //   </Typography>
-          // </Card>
+          <Wish key={i} wish={wish} userLoggedIn={userLoggedIn} />
         ))
       )}
       {renderWishForm()}
