@@ -36,6 +36,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   const userRef = await db.doc(`users/${userAuth.uid}`);
 
   const snapShot = await userRef.get();
+  const uid = snapShot.id;
 
   if (!snapShot.exists) {
     const { email } = userAuth;
@@ -66,7 +67,8 @@ const fetchUsers = async () => {
 export const formatCollection = (collection) => {
   let collectionFormatted = [];
   collection.forEach((doc) => {
-    collectionFormatted.push(doc.data());
+    const docWithUid = { ...doc.data(), uid: doc.id };
+    collectionFormatted.push(docWithUid);
   });
   return collectionFormatted;
 };
