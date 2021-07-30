@@ -5,10 +5,9 @@ import { addWish } from "../../firebase/firebase.utils";
 
 import { Container, TextField, Button } from "@material-ui/core";
 
-const AddWish = () => {
+const AddWish = ({ uid }) => {
   const [value, setValue] = useState("");
   const currentUser = useSelector((state) => state.currentUser);
-  const { uid } = currentUser.userInfo;
 
   const handleClick = (e) => {
     e.preventDefault();

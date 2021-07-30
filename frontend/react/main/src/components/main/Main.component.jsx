@@ -30,7 +30,6 @@ const Main = () => {
   if (currentUser.userInfo) {
     userLoggedIn = allUsers.users.find((user) => user.email === userInfo.email);
   }
-  console.log("userLoggedIn:", userLoggedIn);
 
   let name;
   userLoggedIn ? (name = userLoggedIn.nameValue) : (name = "");
