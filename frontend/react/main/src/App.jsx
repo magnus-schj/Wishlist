@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "./features/currentUser/currentUser.slice";
-import { fetchAllUserInfo } from "./features/allUsers/allUsers.slice";
+import {
+  fetchAllUserInfo,
+  updateAllUsers,
+} from "./features/allUsers/allUsers.slice";
 
-import { auth } from "./firebase/firebase.utils";
+import { auth, db } from "./firebase/firebase.utils";
 
 import { Route } from "react-router-dom";
 import UserMenu from "./components/user-menu/UserMenu.component";
@@ -26,9 +29,19 @@ function App() {
   const dispatch = useDispatch();
   const classes = useStyles();
 
+  // real-time listener for user information
+  db.collection("users").onSnapshot((querySnapshot) => {
+    const users = [];
+    querySnapshot.forEach((doc) => {
+      users.push({ ...doc.data(), uid: doc.id });
+    });
+    dispatch(updateAllUsers(users));
+  });
+
+  // checks if a user is logged in
   let unsubscribeFromAuth = null;
   useEffect(() => {
-    dispatch(fetchAllUserInfo());
+    // dispatch(fetchAllUserInfo());
     unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
       dispatch(setCurrentUser(user));
       return () => {

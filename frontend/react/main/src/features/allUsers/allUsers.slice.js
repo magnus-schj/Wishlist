@@ -25,6 +25,14 @@ export const allUsersSlice = createSlice({
       state.users = [];
       state.loaded = false;
     },
+    updateAllUsers(state, action) {
+      state.loaded = false;
+      state.users.length = 0;
+      action.payload.forEach((user) => {
+        state.users.push(user);
+      });
+      state.loaded = true;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAllUserInfo.fulfilled, (state, action) => {
@@ -36,3 +44,5 @@ export const allUsersSlice = createSlice({
     });
   },
 });
+
+export const { updateAllUsers } = allUsersSlice.actions;
