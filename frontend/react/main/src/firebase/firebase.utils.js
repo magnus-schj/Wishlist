@@ -77,11 +77,3 @@ export const addWish = async (uid, wish) => {
   });
   console.log("snapShot", snapShot);
 };
-
-// realtime listener
-
-export const getNewestSnapshot = () => {
-  db.collection("users").onSnapshot((querySnapshot) => {
-    return formatCollection(querySnapshot);
-  });
-};

@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "./features/currentUser/currentUser.slice";
-import {
-  fetchAllUserInfo,
-  updateAllUsers,
-} from "./features/allUsers/allUsers.slice";
+import { updateAllUsers } from "./features/allUsers/allUsers.slice";
 
 import { auth, db } from "./firebase/firebase.utils";
 

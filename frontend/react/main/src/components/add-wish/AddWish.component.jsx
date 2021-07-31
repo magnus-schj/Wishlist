@@ -7,11 +7,11 @@ import { Container, TextField, Button } from "@material-ui/core";
 
 const AddWish = ({ uid }) => {
   const [value, setValue] = useState("");
-  const currentUser = useSelector((state) => state.currentUser);
 
   const handleClick = (e) => {
     e.preventDefault();
     addWish(uid, value);
+    setValue("");
   };
   return (
     <Container>
