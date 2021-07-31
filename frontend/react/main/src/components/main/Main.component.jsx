@@ -36,7 +36,7 @@ const Main = () => {
   return (
     <Container className={classes.root}>
       <Typography variant="h1" color="initial">
-        Velkommen til ny ønskeliste!
+        Velkommen til en ny ønskeliste!
       </Typography>
       {userInfo ? (
         <div>

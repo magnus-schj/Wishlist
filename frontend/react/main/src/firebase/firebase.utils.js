@@ -36,7 +36,6 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   const userRef = await db.doc(`users/${userAuth.uid}`);
 
   const snapShot = await userRef.get();
-  const uid = snapShot.id;
 
   if (!snapShot.exists) {
     const { email } = userAuth;
@@ -54,12 +53,6 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     }
   }
   return userRef;
-};
-
-// ? GET USERS
-const fetchUsers = async () => {
-  const response = await db.collection("users").get();
-  return response;
 };
 
 // format users
@@ -83,4 +76,12 @@ export const addWish = async (uid, wish) => {
     wishes: firebase.firestore.FieldValue.arrayUnion(wish),
   });
   console.log("snapShot", snapShot);
+};
+
+// realtime listener
+
+export const getNewestSnapshot = () => {
+  db.collection("users").onSnapshot((querySnapshot) => {
+    return formatCollection(querySnapshot);
+  });
 };
