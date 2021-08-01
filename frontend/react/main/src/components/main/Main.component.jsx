@@ -27,20 +27,7 @@ const Main = () => {
 
   const { userInfo } = currentUserSlice;
 
-  console.log("currentUserSlice:", currentUserSlice);
-  // const userLoggedIn = allUsersSlice.users.find(
-  //   (user) => user.uid === currentUserSlice.userInfo.uid
-  // );
-  // console.log("name:", userLoggedIn);
-
-  // let userLoggedIn;
-  // if (currentUserSlice.userInfo) {
-  //   userLoggedIn = allUsers.users.find((user) => user.email === userInfo.email);
-  // }
-
-  // let name;
-  // userLoggedIn ? (name = userLoggedIn.nameValue) : (name = "");
-
+  // cheks if data is loaded, and returns either a loading screen or signInAndSignUp
   const renderNotLoaded = () => {
     if (!currentUserSlice.loaded) {
       return (
@@ -52,12 +39,12 @@ const Main = () => {
     return <SignInAndSignUp />;
   };
 
+  // checks if all data is loaded and that a user is logged in, finds more data on userLoggedIn, displays data and a logout button
   const renderLoggedIn = () => {
     if (currentUserSlice.loaded && allUsersSlice.loaded) {
       const userLoggedIn = allUsersSlice.users.find(
         (user) => user.uid === currentUserSlice.userInfo.uid
       );
-      console.log("userLoggedIn:", userLoggedIn);
       return (
         <div>
           <h1>Du er logget inn som {userLoggedIn.nameValue}</h1>
