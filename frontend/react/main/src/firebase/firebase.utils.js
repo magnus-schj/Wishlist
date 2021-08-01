@@ -75,5 +75,17 @@ export const addWish = async (uid, wish) => {
     ...snapShot,
     wishes: firebase.firestore.FieldValue.arrayUnion(wish),
   });
-  console.log("snapShot", snapShot);
+};
+
+// ! DELETE wish
+
+export const deleteWish = async (uid, wish) => {
+  const userRef = await db.doc(`users/${uid}`);
+  const snapShot = await (await userRef.get()).data();
+  console.log("uid:", uid);
+  console.log("wish:", wish);
+  userRef.update({
+    ...snapShot,
+    wishes: firebase.firestore.FieldValue.arrayRemove(wish),
+  });
 };

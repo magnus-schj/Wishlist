@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { deleteWish } from "../../firebase/firebase.utils";
+
 import { Card, Typography, TextField, IconButton } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { makeStyles } from "@material-ui/core/styles";
@@ -12,7 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Wish = ({ wish, userLoggedIn }) => {
+const Wish = ({ wish, userLoggedIn, uid }) => {
   const classes = useStyles();
   const [value, setValue] = useState(wish);
   return (
@@ -25,7 +27,7 @@ const Wish = ({ wish, userLoggedIn }) => {
             onChange={(e) => setValue(e.target.value)}
             value={value}
           />
-          <IconButton aria-label="delete">
+          <IconButton aria-label="delete" onClick={() => deleteWish(uid, wish)}>
             <DeleteIcon />
           </IconButton>
         </form>

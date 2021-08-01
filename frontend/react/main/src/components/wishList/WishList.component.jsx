@@ -37,7 +37,7 @@ const WishList = ({ wishes, nameValue, uid }) => {
         <h1>{nameValue} har visst ingen ønsker enda.</h1>
       ) : (
         wishes.map((wish, i) => (
-          <Wish key={i} wish={wish} userLoggedIn={thisUserLoggedIn} />
+          <Wish key={i} wish={wish} userLoggedIn={thisUserLoggedIn} uid={uid} />
         ))
       )}
       {renderWishForm()}
