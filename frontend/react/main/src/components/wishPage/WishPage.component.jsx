@@ -9,9 +9,26 @@ import { Container, Typography } from "@material-ui/core";
 const WishPage = ({ routeProps: { match } }) => {
   const { nameValue } = match.params;
 
+  const allUsersLoaded = useSelector((state) => state.allUsers.loaded);
   const userInfo = useSelector((state) =>
     state.allUsers.users.find((user) => user.nameValue === nameValue)
   );
+
+  const renderNotLoaded = () => {
+    if (allUsersLoaded && !userInfo) {
+      return (
+        <Typography variant="h3" color="initial">
+          404 denne siden finnes ikke!
+        </Typography>
+      );
+    } else if (!allUsersLoaded) {
+      return (
+        <Typography variant="h3" color="initial">
+          Laster...
+        </Typography>
+      );
+    }
+  };
 
   return (
     <Container>
@@ -23,9 +40,7 @@ const WishPage = ({ routeProps: { match } }) => {
           <WishList {...userInfo} />
         </div>
       ) : (
-        <Typography variant="h3" color="initial">
-          404 Denne siden finnes ikke!
-        </Typography>
+        renderNotLoaded()
       )}
     </Container>
   );
