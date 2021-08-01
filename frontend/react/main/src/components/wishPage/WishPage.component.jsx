@@ -10,10 +10,12 @@ const WishPage = ({ routeProps: { match } }) => {
   const { nameValue } = match.params;
 
   const allUsersLoaded = useSelector((state) => state.allUsers.loaded);
+  // tries to find a user with a name equal to the url
   const userInfo = useSelector((state) =>
     state.allUsers.users.find((user) => user.nameValue === nameValue)
   );
 
+  // if page not loaded yet, loads somethinbg else than 404
   const renderNotLoaded = () => {
     if (allUsersLoaded && !userInfo) {
       return (
