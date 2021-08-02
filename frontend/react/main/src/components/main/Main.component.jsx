@@ -29,7 +29,7 @@ const Main = () => {
 
   // cheks if data is loaded, and returns either a loading screen or signInAndSignUp
   const renderNotLoaded = () => {
-    if (!currentUserSlice.loaded) {
+    if (!allUsersSlice.loaded) {
       return (
         <Typography variant="h3" color="initial">
           Laster...
