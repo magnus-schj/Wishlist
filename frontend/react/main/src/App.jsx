@@ -13,49 +13,67 @@ import {
   Typography,
   useMediaQuery,
 } from "@material-ui/core";
-import { Route } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
+import SignUp from "./components/sign-up/SignUp.component";
 
 function App() {
   const dispatch = useDispatch();
 
   // real-time listener for user information
-  // db.collection("users").onSnapshot((querySnapshot) => {
-  //   const users = [];
-  //   querySnapshot.forEach((doc) => {
-  //     users.push({ ...doc.data(), uid: doc.id });
-  //   });
-  //   dispatch(updateAllUsers(users));
-  // });
-
-  // mediaquery for checkinbg screen size
-  const matches = useMediaQuery("(max-width: 500px)");
+  db.collection("users").onSnapshot((querySnapshot) => {
+    const users = [];
+    querySnapshot.forEach((doc) => {
+      users.push({ ...doc.data(), uid: doc.id });
+    });
+    dispatch(updateAllUsers(users));
+  });
 
   // checks if a user is logged in
   let unsubscribeFromAuth = null;
   useEffect(() => {
     unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
       dispatch(setCurrentUser(user));
-      // sets if a user is on mobile or not
-      dispatch(setMobile(matches));
       return () => {
         unsubscribeFromAuth();
       };
     });
-  }, [matches]);
+  }, []);
 
-  // checks what size we are supposed to have
-  const mobile = useSelector((state) => state.styles.mobile);
-  let headerVariant = "h1";
-  if (mobile) headerVariant = "h3";
+  // sets if a user is on mobile or not
+  const matches = useMediaQuery("(max-width: 500px)");
 
+  let headerVariants = {
+    largest: "h1",
+    large: "h2",
+    medium: "h3",
+    small: "h4",
+    extraSmall: "h5",
+  };
+  if (matches)
+    headerVariants = {
+      largets: "h3",
+      large: "h4",
+      medium: "h5",
+      small: "h6",
+      extraSmall: "h7",
+    };
+  const currentUser = useSelector((state) => state.currentUser);
+  console.log("here");
   return (
     <>
       <CssBaseline />
       <Container>
         <Route
+          exact
           path="/"
-          render={() => <SignInAndSignUp headerVariant={headerVariant} />}
+          render={() => <SignInAndSignUp headerVariants={headerVariants} />}
         />
+        <Route
+          exact
+          path="/signUp"
+          render={() => <SignUp headerVariants={headerVariants} />}
+        />
+        {/* {currentUser.loaded ? <Redirect to={}} */}
       </Container>
     </>
   );

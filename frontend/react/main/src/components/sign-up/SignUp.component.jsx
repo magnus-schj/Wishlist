@@ -7,15 +7,13 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
-    minWidth: "30rem",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
   },
   form: {
-    maxWidth: "100%",
-    margin: "2rem auto",
+    margin: "2rem 0",
     minWidth: "30rem",
     display: "flex",
     flexDirection: "column",
@@ -23,7 +21,7 @@ const useStyles = makeStyles({
   },
 });
 
-const SignUp = () => {
+const SignUp = ({ headerVariants }) => {
   const classes = useStyles();
   const [name, setName] = useState({
     value: "",
@@ -110,8 +108,8 @@ const SignUp = () => {
   };
   return (
     <Container className={classes.root}>
-      <Typography variant="h3" color="initial">
-        Sign up
+      <Typography variant={headerVariants.large} color="initial">
+        Registrer deg
       </Typography>
       <form className={classes.form}>
         <TextField
@@ -123,7 +121,7 @@ const SignUp = () => {
           onChange={(e) => setName({ ...name, value: e.target.value })}
         />
         <TextField
-          id="email"
+          id="signUpEmail"
           label="Email"
           value={email.value}
           type="email"
@@ -132,7 +130,7 @@ const SignUp = () => {
           onChange={(e) => setEmail({ ...email, value: e.target.value })}
         />
         <TextField
-          id="password"
+          id="signUpPassword"
           label="Password"
           value={password.value}
           type="password"

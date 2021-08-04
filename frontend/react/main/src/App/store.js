@@ -9,7 +9,6 @@ export const store = configureStore({
   reducer: {
     currentUser: currentUserSlice.reducer,
     allUsers: allUsersSlice.reducer,
-    styles: stylesSlice.reducer,
   },
   middleware: [thunk],
 });
