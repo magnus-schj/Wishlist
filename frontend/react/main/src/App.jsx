@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser } from "./features/currentUser/currentUser.slice";
 import { updateAllUsers } from "./features/allUsers/allUsers.slice";
 import { setMobile } from "./features/styles/styles.slice";
@@ -13,6 +13,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@material-ui/core";
+import { Route } from "react-router-dom";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,14 +43,19 @@ function App() {
     });
   }, [matches]);
 
+  // checks what size we are supposed to have
+  const mobile = useSelector((state) => state.styles.mobile);
+  let headerVariant = "h1";
+  if (mobile) headerVariant = "h3";
+
   return (
     <>
       <CssBaseline />
       <Container>
-        <Typography variant="h2" color="primary">
-          Container
-        </Typography>
-        <SignInAndSignUp />
+        <Route
+          path="/"
+          render={() => <SignInAndSignUp headerVariant={headerVariant} />}
+        />
       </Container>
     </>
   );
