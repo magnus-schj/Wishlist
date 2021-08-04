@@ -5,8 +5,7 @@ import { updateAllUsers } from "./features/allUsers/allUsers.slice";
 import { setMobile } from "./features/styles/styles.slice";
 import { auth, db } from "./firebase/firebase.utils";
 
-import SignInAndSignUp from "./components/signInAndSignUp/SignInAndSignUp.component";
-
+import Main from "./components/main/Main.component";
 import {
   CssBaseline,
   Container,
@@ -57,8 +56,6 @@ function App() {
       small: "h6",
       extraSmall: "h7",
     };
-  const currentUser = useSelector((state) => state.currentUser);
-  console.log("here");
   return (
     <>
       <CssBaseline />
@@ -66,14 +63,13 @@ function App() {
         <Route
           exact
           path="/"
-          render={() => <SignInAndSignUp headerVariants={headerVariants} />}
+          render={() => <Main headerVariants={headerVariants} />}
         />
         <Route
           exact
           path="/signUp"
           render={() => <SignUp headerVariants={headerVariants} />}
         />
-        {/* {currentUser.loaded ? <Redirect to={}} */}
       </Container>
     </>
   );
