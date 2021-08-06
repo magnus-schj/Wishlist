@@ -47,13 +47,31 @@ const SignUp = ({ headerVariants }) => {
     // ! x passwords match
 
     // name is not just whitespace
+    let formError = false;
     if (values.name === "" || values.name.trim() === "") {
       setErrors({
         ...errors,
         name: { error: true, helperText: "Please fill out name" },
       });
-      return;
+      formError = true;
     }
+
+    if (
+      values.password != values.confirmPassword ||
+      values.password.trim() === ""
+    ) {
+      setErrors({
+        ...errors,
+        password: {
+          error: true,
+          helperText: "Passwords do not match or invalid password",
+        },
+        confirmPassword: { error: true, helperText: "" },
+      });
+      formError = true;
+    }
+
+    if (formError) return;
   };
 
   return (
@@ -77,6 +95,8 @@ const SignUp = ({ headerVariants }) => {
           label="epost"
           value={values.email}
           onChange={handleChange}
+          error={errors.email.error}
+          helperText={errors.email.helperText}
         />
         <TextField
           id="password"
@@ -85,6 +105,8 @@ const SignUp = ({ headerVariants }) => {
           label="Passord"
           value={values.password}
           onChange={handleChange}
+          error={errors.password.error}
+          helperText={errors.password.helperText}
         />
         <TextField
           id="confirmPassword"
@@ -93,6 +115,8 @@ const SignUp = ({ headerVariants }) => {
           label="Bekreft passord"
           value={values.confirmPassword}
           onChange={handleChange}
+          error={errors.confirmPassword.error}
+          helperText={errors.confirmPassword.helperText}
         />
         <Button type="submit" onClick={handleClick}>
           Submit
