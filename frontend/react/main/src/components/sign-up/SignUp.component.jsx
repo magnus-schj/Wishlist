@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useForm } from "../../custom-hooks/useForm";
 
 import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
 
@@ -23,89 +24,38 @@ const useStyles = makeStyles({
 
 const SignUp = ({ headerVariants }) => {
   const classes = useStyles();
-  const [name, setName] = useState({
-    value: "",
-    error: false,
-    helperText: "",
+  const [values, handleChange] = useForm({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
-  const [email, setEmail] = useState({
-    value: "",
-    error: false,
-    helperText: "",
-  });
-  const [password, setPassword] = useState({
-    value: "",
-    error: false,
-    helperText: "",
-  });
-  const [confirmPassword, setConfirmPassword] = useState({
-    value: "",
-    error: false,
-    helperText: "",
-  });
-  const reset = () => {
-    setName({ ...name, error: false, helperText: "" });
-    setEmail({ ...email, error: false, helperText: "" });
-    setPassword({ ...password, error: false, helperText: "" });
-    setConfirmPassword({ ...confirmPassword, error: false, helperText: "" });
-  };
-  const clearInputs = () => {
-    setName({ ...name, value: "", error: false });
-    setEmail({ ...email, value: "", error: false });
-    setPassword({ ...password, value: "", error: false });
-    setConfirmPassword({ ...confirmPassword, value: "", error: false });
-  };
 
-  const handleSubmit = async (e) => {
+  const initialErrors = {
+    name: { error: false, helperText: "" },
+    email: { error: false, helperText: "" },
+    password: { error: false, helperText: "" },
+    confirmPassword: { error: false, helperText: "" },
+  };
+  const [errors, setErrors] = useState(initialErrors);
+
+  const handleClick = (e) => {
     e.preventDefault();
-    reset();
+    setErrors(initialErrors);
     // ! Local validation:
     // ! x Name is not null
     // ! x passwords match
 
-    if (name.value === "") {
-      setName({ ...name, error: true, helperText: "Please write a name" });
-      return;
-    }
-    setName({ ...name, error: false, helperText: "" });
-
-    if (password.value !== confirmPassword.value) {
-      setPassword({
-        ...password,
-        error: true,
-        helperText: "Passwords don't match",
+    // name is not just whitespace
+    if (values.name === "" || values.name.trim() === "") {
+      setErrors({
+        ...errors,
+        name: { error: true, helperText: "Please fill out name" },
       });
       return;
     }
-    setPassword({ ...password, error: false });
-    setConfirmPassword({ ...confirmPassword, error: false });
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email.value,
-        password.value
-      );
-
-      const nameValue = name.value;
-      await createUserProfileDocument(user, { nameValue });
-
-      clearInputs();
-      console.log("signed up!");
-    } catch (error) {
-      console.log(error);
-      switch (error.code) {
-        case "auth/invalid-email":
-          setEmail({ ...email, error: true, helperText: error.message });
-          break;
-        case "auth/weak-password":
-          setPassword({ ...password, error: true, helperText: error.message });
-          setConfirmPassword({ ...password, error: true });
-          break;
-        case "auth/email-already-in-use":
-          setEmail({ ...email, error: true, helperText: error.message });
-          break;
-      }
-    }
   };
+
   return (
     <Container className={classes.root}>
       <Typography variant={headerVariants.large} color="initial">
@@ -114,45 +64,37 @@ const SignUp = ({ headerVariants }) => {
       <form className={classes.form}>
         <TextField
           id="name"
-          label="Name"
-          value={name.value}
-          error={name.error}
-          helperText={name.helperText}
-          onChange={(e) => setName({ ...name, value: e.target.value })}
+          name="name"
+          label="Navn"
+          value={values.name}
+          onChange={handleChange}
+          error={errors.name.error}
+          helperText={errors.name.helperText}
         />
         <TextField
-          id="signUpEmail"
-          label="Email"
-          value={email.value}
-          type="email"
-          error={email.error}
-          helperText={email.helperText}
-          onChange={(e) => setEmail({ ...email, value: e.target.value })}
+          id="email"
+          name="email"
+          label="epost"
+          value={values.email}
+          onChange={handleChange}
         />
         <TextField
-          id="signUpPassword"
-          label="Password"
-          value={password.value}
+          id="password"
+          name="password"
           type="password"
-          error={password.error}
-          helperText={password.helperText}
-          onChange={(e) => setPassword({ ...password, value: e.target.value })}
+          label="Passord"
+          value={values.password}
+          onChange={handleChange}
         />
         <TextField
-          id="confirm-password"
-          label="Confirm password"
-          value={confirmPassword.value}
+          id="confirmPassword"
           type="password"
-          error={password.error}
-          helperText={password.helperText}
-          onChange={(e) =>
-            setConfirmPassword({
-              ...confirmPassword,
-              value: e.target.value,
-            })
-          }
+          name="confirmPassword"
+          label="Bekreft passord"
+          value={values.confirmPassword}
+          onChange={handleChange}
         />
-        <Button type="submit" onClick={handleSubmit}>
+        <Button type="submit" onClick={handleClick}>
           Submit
         </Button>
       </form>

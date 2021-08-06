@@ -27,10 +27,6 @@ const useStyles = makeStyles({
   button: {
     margin: "1rem 0",
   },
-  facebook: {
-    background: "#3b5998",
-    margin: "0",
-  },
 });
 
 const SignIn = () => {
@@ -111,14 +107,6 @@ const SignIn = () => {
         onClick={() => signInWithGoogle()}
       >
         Fortsett med Google
-      </Button>
-      <Button
-        size="small"
-        variant={"contained"}
-        className={classes.facebook}
-        color="primary"
-      >
-        Fortsett med Facebook
       </Button>
     </Container>
   );
