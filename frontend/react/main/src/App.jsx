@@ -50,7 +50,7 @@ function App() {
   };
   if (matches)
     headerVariants = {
-      largets: "h3",
+      largest: "h3",
       large: "h4",
       medium: "h5",
       small: "h6",

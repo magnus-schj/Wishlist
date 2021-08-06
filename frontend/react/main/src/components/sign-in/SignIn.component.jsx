@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "../../custom-hooks/useForm";
 
-import { auth } from "../../firebase/firebase.utils";
+import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 
 import { Container, Typography, TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -104,8 +104,13 @@ const SignIn = () => {
         </Button>
       </form>
       <i>eller...</i>
-      <Button size="small" className={classes.button} variant={"contained"}>
-        Logg inn med Google
+      <Button
+        size="small"
+        className={classes.button}
+        variant={"contained"}
+        onClick={() => signInWithGoogle()}
+      >
+        Fortsett med Google
       </Button>
       <Button
         size="small"
@@ -113,7 +118,7 @@ const SignIn = () => {
         className={classes.facebook}
         color="primary"
       >
-        Logg inn med Facebook
+        Fortsett med Facebook
       </Button>
     </Container>
   );
