@@ -48,11 +48,16 @@ const SignUp = ({ headerVariants }) => {
 
     // name is not just whitespace
     let formError = false;
+    let newErrors = { ...errors };
     if (values.name === "" || values.name.trim() === "") {
-      setErrors({
-        ...errors,
+      // setErrors({
+      //   ...errors,
+      //   name: { error: true, helperText: "Please fill out name" },
+      // });
+      newErrors = {
+        ...newErrors,
         name: { error: true, helperText: "Please fill out name" },
-      });
+      };
       formError = true;
     }
 
@@ -60,18 +65,29 @@ const SignUp = ({ headerVariants }) => {
       values.password != values.confirmPassword ||
       values.password.trim() === ""
     ) {
-      setErrors({
-        ...errors,
+      // setErrors({
+      //   ...errors,
+      //   password: {
+      //     error: true,
+      //     helperText: "Passwords do not match or invalid password",
+      //   },
+      //   confirmPassword: { error: true, helperText: "" },
+      // });
+      newErrors = {
+        ...newErrors,
         password: {
           error: true,
           helperText: "Passwords do not match or invalid password",
         },
         confirmPassword: { error: true, helperText: "" },
-      });
+      };
       formError = true;
     }
 
-    if (formError) return;
+    if (formError) {
+      setErrors(newErrors);
+      return;
+    }
   };
 
   return (
