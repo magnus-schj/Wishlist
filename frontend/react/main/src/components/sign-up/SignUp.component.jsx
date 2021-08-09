@@ -6,6 +6,7 @@ import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
 
 import { Container, Typography, TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -131,7 +132,9 @@ const SignUp = ({ history, headerVariants }) => {
     }
   };
 
-  return (
+  return auth.currentUser ? (
+    <Redirect to="/" />
+  ) : (
     <Container className={classes.root}>
       <Typography variant={headerVariants.large} color="initial">
         Registrer deg

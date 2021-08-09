@@ -6,6 +6,7 @@ import { auth } from "../../firebase/firebase.utils";
 
 import SignInAndSignUp from "../signInAndSignUp/SignInAndSignUp.component";
 import { Container, Button } from "@material-ui/core";
+import SignedIn from "../signed-in/SignedIn.component";
 
 const Main = ({ headerVariants }) => {
   const { currentUser } = auth;
@@ -14,16 +15,7 @@ const Main = ({ headerVariants }) => {
   return (
     <Container>
       {currentUser ? (
-        <>
-          <h1>Du er logget inn som {currentUser.displayName}</h1>
-          <Button
-            variant="contained"
-            color="default"
-            onClick={() => auth.signOut()}
-          >
-            Logg ut
-          </Button>
-        </>
+        <SignedIn />
       ) : (
         <SignInAndSignUp headerVariants={headerVariants} />
       )}
