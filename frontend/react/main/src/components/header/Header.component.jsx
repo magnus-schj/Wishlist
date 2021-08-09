@@ -2,9 +2,6 @@ import React from "react";
 
 import { auth } from "../../firebase/firebase.utils";
 
-import Header from "../header/Header.component";
-import UserList from "../user-list/UserList.component";
-
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -14,18 +11,26 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    background: "grey",
+    width: "100vw",
   },
 });
 
-const SignedIn = () => {
+const Header = () => {
   const classes = useStyles();
   const { currentUser } = auth;
   return (
     <div className={classes.root}>
-      <Header />
-      <UserList />
+      <h1>Du er logget inn som {currentUser.displayName}</h1>
+      <Button
+        variant="contained"
+        color="default"
+        onClick={() => auth.signOut()}
+      >
+        Logg ut
+      </Button>
     </div>
   );
 };
 
-export default SignedIn;
+export default Header;
