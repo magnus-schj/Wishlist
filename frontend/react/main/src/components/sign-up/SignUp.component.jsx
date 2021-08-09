@@ -24,12 +24,14 @@ const useStyles = makeStyles({
 
 const SignUp = ({ headerVariants }) => {
   const classes = useStyles();
-  const [values, handleChange] = useForm({
+
+  const initialValues = {
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
-  });
+  };
+  const [values, handleChange, setValues] = useForm(initialValues);
 
   const initialErrors = {
     name: { error: false, helperText: "" },
@@ -39,7 +41,7 @@ const SignUp = ({ headerVariants }) => {
   };
   const [errors, setErrors] = useState(initialErrors);
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
     setErrors(initialErrors);
     // ! Local validation:
@@ -49,11 +51,9 @@ const SignUp = ({ headerVariants }) => {
     // name is not just whitespace
     let formError = false;
     let newErrors = { ...errors };
+
+    // ! Validates each field
     if (values.name === "" || values.name.trim() === "") {
-      // setErrors({
-      //   ...errors,
-      //   name: { error: true, helperText: "Please fill out name" },
-      // });
       newErrors = {
         ...newErrors,
         name: { error: true, helperText: "Please fill out name" },
@@ -65,14 +65,6 @@ const SignUp = ({ headerVariants }) => {
       values.password != values.confirmPassword ||
       values.password.trim() === ""
     ) {
-      // setErrors({
-      //   ...errors,
-      //   password: {
-      //     error: true,
-      //     helperText: "Passwords do not match or invalid password",
-      //   },
-      //   confirmPassword: { error: true, helperText: "" },
-      // });
       newErrors = {
         ...newErrors,
         password: {
@@ -84,9 +76,54 @@ const SignUp = ({ headerVariants }) => {
       formError = true;
     }
 
+    if (values.email.trim() === "") {
+      newErrors = {
+        ...newErrors,
+        email: { error: true, helperText: "Invalid email" },
+      };
+    }
+
     if (formError) {
       setErrors(newErrors);
       return;
+    }
+    // ! Client-side validation done
+
+    // try to make a user with email and password
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email.value,
+        password.value
+      );
+
+      const nameValue = values.name;
+
+      await createUserProfileDocument(user, { nameValue });
+      setValues(initialValues);
+      console.log("signed up!");
+    } catch (error) {
+      console.log(error);
+      switch (error.code) {
+        case "auth/invalid-email":
+          setErrors({
+            ...errors,
+            email: { error: true, helperText: error.message },
+          });
+          break;
+        case "auth/weak-password":
+          setErrors({
+            ...errors,
+            password: { error: true, helperText: error.message },
+            confirmPassword: { error: true, helperText: "" },
+          });
+          break;
+        case "auth/email-already-in-use":
+          setErrors({
+            ...errors,
+            email: { error: true, helperText: error.message },
+          });
+          break;
+      }
     }
   };
 

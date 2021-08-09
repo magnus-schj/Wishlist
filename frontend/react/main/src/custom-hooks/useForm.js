@@ -11,5 +11,6 @@ export const useForm = (initialValues) => {
     (value) => {
       setValues(value);
     },
+    setValues,
   ];
 };
