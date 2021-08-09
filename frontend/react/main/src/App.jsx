@@ -68,7 +68,9 @@ function App() {
         <Route
           exact
           path="/signUp"
-          render={() => <SignUp headerVariants={headerVariants} />}
+          render={({ history }) => (
+            <SignUp history={history} headerVariants={headerVariants} />
+          )}
         />
       </Container>
     </>

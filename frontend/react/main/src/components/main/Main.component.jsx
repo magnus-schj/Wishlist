@@ -8,14 +8,14 @@ import SignInAndSignUp from "../signInAndSignUp/SignInAndSignUp.component";
 import { Container, Button } from "@material-ui/core";
 
 const Main = ({ headerVariants }) => {
-  const currentUser = useSelector((state) => state.currentUser);
+  const { currentUser } = auth;
   const allUsers = useSelector((state) => state.allUsers);
-  console.log("here");
+
   return (
     <Container>
-      {currentUser.loaded ? (
+      {currentUser ? (
         <>
-          <h1>Du er logget inn</h1>
+          <h1>Du er logget inn som {currentUser.displayName}</h1>
           <Button
             variant="contained"
             color="default"

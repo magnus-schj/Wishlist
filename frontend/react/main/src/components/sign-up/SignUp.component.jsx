@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { useForm } from "../../custom-hooks/useForm";
 
 import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
@@ -22,9 +23,8 @@ const useStyles = makeStyles({
   },
 });
 
-const SignUp = ({ headerVariants }) => {
+const SignUp = ({ history, headerVariants }) => {
   const classes = useStyles();
-
   const initialValues = {
     name: "",
     email: "",
@@ -99,8 +99,12 @@ const SignUp = ({ headerVariants }) => {
       const nameValue = values.name;
 
       await createUserProfileDocument(user, { nameValue });
+      auth.currentUser.updateProfile({
+        displayName: values.name,
+      });
+      console.log("current user:", auth.currentUser);
       setValues(initialValues);
-      console.log("signed up!");
+      history.push("/");
     } catch (error) {
       console.log(error);
       switch (error.code) {
