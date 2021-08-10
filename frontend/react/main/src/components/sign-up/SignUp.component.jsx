@@ -26,6 +26,7 @@ const useStyles = makeStyles({
 
 const SignUp = ({ history, headerVariants }) => {
   const classes = useStyles();
+  const currentUserSlice = useSelector((state) => state.currentUser);
   const initialValues = {
     name: "",
     email: "",
@@ -42,6 +43,7 @@ const SignUp = ({ history, headerVariants }) => {
   };
   const [errors, setErrors] = useState(initialErrors);
 
+  // Handling validaiton and making a profile
   const handleClick = async (e) => {
     e.preventDefault();
     setErrors(initialErrors);
@@ -54,7 +56,7 @@ const SignUp = ({ history, headerVariants }) => {
     let newErrors = { ...errors };
 
     // ! Validates each field
-    if (values.name === "" || values.name.trim() === "") {
+    if (values.name.trim() === "") {
       newErrors = {
         ...newErrors,
         name: { error: true, helperText: "Please fill out name" },
@@ -82,6 +84,7 @@ const SignUp = ({ history, headerVariants }) => {
         ...newErrors,
         email: { error: true, helperText: "Invalid email" },
       };
+      formError = true;
     }
 
     if (formError) {
@@ -90,7 +93,7 @@ const SignUp = ({ history, headerVariants }) => {
     }
     // ! Client-side validation done
 
-    // try to make a user with email and password
+    // ? try to make a user with email and password
     try {
       const { user } = await auth.createUserWithEmailAndPassword(
         email.value,
@@ -132,7 +135,7 @@ const SignUp = ({ history, headerVariants }) => {
     }
   };
 
-  return auth.currentUser ? (
+  return currentUserSlice.loaded ? (
     <Redirect to="/" />
   ) : (
     <Container className={classes.root}>

@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser } from "./features/currentUser/currentUser.slice";
 import { updateAllUsers } from "./features/allUsers/allUsers.slice";
 import { setMobile } from "./features/styles/styles.slice";
-import { auth, db } from "./firebase/firebase.utils";
+
+import { auth, db, createUserProfileDocument } from "./firebase/firebase.utils";
 
 import Main from "./components/main/Main.component";
 import {
@@ -17,7 +18,6 @@ import SignUp from "./components/sign-up/SignUp.component";
 
 function App() {
   const dispatch = useDispatch();
-
   // real-time listener for user information
   db.collection("users").onSnapshot((querySnapshot) => {
     const users = [];
@@ -32,6 +32,15 @@ function App() {
   useEffect(() => {
     unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
       dispatch(setCurrentUser(user));
+      // runs a check if user har a profile document, return the document if it exists
+      const checkUser = async () => {
+        if (auth.currentUser) {
+          await createUserProfileDocument(auth.currentUser, {
+            nameValue: auth.currentUser.displayName,
+          });
+        }
+      };
+      checkUser();
       return () => {
         unsubscribeFromAuth();
       };

@@ -9,16 +9,17 @@ import { Container, Button } from "@material-ui/core";
 import SignedIn from "../signed-in/SignedIn.component";
 
 const Main = ({ headerVariants }) => {
-  const { currentUser } = auth;
+  const currentUserSlice = useSelector((state) => state.currentUser);
   const allUsers = useSelector((state) => state.allUsers);
-
+  const renderLoggedOut = () => {
+    if (!allUsers.loaded) {
+      return <div></div>;
+    }
+    return <SignInAndSignUp headerVariants={headerVariants} />;
+  };
   return (
     <Container>
-      {currentUser ? (
-        <SignedIn />
-      ) : (
-        <SignInAndSignUp headerVariants={headerVariants} />
-      )}
+      {currentUserSlice.loaded ? <SignedIn /> : renderLoggedOut()}
     </Container>
   );
 };
