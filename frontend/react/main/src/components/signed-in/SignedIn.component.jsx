@@ -3,10 +3,11 @@ import React, { useState } from "react";
 import { auth } from "../../firebase/firebase.utils";
 
 import UserList from "../user-list/UserList.component";
+import WishList from "../wish-list/WishList.component";
+import OwnList from "../own-list/OwnList.component";
 
 import { Button, Switch } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import WishList from "../wish-list/WishList.component";
 
 const useStyles = makeStyles({
   root: {
@@ -52,7 +53,7 @@ const SignedIn = () => {
         />
       </div>
       {ownList ? (
-        <h1>Own list</h1>
+        <OwnList />
       ) : (
         <>
           <UserList />

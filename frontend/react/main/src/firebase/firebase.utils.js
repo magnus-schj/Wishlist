@@ -92,12 +92,21 @@ export const formatCollection = (collection) => {
 
 // ? ADD wish
 
+// export const addWish = async (uid, wish) => {
+//   const userRef = await db.doc(`users/${uid}`);
+//   const snapShot = (await userRef.get()).data("wishes");
+//   userRef.update({
+//     ...snapShot,
+//     wishes: firebase.firestore.FieldValue.arrayUnion(wish),
+//   });
+// };
+
 export const addWish = async (uid, wish) => {
-  const userRef = await db.doc(`users/${uid}`);
-  const snapShot = (await userRef.get()).data("wishes");
-  userRef.update({
-    ...snapShot,
-    wishes: firebase.firestore.FieldValue.arrayUnion(wish),
+  const wishListRef = db.collection(`wishLists/${uid}/wishes`);
+  console.log("uid:", uid);
+  await wishListRef.add({
+    wish: wish,
+    createdAt: new Date(),
   });
 };
 
