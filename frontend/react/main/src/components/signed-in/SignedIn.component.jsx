@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 
-import { auth } from "../../firebase/firebase.utils";
+import { useSelector } from "react-redux";
+import { setCurrentWishList } from "../../features/currentWishList/currentWIshList.slice";
+
+import { auth, db } from "../../firebase/firebase.utils";
 
 import UserList from "../user-list/UserList.component";
 import WishList from "../wish-list/WishList.component";
@@ -8,6 +11,7 @@ import OwnList from "../own-list/OwnList.component";
 
 import { Button, Switch } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles({
   root: {
@@ -28,12 +32,25 @@ const useStyles = makeStyles({
 
 const SignedIn = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const { currentUser } = auth;
 
   const [ownList, setownList] = useState(false);
 
-  const handleChange = (e) => {};
+  // real-time listener for info:
+  db.collection(`wishLists/${currentUser.uid}/wishes`).onSnapshot(
+    (querySnapshot) => {
+      const queryWishes = [];
+      querySnapshot.forEach((doc) =>
+        queryWishes.push({ ...doc.data(), id: doc.id })
+      );
+      const data = { uid: currentUser.uid, wishes: queryWishes };
+      dispatch(setCurrentWishList(data));
+    }
+  );
+
+  // const handleChange = (e) => {};
   return (
     <div className={classes.root}>
       <div className={classes.header}>
