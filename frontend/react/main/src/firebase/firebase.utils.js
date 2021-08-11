@@ -33,10 +33,12 @@ export default firebase;
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
+  // gets user reference for the firestore
   const userRef = await db.doc(`users/${userAuth.uid}`);
 
   const snapShot = await userRef.get();
 
+  // if the document doesnt exist, try to create one.
   if (!snapShot.exists) {
     const { email } = userAuth;
     const createdAt = new Date();
@@ -45,7 +47,6 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
       await userRef.set({
         email,
         createdAt,
-        wishes: [],
         ...additionalData,
       });
     } catch (error) {
@@ -53,6 +54,29 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     }
   }
   return userRef;
+};
+
+// ? create wishList document
+export const createWishListDocument = async (userAuth) => {
+  if (!userAuth) return;
+
+  // get wishList reference for firestore
+  const wishListRef = await db.doc(`wishLists/${userAuth.uid}`);
+
+  const snapshot = await wishListRef.get();
+
+  if (!snapshot.exists) {
+    const createdAt = new Date();
+
+    try {
+      await wishListRef.set({
+        createdAt,
+      });
+    } catch (error) {
+      console.log("error when creating wishlist:", error);
+    }
+  }
+  return wishListRef;
 };
 
 // format users

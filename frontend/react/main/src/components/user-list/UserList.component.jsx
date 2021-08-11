@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import UserIcon from "../user-icon/UserIcon.component";
 
@@ -19,12 +19,22 @@ const useStyles = makeStyles({
 
 const UserList = () => {
   const classes = useStyles();
+  // selectors
   const allUsers = useSelector((state) => state.allUsers);
-  return allUsers.loaded ? (
+  const currentUserSlice = useSelector((state) => state.currentUser);
+
+  const dataLoaded = allUsers.loaded && currentUserSlice.loaded;
+
+  // filtered users
+  const filteredUsers = allUsers.users.filter(
+    (user) => user.uid !== currentUserSlice.userInfo.uid
+  );
+
+  return dataLoaded ? (
     <div>
       <h1 className={classes.header}>User list</h1>
       <div className={classes.root}>
-        {allUsers.users.map((user, i) => (
+        {filteredUsers.map((user, i) => (
           <UserIcon name={user.nameValue} key={i} />
         ))}
       </div>

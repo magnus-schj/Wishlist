@@ -4,7 +4,12 @@ import { setCurrentUser } from "./features/currentUser/currentUser.slice";
 import { updateAllUsers } from "./features/allUsers/allUsers.slice";
 import { setMobile } from "./features/styles/styles.slice";
 
-import { auth, db, createUserProfileDocument } from "./firebase/firebase.utils";
+import {
+  auth,
+  db,
+  createUserProfileDocument,
+  createWishListDocument,
+} from "./firebase/firebase.utils";
 
 import Main from "./components/main/Main.component";
 import {
@@ -38,6 +43,7 @@ function App() {
           await createUserProfileDocument(auth.currentUser, {
             nameValue: auth.currentUser.displayName,
           });
+          await createWishListDocument(auth.currentUser);
         }
       };
       checkUser();
