@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { auth } from "../../firebase/firebase.utils";
 
-import Header from "../header/Header.component";
 import UserList from "../user-list/UserList.component";
 
+import { Button, Switch } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import WishList from "../wish-list/WishList.component";
 
@@ -15,15 +15,50 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
   },
+  header: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    background: "grey",
+    width: "100vw",
+  },
 });
 
 const SignedIn = () => {
   const classes = useStyles();
+
+  const { currentUser } = auth;
+
+  const [ownList, setownList] = useState(false);
+
+  const handleChange = (e) => {};
   return (
     <div className={classes.root}>
-      <Header />
-      <UserList />
-      <WishList />
+      <div className={classes.header}>
+        <h1>Du er logget inn som {currentUser.displayName}</h1>
+        <Button
+          variant="contained"
+          color="default"
+          onClick={() => auth.signOut()}
+        >
+          Logg ut
+        </Button>
+        <Switch
+          value=""
+          checked={ownList}
+          onChange={(e) => setownList(e.target.checked)}
+          inputProps={{ "aria-label": "primary label" }}
+        />
+      </div>
+      {ownList ? (
+        <h1>Own list</h1>
+      ) : (
+        <>
+          <UserList />
+          <WishList />
+        </>
+      )}
     </div>
   );
 };
