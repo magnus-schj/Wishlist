@@ -35,7 +35,7 @@ const UserList = () => {
       <h1 className={classes.header}>User list</h1>
       <div className={classes.root}>
         {filteredUsers.map((user, i) => (
-          <UserIcon name={user.nameValue} key={i} />
+          <UserIcon name={user.nameValue} key={i} uid={user.uid} />
         ))}
       </div>
     </div>

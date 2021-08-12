@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useSelector } from "react-redux";
 import { setCurrentWishList } from "../../features/ownWishList/ownWishList.slice";
@@ -12,6 +12,7 @@ import OwnList from "../own-list/OwnList.component";
 import { Button, Switch } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
+import { getWishList } from "../../features/displayed-wishList/displayedWishList.slice";
 
 const useStyles = makeStyles({
   root: {
@@ -34,11 +35,15 @@ const SignedIn = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const displayedWishListSlice = useSelector(
+    (state) => state.displayedWishList
+  );
+
   const { currentUser } = auth;
 
   const [ownList, setOwnList] = useState(false);
 
-  // real-time listener for info:
+  // real-time listener for current user:
   db.collection(`wishLists/${currentUser.uid}/wishes`).onSnapshot(
     (querySnapshot) => {
       const queryWishes = [];
@@ -49,6 +54,19 @@ const SignedIn = () => {
       dispatch(setCurrentWishList(data));
     }
   );
+
+  // real-time listener for displayed wishlist
+  const wishes = [];
+
+  if (displayedWishListSlice.uid) {
+    db.collection(`wishLists/${displayedWishListSlice.uid}/wishes`).onSnapshot(
+      (querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          wishes.push({ ...doc.data(), id: doc.id });
+        });
+      }
+    );
+  }
 
   return (
     <div className={classes.root}>
@@ -73,7 +91,7 @@ const SignedIn = () => {
       ) : (
         <>
           <UserList />
-          <WishList />
+          <WishList wishes={wishes} />
         </>
       )}
     </div>

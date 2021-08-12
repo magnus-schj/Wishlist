@@ -1,6 +1,9 @@
 import React from "react";
 
-import { Button, ButtonBase } from "@material-ui/core";
+import { useDispatch } from "react-redux";
+import { getUid } from "../../features/displayed-wishList/displayedWishList.slice.js";
+
+import { ButtonBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
@@ -19,10 +22,18 @@ const useStyles = makeStyles({
   },
 });
 
-const UserIcon = ({ name }) => {
+const UserIcon = ({ name, uid }) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
+  const handleClick = () => {
+    dispatch(getUid(uid));
+  };
   return (
-    <ButtonBase variant="contained" className={classes.root}>
+    <ButtonBase
+      variant="contained"
+      className={classes.root}
+      onClick={handleClick}
+    >
       <h1 className={classes.header}>{name.charAt(0)}</h1>
       <h4>{name}</h4>
     </ButtonBase>

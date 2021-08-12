@@ -56,7 +56,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-// ? create wishList document
+// ? create wishList document wish id of userAuth
 export const createWishListDocument = async (userAuth) => {
   if (!userAuth) return;
 
