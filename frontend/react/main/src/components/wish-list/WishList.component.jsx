@@ -8,26 +8,9 @@ const useStyles = makeStyles({
   },
 });
 
-const WishList = ({ wishes }) => {
+const WishList = () => {
   const classes = useStyles();
-  console.log("wishes:", wishes);
-  if (wishes.length !== 0) {
-    console.log("bruhh");
-  }
-  const hasWishes = wishes.length !== 0;
-  return (
-    <div className={classes.root}>
-      {hasWishes ? (
-        <ul>
-          {wishes.map((wish, i) => (
-            <li key={i}>{wish.wish}</li>
-          ))}
-        </ul>
-      ) : (
-        <h1>Bruker har ikke noen ønsker ennå.</h1>
-      )}
-    </div>
-  );
+  return <div className={classes.root}></div>;
 };
 
 export default WishList;

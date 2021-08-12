@@ -1,6 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
-// const getWishList = createAsyncThunk()
+import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
   loaded: false,
@@ -13,11 +11,10 @@ export const displayedWishListSlice = createSlice({
   initialState: INITIAL_STATE,
 
   reducers: {
-    getWishList(state, { payload }) {
-      // console.log("payload:", payload);
-      console.log("here");
+    getDisplayedWishList(state, { payload }) {
       state.loaded = false;
-      // state.wishes = payload;
+      state.wishes.length = 0;
+      state.wishes = payload.wishes;
       state.loaded = true;
     },
     getUid(state, { payload }) {
@@ -28,4 +25,4 @@ export const displayedWishListSlice = createSlice({
   },
 });
 
-export const { getWishList, getUid } = displayedWishListSlice.actions;
+export const { getDisplayedWishList, getUid } = displayedWishListSlice.actions;

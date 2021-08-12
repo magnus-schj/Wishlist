@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setCurrentWishList } from "../../features/ownWishList/ownWishList.slice";
+import { getDisplayedWishList } from "../../features/displayed-wishList/displayedWishList.slice";
 
 import { auth, db } from "../../firebase/firebase.utils";
 
@@ -11,8 +12,6 @@ import OwnList from "../own-list/OwnList.component";
 
 import { Button, Switch } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useDispatch } from "react-redux";
-import { getWishList } from "../../features/displayed-wishList/displayedWishList.slice";
 
 const useStyles = makeStyles({
   root: {
@@ -56,14 +55,16 @@ const SignedIn = () => {
   );
 
   // real-time listener for displayed wishlist
-  const wishes = [];
 
   if (displayedWishListSlice.uid) {
     db.collection(`wishLists/${displayedWishListSlice.uid}/wishes`).onSnapshot(
       (querySnapshot) => {
+        const wishes = [];
         querySnapshot.forEach((doc) => {
           wishes.push({ ...doc.data(), id: doc.id });
         });
+        const data = { wishes: wishes };
+        dispatch(getDisplayedWishList(data));
       }
     );
   }
@@ -91,7 +92,7 @@ const SignedIn = () => {
       ) : (
         <>
           <UserList />
-          <WishList wishes={wishes} />
+          <WishList />
         </>
       )}
     </div>
