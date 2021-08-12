@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { useSelector } from "react-redux";
-import { setCurrentWishList } from "../../features/currentWishList/currentWIshList.slice";
+import { setCurrentWishList } from "../../features/ownWishList/ownWishList.slice";
 
 import { auth, db } from "../../firebase/firebase.utils";
 
@@ -36,7 +36,7 @@ const SignedIn = () => {
 
   const { currentUser } = auth;
 
-  const [ownList, setownList] = useState(false);
+  const [ownList, setOwnList] = useState(false);
 
   // real-time listener for info:
   db.collection(`wishLists/${currentUser.uid}/wishes`).onSnapshot(
@@ -50,7 +50,6 @@ const SignedIn = () => {
     }
   );
 
-  // const handleChange = (e) => {};
   return (
     <div className={classes.root}>
       <div className={classes.header}>
@@ -65,7 +64,7 @@ const SignedIn = () => {
         <Switch
           value=""
           checked={ownList}
-          onChange={(e) => setownList(e.target.checked)}
+          onChange={(e) => setOwnList(e.target.checked)}
           inputProps={{ "aria-label": "primary label" }}
         />
       </div>

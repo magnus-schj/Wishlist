@@ -6,8 +6,8 @@ const INITIAL_STATE = {
   wishes: [],
 };
 
-export const currentWishListSlice = createSlice({
-  name: "currentWishList",
+export const ownWishListSlice = createSlice({
+  name: "ownWishList",
   initialState: INITIAL_STATE,
   reducers: {
     setCurrentWishList(state, { payload }) {
@@ -20,4 +20,4 @@ export const currentWishListSlice = createSlice({
   },
 });
 
-export const { setCurrentWishList } = currentWishListSlice.actions;
+export const { setCurrentWishList } = ownWishListSlice.actions;

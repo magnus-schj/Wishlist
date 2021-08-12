@@ -28,7 +28,7 @@ const OwnList = () => {
   const [value, setValue] = useState("");
 
   const currentUser = useSelector((state) => state.currentUser);
-  const currentWishList = useSelector((state) => state.currentWishList);
+  const ownWishList = useSelector((state) => state.ownWishList);
 
   //function for adding a wish, see firebase.utils for the addWish function
   const handleClick = async () => {
@@ -44,7 +44,7 @@ const OwnList = () => {
       <h1>Din liste</h1>
       <form className={classes.form}>
         <TextField
-          id="wish"
+          id="wish-input"
           label="Legg til ønske..."
           value={value}
           onChange={(e) => setValue(e.target.value)}
@@ -56,7 +56,7 @@ const OwnList = () => {
       {/* <h2>Rediger din liste</h2> */}
       <div className={classes.list}>
         <ul>
-          {currentWishList.wishes.map((wish, i) => (
+          {ownWishList.wishes.map((wish, i) => (
             <li key={i}>{wish.wish}</li>
           ))}
         </ul>
