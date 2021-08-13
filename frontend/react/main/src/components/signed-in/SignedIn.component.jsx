@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentWishList } from "../../features/ownWishList/ownWishList.slice";
-import { getDisplayedWishList } from "../../features/displayed-wishList/displayedWishList.slice";
 
 import { auth, db } from "../../firebase/firebase.utils";
 
@@ -27,16 +26,13 @@ const useStyles = makeStyles({
     justifyContent: "center",
     background: "grey",
     width: "100vw",
+    minHeight: "20vh",
   },
 });
 
 const SignedIn = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-
-  const displayedWishListSlice = useSelector(
-    (state) => state.displayedWishList
-  );
 
   const { currentUser } = auth;
 

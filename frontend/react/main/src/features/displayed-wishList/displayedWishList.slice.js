@@ -11,12 +11,6 @@ export const displayedWishListSlice = createSlice({
   initialState: INITIAL_STATE,
 
   reducers: {
-    getDisplayedWishList(state, { payload }) {
-      state.loaded = false;
-      state.wishes.length = 0;
-      state.wishes = payload.wishes;
-      state.loaded = true;
-    },
     getUid(state, { payload }) {
       state.loaded = false;
       state.uid = payload;
@@ -25,4 +19,4 @@ export const displayedWishListSlice = createSlice({
   },
 });
 
-export const { getDisplayedWishList, getUid } = displayedWishListSlice.actions;
+export const { getUid } = displayedWishListSlice.actions;

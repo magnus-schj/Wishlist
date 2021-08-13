@@ -6,6 +6,9 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
+    minHeight: "25vh",
+  },
+  listWrapper: {
     display: "flex",
     flexWrap: "wrap",
     alignItems: "center",
@@ -31,9 +34,9 @@ const UserList = () => {
   );
 
   return dataLoaded ? (
-    <div>
+    <div className={classes.root}>
       <h1 className={classes.header}>User list</h1>
-      <div className={classes.root}>
+      <div className={classes.listWrapper}>
         {filteredUsers.map((user, i) => (
           <UserIcon name={user.nameValue} key={i} uid={user.uid} />
         ))}
