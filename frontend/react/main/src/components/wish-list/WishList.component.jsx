@@ -26,7 +26,7 @@ const WishList = () => {
   const { uid, name } = displayedWishList;
 
   const [wishes, setWishes] = useState(null);
-  const [fetched, setFetched] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   useEffect(() => {
     let unsubscribe = () => {
@@ -38,13 +38,12 @@ const WishList = () => {
       unsubscribe = db
         .collection(`wishLists/${uid}/wishes`)
         .onSnapshot((querySnapshot) => {
-          setFetched(false);
           const queryWishes = [];
           querySnapshot.forEach((doc) => {
             queryWishes.push({ ...doc.data(), id: doc.id });
           });
           setWishes(queryWishes);
-          setFetched(true);
+          setIsEmpty(querySnapshot.empty);
         });
     }
     return () => {
@@ -53,7 +52,7 @@ const WishList = () => {
   }, [uid]);
 
   const renderWishList = () => {
-    if (wishes.length === 0 && fetched) {
+    if (isEmpty) {
       return <h1>{name} har visst ingen ønsker enda.</h1>;
     }
     return (
