@@ -5,8 +5,9 @@ import { useSelector } from "react-redux";
 import { db } from "../../firebase/firebase.utils";
 
 import { makeStyles } from "@material-ui/core/styles";
+import { List, ListItem, ListItemText } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     background: "grey",
     minWidth: "100vw",
@@ -16,7 +17,11 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
   },
-});
+  list: {
+    width: "100%",
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
 
 const WishList = () => {
   const classes = useStyles();
@@ -56,11 +61,13 @@ const WishList = () => {
       return <h1>{name} har visst ingen ønsker enda.</h1>;
     }
     return (
-      <ul>
+      <List className={classes.list}>
         {wishes.map((wish, i) => (
-          <li key={i}>{wish.wish}</li>
+          <ListItem key={i}>
+            <ListItemText primary={wish.wish} />
+          </ListItem>
         ))}
-      </ul>
+      </List>
     );
   };
 
