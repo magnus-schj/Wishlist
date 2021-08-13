@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const INITIAL_STATE = {
   loaded: false,
   uid: null,
-  wishes: [],
+  name: null,
 };
 
 export const displayedWishListSlice = createSlice({
@@ -11,12 +11,13 @@ export const displayedWishListSlice = createSlice({
   initialState: INITIAL_STATE,
 
   reducers: {
-    getUid(state, { payload }) {
+    getUidAndName(state, { payload }) {
       state.loaded = false;
-      state.uid = payload;
+      state.uid = payload.uid;
+      state.name = payload.name;
       state.loaded = true;
     },
   },
 });
 
-export const { getUid } = displayedWishListSlice.actions;
+export const { getUidAndName } = displayedWishListSlice.actions;

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useDispatch } from "react-redux";
-import { getUid } from "../../features/displayed-wishList/displayedWishList.slice.js";
+import { getUidAndName } from "../../features/displayed-wishList/displayedWishList.slice.js";
 
 import { ButtonBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -26,7 +26,7 @@ const UserIcon = ({ name, uid }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const handleClick = () => {
-    dispatch(getUid(uid));
+    dispatch(getUidAndName({ uid: uid, name: name }));
   };
   return (
     <ButtonBase

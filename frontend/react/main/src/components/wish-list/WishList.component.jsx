@@ -21,8 +21,12 @@ const useStyles = makeStyles({
 const WishList = () => {
   const classes = useStyles();
   const displayedWishList = useSelector((state) => state.displayedWishList);
-  const { uid } = displayedWishList;
+
+  // name and uid stored in redux
+  const { uid, name } = displayedWishList;
+
   const [wishes, setWishes] = useState(null);
+  const [fetched, setFetched] = useState(false);
 
   useEffect(() => {
     let unsubscribe = () => {
@@ -34,11 +38,13 @@ const WishList = () => {
       unsubscribe = db
         .collection(`wishLists/${uid}/wishes`)
         .onSnapshot((querySnapshot) => {
+          setFetched(false);
           const queryWishes = [];
           querySnapshot.forEach((doc) => {
             queryWishes.push({ ...doc.data(), id: doc.id });
           });
           setWishes(queryWishes);
+          setFetched(true);
         });
     }
     return () => {
@@ -46,14 +52,23 @@ const WishList = () => {
     };
   }, [uid]);
 
+  const renderWishList = () => {
+    if (wishes.length === 0 && fetched) {
+      return <h1>{name} har visst ingen ønsker enda.</h1>;
+    }
+    return (
+      <ul>
+        {wishes.map((wish, i) => (
+          <li key={i}>{wish.wish}</li>
+        ))}
+      </ul>
+    );
+  };
+
   return (
     <div className={classes.root}>
       {wishes ? (
-        <ul>
-          {wishes.map((wish, i) => (
-            <li key={i}>{wish.wish}</li>
-          ))}
-        </ul>
+        renderWishList()
       ) : (
         <div>
           <h1>Personen du trykker på sin ønskeliste vil dukke opp her</h1>
