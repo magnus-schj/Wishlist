@@ -54,21 +54,6 @@ const SignedIn = () => {
     }
   );
 
-  // real-time listener for displayed wishlist
-
-  if (displayedWishListSlice.uid) {
-    db.collection(`wishLists/${displayedWishListSlice.uid}/wishes`).onSnapshot(
-      (querySnapshot) => {
-        const wishes = [];
-        querySnapshot.forEach((doc) => {
-          wishes.push({ ...doc.data(), id: doc.id });
-        });
-        const data = { wishes: wishes };
-        dispatch(getDisplayedWishList(data));
-      }
-    );
-  }
-
   return (
     <div className={classes.root}>
       <div className={classes.header}>
