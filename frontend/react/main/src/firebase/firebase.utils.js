@@ -104,13 +104,7 @@ export const addWish = async (uid, wish) => {
 
 // ! DELETE wish
 
-export const deleteWish = async (uid, wish) => {
-  const userRef = await db.doc(`users/${uid}`);
-  const snapShot = await (await userRef.get()).data();
-  console.log("uid:", uid);
-  console.log("wish:", wish);
-  userRef.update({
-    ...snapShot,
-    wishes: firebase.firestore.FieldValue.arrayRemove(wish),
-  });
+export const deleteWish = async (uid, wid) => {
+  const wishref = db.doc(`wishLists/${uid}/wishes/${wid}`);
+  await wishref.delete();
 };

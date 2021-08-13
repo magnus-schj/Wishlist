@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 
 import { db } from "../../firebase/firebase.utils";
 
+import WishReadWrite from "../wish/WishReadWrite.component";
+
 import { TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { addWish } from "../../firebase/firebase.utils";
@@ -19,6 +21,7 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    marginTop: "1rem",
   },
 });
 
@@ -39,6 +42,7 @@ const OwnList = () => {
     }
     setValue("");
   };
+
   return (
     <div>
       <h1>Din liste</h1>
@@ -53,13 +57,15 @@ const OwnList = () => {
           Submit
         </Button>
       </form>
-      {/* <h2>Rediger din liste</h2> */}
       <div className={classes.list}>
-        <ul>
-          {ownWishList.wishes.map((wish, i) => (
-            <li key={i}>{wish.wish}</li>
-          ))}
-        </ul>
+        {ownWishList.wishes.map((wish, i) => (
+          <WishReadWrite
+            key={i}
+            wish={wish.wish}
+            uid={currentUser.userInfo.uid}
+            wid={wish.id}
+          />
+        ))}
       </div>
     </div>
   );
