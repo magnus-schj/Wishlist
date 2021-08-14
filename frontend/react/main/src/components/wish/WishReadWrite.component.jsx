@@ -28,7 +28,7 @@ const WishReadWrite = ({ wish, uid, wid }) => {
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography variant="h3" color="initial">
+        <Typography variant="h6" color="initial">
           {wish}
         </Typography>
       </CardContent>
