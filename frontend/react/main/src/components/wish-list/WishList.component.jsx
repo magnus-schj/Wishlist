@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   paper: {
-    minWidth: "50vw",
+    minWidth: "90vw",
     padding: "1rem",
   },
 }));

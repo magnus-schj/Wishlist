@@ -10,7 +10,8 @@ const useStyles = makeStyles({
   root: {
     borderRadius: "90px",
     height: "5rem",
-    padding: "1rem",
+    margin: "o.5rem",
+    padding: "2rem 1rem",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
