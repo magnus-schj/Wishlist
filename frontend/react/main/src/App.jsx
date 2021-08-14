@@ -1,31 +1,28 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser } from "./features/currentUser/currentUser.slice";
 import { updateAllUsers } from "./features/allUsers/allUsers.slice";
+import { setMobile } from "./features/styles/styles.slice";
 
-import { auth, db } from "./firebase/firebase.utils";
+import {
+  auth,
+  db,
+  createUserProfileDocument,
+  createWishListDocument,
+} from "./firebase/firebase.utils";
 
-import { Route } from "react-router-dom";
-import UserMenu from "./components/user-menu/UserMenu.component";
 import Main from "./components/main/Main.component";
-import WishPage from "./components/wishPage/WishPage.component";
-
-import { CssBaseline, Container } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles({
-  root: {
-    display: "flex",
-    justifyContent: "center",
-    paddingLeft: 0,
-    marginLeft: 0,
-  },
-});
+import {
+  CssBaseline,
+  Container,
+  Typography,
+  useMediaQuery,
+} from "@material-ui/core";
+import { Redirect, Route } from "react-router-dom";
+import SignUp from "./components/sign-up/SignUp.component";
 
 function App() {
   const dispatch = useDispatch();
-  const classes = useStyles();
-
   // real-time listener for user information
   db.collection("users").onSnapshot((querySnapshot) => {
     const users = [];
@@ -38,27 +35,58 @@ function App() {
   // checks if a user is logged in
   let unsubscribeFromAuth = null;
   useEffect(() => {
-    // dispatch(fetchAllUserInfo());
     unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
       dispatch(setCurrentUser(user));
+      // runs a check if user har a profile document, return the document if it exists
+      const checkUser = async () => {
+        if (auth.currentUser) {
+          await createUserProfileDocument(auth.currentUser, {
+            nameValue: auth.currentUser.displayName,
+          });
+          await createWishListDocument(auth.currentUser);
+        }
+      };
+      checkUser();
       return () => {
         unsubscribeFromAuth();
       };
     });
   }, []);
+
+  // sets if a user is on mobile or not
+  const matches = useMediaQuery("(max-width: 500px)");
+
+  let headerVariants = {
+    largest: "h1",
+    large: "h2",
+    medium: "h3",
+    small: "h4",
+    extraSmall: "h5",
+  };
+  if (matches)
+    headerVariants = {
+      largest: "h3",
+      large: "h4",
+      medium: "h5",
+      small: "h6",
+      extraSmall: "h7",
+    };
   return (
     <>
       <CssBaseline />
-      <Container className={classes.root}>
-        <UserMenu />
-        <div>
-          <Route exact path="/" component={Main} />
-          <Route
-            exact
-            path="/:nameValue"
-            render={(routeProps) => <WishPage routeProps={routeProps} />}
-          />
-        </div>
+      <Container>
+        <Route
+          exact
+          path="/"
+          render={() => <Main headerVariants={headerVariants} />}
+        />
+        <Route
+          exact
+          path="/signUp"
+          render={({ history }) => (
+            <SignUp history={history} headerVariants={headerVariants} />
+          )}
+        />
       </Container>
     </>
   );

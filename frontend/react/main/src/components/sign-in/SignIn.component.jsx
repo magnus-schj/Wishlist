@@ -1,11 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "../../custom-hooks/useForm";
 
-import { auth } from "../../firebase/firebase.utils";
+import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 
 import { Container, Typography, TextField, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { blue } from "@material-ui/core/colors";
+
+const useStyles = makeStyles({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    background: "#0276aa",
+    padding: "0.8rem 2rem",
+    borderRadius: "5px",
+    maxWidth: "20rem",
+  },
+  button: {
+    margin: "1rem 0",
+  },
+});
 
 const SignIn = () => {
+  const classes = useStyles();
   const [values, handleChange, setValues] = useForm({
     email: "",
     password: "",
@@ -41,11 +66,11 @@ const SignIn = () => {
     }
   };
   return (
-    <Container>
-      <Typography variant="h3" color="initial">
-        Sign in
+    <Container className={classes.container}>
+      <Typography variant="h4" color="initial">
+        Logg inn
       </Typography>
-      <form>
+      <form className={classes.root}>
         <TextField
           id="email"
           label="Email"
@@ -74,6 +99,15 @@ const SignIn = () => {
           Log in
         </Button>
       </form>
+      <i>eller...</i>
+      <Button
+        size="small"
+        className={classes.button}
+        variant={"contained"}
+        onClick={() => signInWithGoogle()}
+      >
+        Fortsett med Google
+      </Button>
     </Container>
   );
 };

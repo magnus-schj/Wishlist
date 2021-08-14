@@ -10,13 +10,6 @@ export const fetchAllUserInfo = createAsyncThunk(
   }
 );
 
-const test = createAsyncThunk("allUsers/testRequestStatus", async () => {
-  setTimeout(() => {
-    console.log("test");
-  }, 2000);
-  return "suksess!";
-});
-
 export const allUsersSlice = createSlice({
   name: "allUsers",
   initialState: { loaded: false, users: [] },

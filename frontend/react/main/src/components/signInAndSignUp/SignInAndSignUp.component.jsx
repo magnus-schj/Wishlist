@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-
-import { signInWithGoogle, auth } from "../../firebase/firebase.utils";
+import React from "react";
 
 import SignIn from "../sign-in/SignIn.component";
 import SignUp from "../sign-up/SignUp.component";
 
 import { Container, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -15,28 +13,21 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    background: "#d6f4ff",
-  },
-  signInWrapper: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    textAlign: "center",
+    margin: "2rem 0",
   },
 });
-
-const SignInAndSignUp = () => {
+const SignInAndSignUp = ({ headerVariants }) => {
   const classes = useStyles();
-  // const currentUser = useSelector((state) => state.currentUser.userInfo);
-
   return (
     <Container className={classes.root}>
-      <Typography variant="h2" color="initial">
-        Du er for øyeblikket ikke logget inn.
+      <Typography variant={headerVariants.large} color="initial">
+        Du er ikke logget inn.
       </Typography>
-      <Container className={classes.signInWrapper}>
-        <SignIn />
-        <SignUp />
-      </Container>
+      <SignIn />
+      <Typography variant={headerVariants.medium} color="initial">
+        Har du ikke bruker? <Link to="/signUp">Registrer deg her</Link>
+      </Typography>
     </Container>
   );
 };

@@ -1,21 +1,22 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { useForm } from "../../custom-hooks/useForm";
 
 import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
 
 import { Container, Typography, TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
-    minWidth: "30rem",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
   },
   form: {
-    maxWidth: "100%",
-    margin: "2rem auto",
+    margin: "2rem 0",
     minWidth: "30rem",
     display: "flex",
     flexDirection: "column",
@@ -23,138 +24,164 @@ const useStyles = makeStyles({
   },
 });
 
-const SignUp = () => {
+const SignUp = ({ history, headerVariants }) => {
   const classes = useStyles();
-  const [name, setName] = useState({
-    value: "",
-    error: false,
-    helperText: "",
-  });
-  const [email, setEmail] = useState({
-    value: "",
-    error: false,
-    helperText: "",
-  });
-  const [password, setPassword] = useState({
-    value: "",
-    error: false,
-    helperText: "",
-  });
-  const [confirmPassword, setConfirmPassword] = useState({
-    value: "",
-    error: false,
-    helperText: "",
-  });
-  const reset = () => {
-    setName({ ...name, error: false, helperText: "" });
-    setEmail({ ...email, error: false, helperText: "" });
-    setPassword({ ...password, error: false, helperText: "" });
-    setConfirmPassword({ ...confirmPassword, error: false, helperText: "" });
+  const currentUserSlice = useSelector((state) => state.currentUser);
+  const initialValues = {
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   };
-  const clearInputs = () => {
-    setName({ ...name, value: "", error: false });
-    setEmail({ ...email, value: "", error: false });
-    setPassword({ ...password, value: "", error: false });
-    setConfirmPassword({ ...confirmPassword, value: "", error: false });
-  };
+  const [values, handleChange, setValues] = useForm(initialValues);
 
-  const handleSubmit = async (e) => {
+  const initialErrors = {
+    name: { error: false, helperText: "" },
+    email: { error: false, helperText: "" },
+    password: { error: false, helperText: "" },
+    confirmPassword: { error: false, helperText: "" },
+  };
+  const [errors, setErrors] = useState(initialErrors);
+
+  // Handling validaiton and making a profile
+  const handleClick = async (e) => {
     e.preventDefault();
-    reset();
+    setErrors(initialErrors);
     // ! Local validation:
     // ! x Name is not null
     // ! x passwords match
 
-    if (name.value === "") {
-      setName({ ...name, error: true, helperText: "Please write a name" });
-      return;
-    }
-    setName({ ...name, error: false, helperText: "" });
+    // name is not just whitespace
+    let formError = false;
+    let newErrors = { ...errors };
 
-    if (password.value !== confirmPassword.value) {
-      setPassword({
-        ...password,
-        error: true,
-        helperText: "Passwords don't match",
-      });
+    // ! Validates each field
+    if (values.name.trim() === "") {
+      newErrors = {
+        ...newErrors,
+        name: { error: true, helperText: "Please fill out name" },
+      };
+      formError = true;
+    }
+
+    if (
+      values.password != values.confirmPassword ||
+      values.password.trim() === ""
+    ) {
+      newErrors = {
+        ...newErrors,
+        password: {
+          error: true,
+          helperText: "Passwords do not match or invalid password",
+        },
+        confirmPassword: { error: true, helperText: "" },
+      };
+      formError = true;
+    }
+
+    if (values.email.trim() === "") {
+      newErrors = {
+        ...newErrors,
+        email: { error: true, helperText: "Invalid email" },
+      };
+      formError = true;
+    }
+
+    if (formError) {
+      setErrors(newErrors);
       return;
     }
-    setPassword({ ...password, error: false });
-    setConfirmPassword({ ...confirmPassword, error: false });
+    // ! Client-side validation done
+
+    // ? try to make a user with email and password
     try {
       const { user } = await auth.createUserWithEmailAndPassword(
         email.value,
         password.value
       );
 
-      const nameValue = name.value;
-      await createUserProfileDocument(user, { nameValue });
+      const nameValue = values.name;
 
-      clearInputs();
-      console.log("signed up!");
+      await createUserProfileDocument(user, { nameValue });
+      auth.currentUser.updateProfile({
+        displayName: values.name,
+      });
+      console.log("current user:", auth.currentUser);
+      setValues(initialValues);
+      history.push("/");
     } catch (error) {
       console.log(error);
       switch (error.code) {
         case "auth/invalid-email":
-          setEmail({ ...email, error: true, helperText: error.message });
+          setErrors({
+            ...errors,
+            email: { error: true, helperText: error.message },
+          });
           break;
         case "auth/weak-password":
-          setPassword({ ...password, error: true, helperText: error.message });
-          setConfirmPassword({ ...password, error: true });
+          setErrors({
+            ...errors,
+            password: { error: true, helperText: error.message },
+            confirmPassword: { error: true, helperText: "" },
+          });
           break;
         case "auth/email-already-in-use":
-          setEmail({ ...email, error: true, helperText: error.message });
+          setErrors({
+            ...errors,
+            email: { error: true, helperText: error.message },
+          });
           break;
       }
     }
   };
-  return (
+
+  return currentUserSlice.loaded ? (
+    <Redirect to="/" />
+  ) : (
     <Container className={classes.root}>
-      <Typography variant="h3" color="initial">
-        Sign up
+      <Typography variant={headerVariants.large} color="initial">
+        Registrer deg
       </Typography>
       <form className={classes.form}>
         <TextField
           id="name"
-          label="Name"
-          value={name.value}
-          error={name.error}
-          helperText={name.helperText}
-          onChange={(e) => setName({ ...name, value: e.target.value })}
+          name="name"
+          label="Navn"
+          value={values.name}
+          onChange={handleChange}
+          error={errors.name.error}
+          helperText={errors.name.helperText}
         />
         <TextField
           id="email"
-          label="Email"
-          value={email.value}
-          type="email"
-          error={email.error}
-          helperText={email.helperText}
-          onChange={(e) => setEmail({ ...email, value: e.target.value })}
+          name="email"
+          label="epost"
+          value={values.email}
+          onChange={handleChange}
+          error={errors.email.error}
+          helperText={errors.email.helperText}
         />
         <TextField
           id="password"
-          label="Password"
-          value={password.value}
+          name="password"
           type="password"
-          error={password.error}
-          helperText={password.helperText}
-          onChange={(e) => setPassword({ ...password, value: e.target.value })}
+          label="Passord"
+          value={values.password}
+          onChange={handleChange}
+          error={errors.password.error}
+          helperText={errors.password.helperText}
         />
         <TextField
-          id="confirm-password"
-          label="Confirm password"
-          value={confirmPassword.value}
+          id="confirmPassword"
           type="password"
-          error={password.error}
-          helperText={password.helperText}
-          onChange={(e) =>
-            setConfirmPassword({
-              ...confirmPassword,
-              value: e.target.value,
-            })
-          }
+          name="confirmPassword"
+          label="Bekreft passord"
+          value={values.confirmPassword}
+          onChange={handleChange}
+          error={errors.confirmPassword.error}
+          helperText={errors.confirmPassword.helperText}
         />
-        <Button type="submit" onClick={handleSubmit}>
+        <Button type="submit" onClick={handleClick}>
           Submit
         </Button>
       </form>
