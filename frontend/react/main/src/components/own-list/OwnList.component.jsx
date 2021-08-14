@@ -64,7 +64,7 @@ const OwnList = () => {
         {ownWishList.wishes.map((wish, i) => (
           <WishReadWrite
             key={i}
-            wish={wish.wish}
+            initialWish={wish.wish}
             uid={currentUser.userInfo.uid}
             wid={wish.id}
           />

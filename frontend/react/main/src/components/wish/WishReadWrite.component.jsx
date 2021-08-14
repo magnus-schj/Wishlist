@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { deleteWish } from "../../firebase/firebase.utils";
+import { deleteWish, updateWish } from "../../firebase/firebase.utils";
 
 import {
   Card,
   CardActions,
   CardContent,
   IconButton,
-  Typography,
+  TextField,
 } from "@material-ui/core";
+
 import DeleteIcon from "@material-ui/icons/Delete";
+import SaveIcon from "@material-ui/icons/Save";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -23,16 +25,24 @@ const useStyles = makeStyles({
   },
 });
 
-const WishReadWrite = ({ wish, uid, wid }) => {
+const WishReadWrite = ({ initialWish, uid, wid }) => {
   const classes = useStyles();
+
+  const [wish, setWish] = useState(initialWish);
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography variant="h6" color="initial">
-          {wish}
-        </Typography>
+        <TextField
+          id="wish"
+          variant="filled"
+          value={wish}
+          onChange={(e) => setWish(e.target.value)}
+        />
       </CardContent>
       <CardActions>
+        <IconButton onClick={() => updateWish(uid, wid, wish)}>
+          <SaveIcon />
+        </IconButton>
         <IconButton aria-label="delete" onClick={() => deleteWish(uid, wid)}>
           <DeleteIcon />
         </IconButton>
