@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     minWidth: "90vw",
     padding: "1rem",
+    margin: "1rem",
   },
 }));
 
@@ -66,6 +67,7 @@ const WishList = () => {
     }
     return (
       <Paper className={classes.paper}>
+        <h2>{name} sine ønsker</h2>
         <List className={classes.list}>
           {wishes.map((wish, i) => (
             <ListItem key={i}>

@@ -16,6 +16,7 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    border: "1px solid black",
   },
   header: {
     margin: 0,

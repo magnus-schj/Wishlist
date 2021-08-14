@@ -23,6 +23,9 @@ const useStyles = makeStyles({
     justifyContent: "center",
     marginTop: "1rem",
   },
+  header: {
+    textAlign: "center",
+  },
 });
 
 const OwnList = () => {
@@ -45,7 +48,7 @@ const OwnList = () => {
 
   return (
     <div>
-      <h1>Din liste</h1>
+      <h1 className={classes.header}>Din liste</h1>
       <form className={classes.form}>
         <TextField
           id="wish-input"
