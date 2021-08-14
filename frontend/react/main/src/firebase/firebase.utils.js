@@ -102,6 +102,17 @@ export const addWish = async (uid, wish) => {
   });
 };
 
+// ** update wish
+export const updateWish = async (uid, wid, newWish) => {
+  const wishRef = db.doc(`wishLists/${uid}/wishes/${wid}`);
+  const createdAt = await (await wishRef.get()).data().createdAt;
+  await wishRef.set({
+    wish: newWish,
+    createdAt: createdAt,
+    updated: new Date(),
+  });
+};
+
 // ! DELETE wish
 
 export const deleteWish = async (uid, wid) => {
