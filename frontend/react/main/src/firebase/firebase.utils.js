@@ -90,6 +90,16 @@ export const formatCollection = (collection) => {
   return collectionFormatted;
 };
 
+// Update the lastUpdated atribute
+const setListUpdated = async (uid) => {
+  const wishListRef = db.doc(`wishLists/${uid}`);
+  const snapShot = await wishListRef.get();
+  wishListRef.set({
+    ...snapShot.data(),
+    updated: new Date(),
+  });
+};
+
 // ? ADD wish
 
 // ? params: a uid for collection path and a wish to get added.
@@ -100,6 +110,7 @@ export const addWish = async (uid, wish) => {
     wish: wish,
     createdAt: new Date(),
   });
+  await setListUpdated(uid);
 };
 
 // ** update wish
@@ -111,6 +122,7 @@ export const updateWish = async (uid, wid, newWish) => {
     createdAt: createdAt,
     updated: new Date(),
   });
+  await setListUpdated(uid);
 };
 
 // ! DELETE wish
@@ -118,4 +130,5 @@ export const updateWish = async (uid, wid, newWish) => {
 export const deleteWish = async (uid, wid) => {
   const wishref = db.doc(`wishLists/${uid}/wishes/${wid}`);
   await wishref.delete();
+  await setListUpdated(uid);
 };
