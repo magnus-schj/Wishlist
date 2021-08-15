@@ -39,26 +39,17 @@ const WishList = () => {
   const [isEmpty, setIsEmpty] = useState(false);
 
   useEffect(() => {
-    let unsubscribe = () => {
-      // this is intentional, unsubscribe must be a function when the component umounts, therefore it must be defined at least at this scope
-    };
-
     // real-time listener for displayed wishlist
     if (uid) {
-      unsubscribe = db
-        .collection(`wishLists/${uid}/wishes`)
-        .onSnapshot((querySnapshot) => {
-          const queryWishes = [];
-          querySnapshot.forEach((doc) => {
-            queryWishes.push({ ...doc.data(), id: doc.id });
-          });
-          setWishes(queryWishes);
-          setIsEmpty(querySnapshot.empty);
+      db.collection(`wishLists/${uid}/wishes`).onSnapshot((querySnapshot) => {
+        const queryWishes = [];
+        querySnapshot.forEach((doc) => {
+          queryWishes.push({ ...doc.data(), id: doc.id });
         });
+        setWishes(queryWishes);
+        setIsEmpty(querySnapshot.empty);
+      });
     }
-    return () => {
-      unsubscribe();
-    };
   }, [uid]);
 
   const renderWishList = () => {
