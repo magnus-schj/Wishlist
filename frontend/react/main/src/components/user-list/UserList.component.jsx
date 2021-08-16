@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-around",
     width: "90vw",
+    margin: "auto",
+    maxHeight: "23vh",
+    overflow: "scroll",
   },
   header: {
     textAlign: "center",

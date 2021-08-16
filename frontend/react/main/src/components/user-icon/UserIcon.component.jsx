@@ -9,8 +9,9 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: "50px",
-    height: "5rem",
-    margin: "0.5rem",
+    height: "6rem",
+    width: "6rem",
+    margin: "0.2rem",
     padding: "3rem 1rem",
     display: "flex",
     flexDirection: "column",
