@@ -29,6 +29,7 @@ const WishReadWrite = ({ initialWish, uid, wid }) => {
   const classes = useStyles();
 
   const [wish, setWish] = useState(initialWish);
+  console.log("ininitalWish:", initialWish);
   return (
     <Card className={classes.root}>
       <CardContent>
@@ -37,6 +38,7 @@ const WishReadWrite = ({ initialWish, uid, wid }) => {
           variant="filled"
           value={wish}
           onChange={(e) => setWish(e.target.value)}
+          helperText={wid}
         />
       </CardContent>
       <CardActions>
