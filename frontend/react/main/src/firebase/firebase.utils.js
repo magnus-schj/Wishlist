@@ -71,6 +71,7 @@ export const createWishListDocument = async (userAuth) => {
     try {
       await wishListRef.set({
         createdAt,
+        updated: null,
       });
     } catch (error) {
       console.log("error when creating wishlist:", error);
