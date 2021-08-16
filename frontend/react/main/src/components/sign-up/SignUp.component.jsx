@@ -106,7 +106,6 @@ const SignUp = ({ history, headerVariants }) => {
       auth.currentUser.updateProfile({
         displayName: values.name,
       });
-      console.log("current user:", auth.currentUser);
       setValues(initialValues);
       history.push("/");
     } catch (error) {

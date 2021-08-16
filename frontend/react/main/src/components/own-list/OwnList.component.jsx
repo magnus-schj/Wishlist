@@ -57,7 +57,6 @@ const OwnList = () => {
       </form>
       <div className={classes.list}>
         {ownWishList.wishes.map((wish, i) => {
-          console.log("wish:", wish);
           return (
             <WishReadWrite
               key={i}

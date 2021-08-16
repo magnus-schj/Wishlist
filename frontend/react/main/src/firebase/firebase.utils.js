@@ -107,7 +107,6 @@ const setListUpdated = async (uid) => {
 // ? get ref for the wishlist, and add a new document.
 export const addWish = async (uid, newWish) => {
   const wishListRef = db.collection(`wishLists/${uid}/wishes`);
-  console.log("newWish:", newWish);
   await wishListRef.add({
     wish: newWish,
     createdAt: new Date(),

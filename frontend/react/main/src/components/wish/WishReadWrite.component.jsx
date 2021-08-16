@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { deleteWish, updateWish } from "../../firebase/firebase.utils";
 
@@ -33,16 +33,17 @@ const WishReadWrite = ({ initialWish, uid, wid }) => {
 
   const [wish, setWish] = useState(initialWish);
   const [label, setLabel] = useState("");
+
+  useEffect(() => {
+    setWish(initialWish);
+  }, [initialWish]);
+
   const handleUpdate = () => {
-    try {
-      updateWish(uid, wid, wish);
-      setLabel("Suksess!");
-      setInterval(() => {
-        setLabel("");
-      }, 1500);
-    } catch (error) {
-      console.log("error updating wish:", error);
-    }
+    updateWish(uid, wid, wish);
+    setLabel("Suksess!");
+    setInterval(() => {
+      setLabel("");
+    }, 1500);
   };
   return (
     <Card className={classes.root}>
