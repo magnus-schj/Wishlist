@@ -6,7 +6,7 @@ import { getUidAndName } from "../../features/displayed-wishList/displayedWishLi
 import { ButtonBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: "50px",
     height: "5rem",
@@ -16,13 +16,13 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    background: "#e0e0e0",
+    background: theme.palette.primary.light,
   },
   header: {
     margin: 0,
     padding: 0,
   },
-});
+}));
 
 const UserIcon = ({ name, uid }) => {
   const dispatch = useDispatch();

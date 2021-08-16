@@ -15,7 +15,7 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: "grey",
+    background: theme.palette.primary.main,
     minWidth: "100vw",
     minHeight: "53vh",
     display: "flex",

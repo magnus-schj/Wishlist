@@ -4,9 +4,10 @@ import UserIcon from "../user-icon/UserIcon.component";
 
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "25vh",
+    width: "100vw",
   },
   listWrapper: {
     display: "flex",
@@ -18,7 +19,7 @@ const useStyles = makeStyles({
   header: {
     textAlign: "center",
   },
-});
+}));
 
 const UserList = () => {
   const classes = useStyles();

@@ -7,7 +7,7 @@ import { Container, Typography, TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { blue } from "@material-ui/core/colors";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    background: "#0276aa",
+    background: theme.palette.primary.main,
     padding: "0.8rem 2rem",
     borderRadius: "5px",
     maxWidth: "20rem",
@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   button: {
     margin: "1rem 0",
   },
-});
+}));
 
 const SignIn = () => {
   const classes = useStyles();
@@ -72,6 +72,7 @@ const SignIn = () => {
       </Typography>
       <form className={classes.root}>
         <TextField
+          color="secondary"
           id="email"
           label="Email"
           name="email"
@@ -81,6 +82,7 @@ const SignIn = () => {
           error={errors.value}
         />
         <TextField
+          color="secondary"
           id="password"
           type="password"
           label="Password"

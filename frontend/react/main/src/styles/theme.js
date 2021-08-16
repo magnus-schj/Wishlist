@@ -3,8 +3,11 @@ import { createTheme } from "@material-ui/core/styles";
 
 const theme = createTheme({
   palette: {
-    primary: blue,
-    danger: red,
+    primary: {
+      main: "#45364B",
+      dark: "#2D2327",
+      light: "#62466B",
+    },
   },
 });
 
