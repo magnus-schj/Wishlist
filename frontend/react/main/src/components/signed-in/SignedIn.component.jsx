@@ -30,11 +30,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   header: {
-    // flexDirection: "column",
-    // alignItems: "center",
-    // justifyContent: "center",
-    // background: theme.palette.primary.light,
-    marginBottom: "3rem",
+    alignItems: "space-around",
+  },
+  title: {
+    flexGrow: 1,
   },
   list: {
     minWidth: "150px",
@@ -65,6 +64,7 @@ const SignedIn = () => {
 
   return (
     <div className={classes.root}>
+      {/* AppBar displaying who is logged in and a side menu  */}
       <AppBar className={classes.header}>
         <Toolbar>
           <IconButton size="small" onClick={() => setDrawer(true)}>
@@ -79,7 +79,13 @@ const SignedIn = () => {
             <DrawerContent />
           </Drawer>
 
-          <h2>Du er logget inn som {currentUser.displayName}</h2>
+          <Typography
+            variant="subtitle1"
+            color="initial"
+            className={classes.title}
+          >
+            Logget inn som {currentUser.displayName}
+          </Typography>
 
           <Switch
             value=""
@@ -89,6 +95,7 @@ const SignedIn = () => {
           />
         </Toolbar>
       </AppBar>
+
       {ownList ? (
         <OwnList />
       ) : (

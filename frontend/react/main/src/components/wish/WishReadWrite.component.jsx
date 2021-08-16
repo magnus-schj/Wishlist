@@ -23,24 +23,41 @@ const useStyles = makeStyles({
     padding: "0.5rem",
     width: "90%",
   },
+  suksess: {
+    background: "green",
+  },
 });
 
 const WishReadWrite = ({ initialWish, uid, wid }) => {
   const classes = useStyles();
 
   const [wish, setWish] = useState(initialWish);
+  const [label, setLabel] = useState("");
+  const handleUpdate = () => {
+    try {
+      updateWish(uid, wid, wish);
+      setLabel("Suksess!");
+      setInterval(() => {
+        setLabel("");
+      }, 1500);
+    } catch (error) {
+      console.log("error updating wish:", error);
+    }
+  };
   return (
     <Card className={classes.root}>
       <CardContent>
         <TextField
+          label="lagret!"
           id="wish"
-          variant="filled"
           value={wish}
           onChange={(e) => setWish(e.target.value)}
+          size="medium"
+          label={label}
         />
       </CardContent>
       <CardActions>
-        <IconButton onClick={() => updateWish(uid, wid, wish)}>
+        <IconButton onClick={() => handleUpdate()}>
           <SaveIcon />
         </IconButton>
         <IconButton aria-label="delete" onClick={() => deleteWish(uid, wid)}>
