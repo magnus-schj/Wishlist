@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { deleteWish, updateWish } from "../../firebase/firebase.utils";
 
@@ -29,7 +29,11 @@ const WishReadWrite = ({ initialWish, uid, wid }) => {
   const classes = useStyles();
 
   const [wish, setWish] = useState(initialWish);
-  console.log("ininitalWish:", initialWish);
+
+  useEffect(() => {
+    setWish(initialWish);
+  }, [initialWish]);
+
   return (
     <Card className={classes.root}>
       <CardContent>

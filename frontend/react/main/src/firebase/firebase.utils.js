@@ -112,7 +112,7 @@ export const addWish = async (uid, wish) => {
     wish: wish,
     createdAt: new Date(),
   });
-  // ! await setListUpdated(uid);
+  await setListUpdated(uid);
 };
 
 // ** update wish
@@ -124,7 +124,7 @@ export const updateWish = async (uid, wid, newWish) => {
     createdAt: createdAt,
     updated: new Date(),
   });
-  // ! await setListUpdated(uid);
+  await setListUpdated(uid);
 };
 
 // ! DELETE wish
@@ -132,5 +132,5 @@ export const updateWish = async (uid, wid, newWish) => {
 export const deleteWish = async (uid, wid) => {
   const wishref = db.doc(`wishLists/${uid}/wishes/${wid}`);
   await wishref.delete();
-  // ! await setListUpdated(uid);
+  await setListUpdated(uid);
 };
