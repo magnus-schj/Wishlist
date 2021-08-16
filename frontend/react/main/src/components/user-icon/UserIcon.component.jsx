@@ -8,14 +8,15 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
-    borderRadius: "90px",
+    borderRadius: "50px",
     height: "5rem",
-    margin: "o.5rem",
-    padding: "2rem 1rem",
+    margin: "0.5rem",
+    padding: "3rem 1rem",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    background: "#e0e0e0",
   },
   header: {
     margin: 0,
