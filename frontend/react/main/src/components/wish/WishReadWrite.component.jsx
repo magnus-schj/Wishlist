@@ -49,7 +49,7 @@ const WishReadWrite = ({ initialWish, uid, wid }) => {
       <CardContent>
         <TextField
           label="lagret!"
-          id="wish"
+          id={wid}
           value={wish}
           onChange={(e) => setWish(e.target.value)}
           size="medium"

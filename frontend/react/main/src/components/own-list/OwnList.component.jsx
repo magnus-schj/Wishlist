@@ -2,13 +2,12 @@ import React, { useState } from "react";
 
 import { useSelector } from "react-redux";
 
-import { db } from "../../firebase/firebase.utils";
+import { db, addWish } from "../../firebase/firebase.utils";
 
 import WishReadWrite from "../wish/WishReadWrite.component";
 
 import { TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { addWish } from "../../firebase/firebase.utils";
 
 const useStyles = makeStyles({
   form: {
@@ -38,11 +37,7 @@ const OwnList = () => {
 
   //function for adding a wish, see firebase.utils for the addWish function
   const handleClick = async () => {
-    try {
-      await addWish(currentUser.userInfo.uid, value);
-    } catch (error) {
-      console.log(error);
-    }
+    await addWish(currentUser.userInfo.uid, value);
     setValue("");
   };
 
@@ -61,14 +56,17 @@ const OwnList = () => {
         </Button>
       </form>
       <div className={classes.list}>
-        {ownWishList.wishes.map((wish, i) => (
-          <WishReadWrite
-            key={i}
-            initialWish={wish.wish}
-            uid={currentUser.userInfo.uid}
-            wid={wish.id}
-          />
-        ))}
+        {ownWishList.wishes.map((wish, i) => {
+          console.log("wish:", wish);
+          return (
+            <WishReadWrite
+              key={i}
+              initialWish={wish.wish}
+              uid={currentUser.userInfo.uid}
+              wid={wish.id}
+            />
+          );
+        })}
       </div>
     </div>
   );
