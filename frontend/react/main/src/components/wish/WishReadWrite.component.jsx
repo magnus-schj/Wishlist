@@ -40,10 +40,10 @@ const WishReadWrite = ({ initialWish, uid, wid }) => {
 
   const handleUpdate = () => {
     updateWish(uid, wid, wish);
-    setLabel("Suksess!");
+    setLabel("Endret!");
     setInterval(() => {
       setLabel("");
-    }, 1500);
+    }, 1200);
   };
   return (
     <Card className={classes.root}>
@@ -53,7 +53,6 @@ const WishReadWrite = ({ initialWish, uid, wid }) => {
           id={wid}
           value={wish}
           onChange={(e) => setWish(e.target.value)}
-          size="medium"
           label={label}
         />
       </CardContent>
