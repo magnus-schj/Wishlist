@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setCurrentUser } from "./features/currentUser/currentUser.slice";
 import { updateAllUsers } from "./features/allUsers/allUsers.slice";
-import { setMobile } from "./features/styles/styles.slice";
 
 import {
   auth,
