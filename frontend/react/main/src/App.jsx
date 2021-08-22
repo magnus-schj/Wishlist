@@ -22,14 +22,6 @@ import SignUp from "./components/sign-up/SignUp.component";
 
 function App() {
   const dispatch = useDispatch();
-  // real-time listener for user information
-  db.collection("users").onSnapshot((querySnapshot) => {
-    const users = [];
-    querySnapshot.forEach((doc) => {
-      users.push({ ...doc.data(), uid: doc.id });
-    });
-    dispatch(updateAllUsers(users));
-  });
 
   // checks if a user is logged in
   let unsubscribeFromAuth = null;
@@ -46,6 +38,16 @@ function App() {
         }
       };
       checkUser();
+
+      // real-time listener for user information
+      db.collection("users").onSnapshot((querySnapshot) => {
+        const users = [];
+        querySnapshot.forEach((doc) => {
+          users.push({ ...doc.data(), uid: doc.id });
+        });
+        dispatch(updateAllUsers(users));
+      });
+      // unsubscribes from auth when app is unmounted
       return () => {
         unsubscribeFromAuth();
       };

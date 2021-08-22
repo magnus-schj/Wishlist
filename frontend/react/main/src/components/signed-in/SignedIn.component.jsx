@@ -50,17 +50,19 @@ const SignedIn = () => {
   const [ownList, setOwnList] = useState(false);
   const [drawer, setDrawer] = useState(false);
 
-  // real-time listener for current user:
-  db.collection(`wishLists/${currentUser.uid}/wishes`).onSnapshot(
-    (querySnapshot) => {
-      const queryWishes = [];
-      querySnapshot.forEach((doc) =>
-        queryWishes.push({ ...doc.data(), id: doc.id })
-      );
-      const data = { uid: currentUser.uid, wishes: queryWishes };
-      dispatch(setCurrentWishList(data));
-    }
-  );
+  useEffect(() => {
+    // real-time listener for current user:
+    db.collection(`wishLists/${currentUser.uid}/wishes`).onSnapshot(
+      (querySnapshot) => {
+        const queryWishes = [];
+        querySnapshot.forEach((doc) =>
+          queryWishes.push({ ...doc.data(), id: doc.id })
+        );
+        const data = { uid: currentUser.uid, wishes: queryWishes };
+        dispatch(setCurrentWishList(data));
+      }
+    );
+  }, [currentUser]);
 
   return (
     <div className={classes.root}>
