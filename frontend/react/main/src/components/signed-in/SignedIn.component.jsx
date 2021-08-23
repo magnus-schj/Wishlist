@@ -8,10 +8,10 @@ import { auth, db } from "../../firebase/firebase.utils";
 import UserList from "../user-list/UserList.component";
 import WishList from "../wish-list/WishList.component";
 import OwnList from "../own-list/OwnList.component";
+import Footer from "../footer/Footer.component";
 
 import {
   AppBar,
-  Button,
   Drawer,
   Switch,
   Toolbar,
@@ -28,9 +28,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-  },
-  header: {
-    alignItems: "space-around",
   },
   title: {
     flexGrow: 1,
@@ -67,7 +64,7 @@ const SignedIn = () => {
   return (
     <div className={classes.root}>
       {/* AppBar displaying who is logged in and a side menu  */}
-      <AppBar className={classes.header}>
+      <AppBar>
         <Toolbar>
           <IconButton size="small" onClick={() => setDrawer(true)}>
             <MenuIcon />
@@ -104,6 +101,7 @@ const SignedIn = () => {
         <>
           <UserList />
           <WishList />
+          <Footer />
         </>
       )}
     </div>

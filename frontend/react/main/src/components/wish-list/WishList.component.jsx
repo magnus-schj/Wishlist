@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     background: theme.palette.primary.main,
     minWidth: "100vw",
-    minHeight: "10vh",
+    minHeight: "200px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
