@@ -23,6 +23,9 @@ const useStyles = makeStyles({
     padding: "0.5rem",
     width: "90%",
   },
+  suksess: {
+    background: "green",
+  },
 });
 
 const WishReadWrite = ({ initialWish, uid, wid }) => {
@@ -30,23 +33,37 @@ const WishReadWrite = ({ initialWish, uid, wid }) => {
 
   const [wish, setWish] = useState(initialWish);
 
+  const [label, setLabel] = useState("");
+
+
   useEffect(() => {
     setWish(initialWish);
   }, [initialWish]);
+
+
+  const handleUpdate = () => {
+    updateWish(uid, wid, wish);
+    setLabel("Endret!");
+    setInterval(() => {
+      setLabel("");
+    }, 1200);
+  };
 
   return (
     <Card className={classes.root}>
       <CardContent>
         <TextField
-          id="wish"
-          variant="filled"
+          label="lagret!"
+          id={wid}
           value={wish}
           onChange={(e) => setWish(e.target.value)}
-          helperText={wid}
+
+          label={label}
+
         />
       </CardContent>
       <CardActions>
-        <IconButton onClick={() => updateWish(uid, wid, wish)}>
+        <IconButton onClick={() => handleUpdate()}>
           <SaveIcon />
         </IconButton>
         <IconButton aria-label="delete" onClick={() => deleteWish(uid, wid)}>

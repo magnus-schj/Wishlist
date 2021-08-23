@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setCurrentUser } from "./features/currentUser/currentUser.slice";
 import { updateAllUsers } from "./features/allUsers/allUsers.slice";
-import { setMobile } from "./features/styles/styles.slice";
 
 import {
   auth,
@@ -23,14 +22,6 @@ import SignUp from "./components/sign-up/SignUp.component";
 
 function App() {
   const dispatch = useDispatch();
-  // real-time listener for user information
-  db.collection("users").onSnapshot((querySnapshot) => {
-    const users = [];
-    querySnapshot.forEach((doc) => {
-      users.push({ ...doc.data(), uid: doc.id });
-    });
-    dispatch(updateAllUsers(users));
-  });
 
   // checks if a user is logged in
   let unsubscribeFromAuth = null;
@@ -47,6 +38,16 @@ function App() {
         }
       };
       checkUser();
+
+      // real-time listener for user information
+      db.collection("users").onSnapshot((querySnapshot) => {
+        const users = [];
+        querySnapshot.forEach((doc) => {
+          users.push({ ...doc.data(), uid: doc.id });
+        });
+        dispatch(updateAllUsers(users));
+      });
+      // unsubscribes from auth when app is unmounted
       return () => {
         unsubscribeFromAuth();
       };

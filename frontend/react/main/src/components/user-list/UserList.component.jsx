@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import UserIcon from "../user-icon/UserIcon.component";
 
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "25vh",
+    width: "100vw",
   },
   listWrapper: {
     display: "flex",
@@ -14,11 +15,14 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "space-around",
     width: "90vw",
+    margin: "auto",
+    maxHeight: "23vh",
+    overflow: "scroll",
   },
   header: {
     textAlign: "center",
   },
-});
+}));
 
 const UserList = () => {
   const classes = useStyles();

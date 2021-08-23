@@ -9,11 +9,11 @@ import theme from "./styles/theme";
 
 ReactDOM.render(
   <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ThemeProvider>
+    {/* <ThemeProvider theme={theme}> */}
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+    {/* </ThemeProvider> */}
   </Provider>,
   document.getElementById("root")
 );

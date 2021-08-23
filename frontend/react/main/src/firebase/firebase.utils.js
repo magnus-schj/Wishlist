@@ -106,13 +106,12 @@ const setListUpdated = async (uid) => {
 
 // ? params: a uid for collection path and a wish to get added.
 // ? get ref for the wishlist, and add a new document.
-export const addWish = async (uid, wish) => {
+export const addWish = async (uid, newWish) => {
   const wishListRef = db.collection(`wishLists/${uid}/wishes`);
   await wishListRef.add({
-    wish: wish,
+    wish: newWish,
     createdAt: new Date(),
   });
-  await setListUpdated(uid);
 };
 
 // ** update wish
@@ -124,7 +123,6 @@ export const updateWish = async (uid, wid, newWish) => {
     createdAt: createdAt,
     updated: new Date(),
   });
-  await setListUpdated(uid);
 };
 
 // ! DELETE wish
@@ -132,5 +130,4 @@ export const updateWish = async (uid, wid, newWish) => {
 export const deleteWish = async (uid, wid) => {
   const wishref = db.doc(`wishLists/${uid}/wishes/${wid}`);
   await wishref.delete();
-  await setListUpdated(uid);
 };

@@ -9,10 +9,20 @@ import UserList from "../user-list/UserList.component";
 import WishList from "../wish-list/WishList.component";
 import OwnList from "../own-list/OwnList.component";
 
-import { Button, Switch } from "@material-ui/core";
+import {
+  AppBar,
+  Button,
+  Drawer,
+  Switch,
+  Toolbar,
+  IconButton,
+  Typography,
+} from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core/styles";
+import DrawerContent from "../drawer-content/DrawerContent.component";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
@@ -20,15 +30,16 @@ const useStyles = makeStyles({
     justifyContent: "center",
   },
   header: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    background: "grey",
-    width: "100vw",
-    minHeight: "20vh",
+    alignItems: "space-around",
   },
-});
+  title: {
+    flexGrow: 1,
+  },
+  list: {
+    minWidth: "150px",
+    background: theme.palette.primary.dark,
+  },
+}));
 
 const SignedIn = () => {
   const classes = useStyles();
@@ -37,37 +48,56 @@ const SignedIn = () => {
   const { currentUser } = auth;
 
   const [ownList, setOwnList] = useState(false);
+  const [drawer, setDrawer] = useState(false);
 
-  // real-time listener for current user:
-  db.collection(`wishLists/${currentUser.uid}/wishes`).onSnapshot(
-    (querySnapshot) => {
-      const queryWishes = [];
-      querySnapshot.forEach((doc) =>
-        queryWishes.push({ ...doc.data(), id: doc.id })
-      );
-      const data = { uid: currentUser.uid, wishes: queryWishes };
-      dispatch(setCurrentWishList(data));
-    }
-  );
+  useEffect(() => {
+    // real-time listener for current user:
+    db.collection(`wishLists/${currentUser.uid}/wishes`).onSnapshot(
+      (querySnapshot) => {
+        const queryWishes = [];
+        querySnapshot.forEach((doc) =>
+          queryWishes.push({ ...doc.data(), id: doc.id })
+        );
+        const data = { uid: currentUser.uid, wishes: queryWishes };
+        dispatch(setCurrentWishList(data));
+      }
+    );
+  }, [currentUser]);
 
   return (
     <div className={classes.root}>
-      <div className={classes.header}>
-        <h1>Du er logget inn som {currentUser.displayName}</h1>
-        <Button
-          variant="contained"
-          color="default"
-          onClick={() => auth.signOut()}
-        >
-          Logg ut
-        </Button>
-        <Switch
-          value=""
-          checked={ownList}
-          onChange={(e) => setOwnList(e.target.checked)}
-          inputProps={{ "aria-label": "primary label" }}
-        />
-      </div>
+      {/* AppBar displaying who is logged in and a side menu  */}
+      <AppBar className={classes.header}>
+        <Toolbar>
+          <IconButton size="small" onClick={() => setDrawer(true)}>
+            <MenuIcon />
+          </IconButton>
+          <Drawer
+            variant="temporary"
+            open={drawer}
+            onClose={() => setDrawer(false)}
+            PaperProps={{ className: classes.list }}
+          >
+            <DrawerContent />
+          </Drawer>
+
+          <Typography
+            variant="subtitle1"
+            color="initial"
+            className={classes.title}
+          >
+            Logget inn som {currentUser.displayName}
+          </Typography>
+
+          <Switch
+            value=""
+            checked={ownList}
+            onChange={(e) => setOwnList(e.target.checked)}
+            inputProps={{ "aria-label": "primary label" }}
+          />
+        </Toolbar>
+      </AppBar>
+
       {ownList ? (
         <OwnList />
       ) : (
