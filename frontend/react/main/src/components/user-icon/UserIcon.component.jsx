@@ -4,11 +4,12 @@ import { useDispatch } from "react-redux";
 import { getUidAndName } from "../../features/displayed-wishList/displayedWishList.slice.js";
 
 import { ButtonBase } from "@material-ui/core";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    borderRadius: "50px",
+    borderRadius: "10px",
     height: "6rem",
     width: "6rem",
     margin: "0.2rem",
@@ -18,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     background: theme.palette.primary.light,
+    boxShadow: "3px 3px  black",
   },
   header: {
     margin: 0,
@@ -37,8 +39,7 @@ const UserIcon = ({ name, uid }) => {
       className={classes.root}
       onClick={handleClick}
     >
-      <h1 className={classes.header}>{name.charAt(0)}</h1>
-      <h4>{name}</h4>
+      <h3>{name}</h3>
     </ButtonBase>
   );
 };
