@@ -32,11 +32,14 @@ const WishReadWrite = ({ initialWish, uid, wid }) => {
   const classes = useStyles();
 
   const [wish, setWish] = useState(initialWish);
+
   const [label, setLabel] = useState("");
+
 
   useEffect(() => {
     setWish(initialWish);
   }, [initialWish]);
+
 
   const handleUpdate = () => {
     updateWish(uid, wid, wish);
@@ -45,6 +48,7 @@ const WishReadWrite = ({ initialWish, uid, wid }) => {
       setLabel("");
     }, 1200);
   };
+
   return (
     <Card className={classes.root}>
       <CardContent>
@@ -53,7 +57,9 @@ const WishReadWrite = ({ initialWish, uid, wid }) => {
           id={wid}
           value={wish}
           onChange={(e) => setWish(e.target.value)}
+
           label={label}
+
         />
       </CardContent>
       <CardActions>
