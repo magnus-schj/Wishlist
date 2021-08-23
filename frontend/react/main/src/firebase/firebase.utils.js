@@ -92,6 +92,7 @@ export const formatCollection = (collection) => {
 };
 
 // Update the lastUpdated atribute
+// ! do not use yet! makes everything cursed!
 const setListUpdated = async (uid) => {
   const wishListRef = db.doc(`wishLists/${uid}`);
   const snapShot = await wishListRef.get();
