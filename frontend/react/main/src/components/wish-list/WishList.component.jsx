@@ -17,11 +17,11 @@ const useStyles = makeStyles((theme) => ({
   root: {
     background: theme.palette.primary.main,
     minWidth: "100vw",
-    minHeight: "53vh",
+    minHeight: "10vh",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   list: {
     width: "100%",
@@ -47,6 +47,7 @@ const WishList = () => {
   // state for all the wishes, and other data:
   const [wishes, setWishes] = useState(null);
   const [isEmpty, setIsEmpty] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   // time-data from the wishList document is stored here
   const [timeData, setTimeData] = useState(null);
@@ -67,6 +68,10 @@ const WishList = () => {
         setTimeData(data);
       });
     }
+    setMounted(true);
+    return () => {
+      setMounted(false);
+    };
   }, [uid]);
 
   const renderUpdated = () => {
@@ -109,6 +114,7 @@ const WishList = () => {
       </Paper>
     );
   };
+  if (!mounted) return null;
 
   return (
     <div className={classes.root}>
