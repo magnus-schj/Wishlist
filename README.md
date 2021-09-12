@@ -1,5 +1,5 @@
 # Wishlist
-Nå skal det oppdateres!
+Digital wishlist using react and firebase.
 
 # Running
 
