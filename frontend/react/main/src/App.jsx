@@ -11,13 +11,8 @@ import {
 } from "./firebase/firebase.utils";
 
 import Main from "./components/main/Main.component";
-import {
-  CssBaseline,
-  Container,
-  Typography,
-  useMediaQuery,
-} from "@material-ui/core";
-import { Redirect, Route } from "react-router-dom";
+import { CssBaseline, Container, useMediaQuery } from "@material-ui/core";
+import { Route } from "react-router-dom";
 import SignUp from "./components/sign-up/SignUp.component";
 
 function App() {
@@ -38,7 +33,6 @@ function App() {
         }
       };
       checkUser();
-
       // real-time listener for user information
       db.collection("users").onSnapshot((querySnapshot) => {
         const users = [];
