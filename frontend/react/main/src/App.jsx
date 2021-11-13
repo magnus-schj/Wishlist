@@ -19,34 +19,47 @@ function App() {
   const dispatch = useDispatch();
 
   // checks if a user is logged in
-  let unsubscribeFromAuth = null;
+  //   let unsubscribeFromAuth = null;
+  //   useEffect(() => {
+  //     unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
+  //       dispatch(setCurrentUser(user));
+
+  //     }
+  //       // runs a check if user har a profile document, return the document if it exists
+  //       const checkUser = async () => {
+  //         console.log("here");
+  //         await createUserProfileDocument(auth.currentUser, {
+  //           nameValue: auth.currentUser.displayName,
+  //         });
+  //         if (auth.currentUser) {
+  //           await createWishListDocument(auth.currentUser);
+  //         }
+  //       };
+  //       checkUser();
+  //       // real-time listener for user information
+  //       db.collection("users").onSnapshot((querySnapshot) => {
+  //         const users = [];
+  //         querySnapshot.forEach((doc) => {
+  //           users.push({ ...doc.data(), uid: doc.id });
+  //         });
+  //         dispatch(updateAllUsers(users));
+  //       });
+  //       // unsubscribes from auth when app is unmounted
+  //       return () => {
+  //         unsubscribeFromAuth();
+  //       };
+  //     });
+  // }, []);
+
+  let unsub = null;
   useEffect(() => {
-    unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
+    unsub = auth.onAuthStateChanged((user) => {
       dispatch(setCurrentUser(user));
-      // runs a check if user har a profile document, return the document if it exists
-      const checkUser = async () => {
-        if (auth.currentUser) {
-          await createUserProfileDocument(auth.currentUser, {
-            nameValue: auth.currentUser.displayName,
-          });
-          await createWishListDocument(auth.currentUser);
-        }
-      };
-      checkUser();
-      // real-time listener for user information
-      db.collection("users").onSnapshot((querySnapshot) => {
-        const users = [];
-        querySnapshot.forEach((doc) => {
-          users.push({ ...doc.data(), uid: doc.id });
-        });
-        dispatch(updateAllUsers(users));
-      });
-      // unsubscribes from auth when app is unmounted
-      return () => {
-        unsubscribeFromAuth();
-      };
     });
-  }, []);
+    return () => {
+      unsub();
+    };
+  }, [input]);
 
   // sets if a user is on mobile or not
   const matches = useMediaQuery("(max-width: 500px)");
