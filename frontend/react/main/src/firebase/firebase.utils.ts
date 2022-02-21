@@ -4,7 +4,13 @@ import { initializeApp } from "firebase/app";
 
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  getFirestore,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 
@@ -42,3 +48,20 @@ export const db = getFirestore();
 // ** Sign in with google
 const provider = new GoogleAuthProvider();
 export const signInWithGoogle = () => signInWithPopup(auth, provider);
+
+export const createUserProfileDocument = async (
+  uid: string | null,
+  { ...otherData }
+) => {
+  if (!uid) return;
+  const ref = doc(db, "users", uid);
+  const snapshot = await getDoc(ref);
+  if (!snapshot.exists()) {
+    const initialData = {
+      vertified: false,
+      createdAt: serverTimestamp(),
+      ...otherData,
+    };
+    await setDoc(ref, initialData);
+  }
+};

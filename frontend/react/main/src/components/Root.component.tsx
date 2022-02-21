@@ -1,8 +1,9 @@
 import { Typography, Button, useMediaQuery } from "@mui/material";
+import { doc } from "firebase/firestore";
 import { AnimatePresence } from "framer-motion";
 import React, { FC, useEffect, useState } from "react";
-import { useSigninCheck } from "reactfire";
-import { auth } from "../firebase/firebase.utils";
+import { useFirestore, useFirestoreDocData, useSigninCheck } from "reactfire";
+import { auth, createUserProfileDocument } from "../firebase/firebase.utils";
 import ModalComponent from "./modal";
 import NavBar from "./NavBar.component";
 import SignInAndSignUp from "./SiginInAndSignUp/SignInAndSignUp.component";
@@ -13,12 +14,25 @@ const Root: FC<Props> = () => {
   // state
   const [modalOpen, setModalOpen] = useState(false);
 
-  //   reactfire
+  // reactfire
   const { status, data } = useSigninCheck();
 
-  //   closes if user is logged in
   useEffect(() => {
+    // closes if user is logged in
     data && close();
+    // creates a user profile document if there is none and provider is google
+    if (
+      data &&
+      data.signedIn &&
+      data.user.providerData[0].providerId === "google.com"
+    ) {
+      const asyncAction = async () => {
+        await createUserProfileDocument(data.user.uid, {
+          displayName: data.user.displayName,
+        });
+      };
+      asyncAction();
+    }
   }, [data]);
 
   // opens and closes modals
