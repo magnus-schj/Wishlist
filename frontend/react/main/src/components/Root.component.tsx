@@ -1,6 +1,7 @@
 import { Typography, Button } from "@mui/material";
 import { AnimatePresence } from "framer-motion";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
+import { useSigninCheck } from "reactfire";
 import { auth } from "../firebase/firebase.utils";
 import ModalComponent from "./modal";
 import SignInAndSignUp from "./SiginInAndSignUp/SignInAndSignUp.component";
@@ -11,6 +12,17 @@ const Root: FC<Props> = () => {
   // state
   const [modalOpen, setModalOpen] = useState(false);
 
+  //   reactfire
+  const {
+    status,
+    data: { user },
+  } = useSigninCheck();
+
+  //   closes if user is logged in
+  useEffect(() => {
+    user && close();
+  }, [user]);
+
   // opens and closes modals
   const open = () => {
     setModalOpen(true);
@@ -19,11 +31,11 @@ const Root: FC<Props> = () => {
     setModalOpen(false);
   };
   return (
-    <div className="App">
+    <div>
       <Typography variant="h1" color="initial">
         Wishlist
       </Typography>
-      {auth.currentUser ? (
+      {user ? (
         <>
           <h1>Du er logget inn</h1>
           <Button

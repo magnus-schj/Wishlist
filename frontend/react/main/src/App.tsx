@@ -1,23 +1,18 @@
-import { useEffect, useState } from "react";
 import "./baseStyles.scss";
 
-import ModalComponent from "./components/modal";
-import SignInAndSignUp from "./components/SiginInAndSignUp/SignInAndSignUp.component";
-
-import Typography from "@mui/material/Typography";
-import { auth } from "./firebase/firebase.utils";
-import Button from "@mui/material/Button";
-import { motion, AnimatePresence } from "framer-motion";
-import { Unsubscribe, User } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { useFirebaseApp, FirestoreProvider } from "reactfire";
+import { useFirebaseApp, FirestoreProvider, AuthProvider } from "reactfire";
 import Root from "./components/Root.component";
+import { auth } from "./firebase/firebase.utils";
 
 function App() {
-  const fireStoreInstance = getFirestore(useFirebaseApp());
+  const firestoreInstance = getFirestore(useFirebaseApp());
+
   return (
-    <FirestoreProvider sdk={fireStoreInstance}>
-      <Root />
+    <FirestoreProvider sdk={firestoreInstance}>
+      <AuthProvider sdk={auth}>
+        <Root />
+      </AuthProvider>
     </FirestoreProvider>
   );
 }
