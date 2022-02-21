@@ -1,13 +1,23 @@
+import { useState } from "react";
+import "./baseStyles.scss";
+
+import ModalComponent from "./components/modal";
+import SignInAndSignUp from "./components/SiginInAndSignUp/SignInAndSignUp.component";
+
 import Typography from "@mui/material/Typography";
 import { auth } from "./firebase/firebase.utils";
 import Button from "@mui/material/Button";
-import { useState } from "react";
-
 import { motion, AnimatePresence } from "framer-motion";
-import ModalComponent from "./components/modal";
 
 function App() {
   const [modalOpen, setModalOpen] = useState(false);
+
+  const open = () => {
+    setModalOpen(true);
+  };
+  const close = () => {
+    setModalOpen(false);
+  };
   return (
     <div className="App">
       <Typography variant="h1" color="initial">
@@ -16,7 +26,7 @@ function App() {
       {auth.currentUser ? (
         <h1>Du er logget inn</h1>
       ) : (
-        <Button variant="contained" onClick={() => setModalOpen(!modalOpen)}>
+        <Button variant="contained" onClick={() => open()}>
           Logg inn/registerer deg
         </Button>
       )}
@@ -29,11 +39,9 @@ function App() {
         exitBeforeEnter={true}
       >
         {modalOpen && (
-          <ModalComponent
-            modalOpen={modalOpen}
-            handleClose={close}
-            text="fuck off"
-          />
+          <ModalComponent modalOpen={modalOpen} handleClose={close}>
+            <SignInAndSignUp />
+          </ModalComponent>
         )}
       </AnimatePresence>
     </div>

@@ -25,11 +25,10 @@ const dropIn: Variants = {
 
 interface Props {
   handleClose: () => void;
-  text: string;
   modalOpen?: boolean;
 }
 
-const ModalComponent: FC<Props> = ({ handleClose, text }) => {
+const ModalComponent: FC<Props> = ({ handleClose, children }) => {
   return (
     <BackDrop onClick={handleClose}>
       <motion.div
@@ -40,8 +39,8 @@ const ModalComponent: FC<Props> = ({ handleClose, text }) => {
         animate="visible"
         exit="exit"
       >
-        <p>{text}</p>
         <button onClick={handleClose}>Close</button>
+        {children}
       </motion.div>
     </BackDrop>
   );
