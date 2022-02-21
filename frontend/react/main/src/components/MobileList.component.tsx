@@ -1,4 +1,10 @@
-import { Typography, Button, useMediaQuery } from "@mui/material";
+import {
+  useMediaQuery,
+  Typography,
+  Button,
+  AppBar,
+  Toolbar,
+} from "@mui/material";
 import { AnimatePresence } from "framer-motion";
 import React, { FC, useEffect, useState } from "react";
 import { useSigninCheck } from "reactfire";
@@ -9,7 +15,7 @@ import SignInAndSignUp from "./SiginInAndSignUp/SignInAndSignUp.component";
 
 interface Props {}
 
-const Root: FC<Props> = () => {
+const MobileHome: FC<Props> = () => {
   // state
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -29,17 +35,26 @@ const Root: FC<Props> = () => {
     setModalOpen(false);
   };
 
-  // media queries
-  const mobile = useMediaQuery("(max-width: 450px)");
-
   if (status === "loading") return <div>Laster...</div>;
   return (
-    <div>
-      <NavBar bottom={mobile} open={open} />
-
-      <Typography variant="h1" color="initial">
+    <div className="base-container">
+      <Typography variant="h3" color="initial">
         Wishlist
       </Typography>
+      {data.signedIn ? (
+        <>
+          <h1>Du er logget inn</h1>
+          <Button
+            variant="contained"
+            color="warning"
+            onClick={() => auth.signOut()}
+          >
+            Logg ut
+          </Button>
+        </>
+      ) : (
+        <h1>du er ikke logget inn</h1>
+      )}
 
       <AnimatePresence
         //  Disable any inital animations of children thart are present when the component is first rendered
@@ -58,4 +73,4 @@ const Root: FC<Props> = () => {
   );
 };
 
-export default Root;
+export default MobileHome;
