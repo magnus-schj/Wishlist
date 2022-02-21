@@ -2,8 +2,8 @@ import React, { FC } from "react";
 
 interface Props {}
 
-const DesktopHome: FC<Props> = () => {
+const DesktopList: FC<Props> = () => {
   return <div>desktop</div>;
 };
 
-export default DesktopHome;
+export default DesktopList;
