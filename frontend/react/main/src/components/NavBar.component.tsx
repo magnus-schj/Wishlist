@@ -21,7 +21,7 @@ const NavBar: FC<Props> = ({ bottom, open, signedIn }) => {
       sx={{ top: bottom ? "auto" : 0, bottom: bottom ? 0 : "auto", zIndex: 2 }}
     >
       <Toolbar>
-        <div>
+        <div style={{ flex: 1 }}>
           {data.signedIn ? (
             <Button
               variant="contained"

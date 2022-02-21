@@ -12,7 +12,6 @@ const ToggleList: FC<Props> = () => {
   if (!ListContext) return null;
   //   booleanValue: display own list
   const { booleanValue, setBoolean } = ListContext;
-  console.log(ListContext);
   return booleanValue ? (
     <div>
       <IconButton
