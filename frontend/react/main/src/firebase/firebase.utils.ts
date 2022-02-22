@@ -5,6 +5,8 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import {
+  addDoc,
+  collection,
   doc,
   getDoc,
   getFirestore,
@@ -49,6 +51,7 @@ export const db = getFirestore();
 const provider = new GoogleAuthProvider();
 export const signInWithGoogle = () => signInWithPopup(auth, provider);
 
+// create
 export const createUserProfileDocument = async (
   uid: string | null,
   { ...otherData }
@@ -64,4 +67,26 @@ export const createUserProfileDocument = async (
     };
     await setDoc(ref, initialData);
   }
+};
+
+export const createWishListDoc = async (uid: string) => {
+  const ref = doc(db, "wishLists", uid);
+  const snapshot = await getDoc(ref);
+  if (!snapshot.exists()) {
+    const initialData = {
+      createdAt: serverTimestamp(),
+      updated: null,
+    };
+    await setDoc(ref, initialData);
+  }
+};
+
+export const addWish = async (uid: string | null, newWish: string) => {
+  if (!uid) return;
+  const ref = collection(db, "wishLists", uid, "wishes");
+  await addDoc(ref, {
+    wish: newWish,
+    createdAt: serverTimestamp(),
+    updated: null,
+  });
 };
