@@ -6,7 +6,7 @@ import { createContext } from "react";
 import { useFirestore, useFirestoreDocData, useSigninCheck } from "reactfire";
 import { ToggleListContext } from "../Contexts";
 import { auth, createUserProfileDocument } from "../firebase/firebase.utils";
-import DesktopList from "./DestopList.component";
+import DesktopListContainer from "./desktopList/DesktopListContainer.component";
 import OthersList from "./List.component";
 import MobileList from "./MobileList.component";
 import ModalComponent from "./modal";

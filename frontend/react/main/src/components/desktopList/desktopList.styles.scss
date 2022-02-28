@@ -1,0 +1,6 @@
+@import "../../baseStyles.scss";
+
+.user-buttons {
+  @extend .base-container;
+  align-items: flex-start;
+}

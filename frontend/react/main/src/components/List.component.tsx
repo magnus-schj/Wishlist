@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import DesktopList from "./DestopList.component";
+import DesktopListContainer from "./desktopList/DesktopListContainer.component";
 import MobileList from "./MobileList.component";
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 const OthersList: FC<Props> = ({ mobile }) => {
-  return mobile ? <MobileList /> : <DesktopList />;
+  return mobile ? <MobileList /> : <DesktopListContainer />;
 };
 
 export default OthersList;
