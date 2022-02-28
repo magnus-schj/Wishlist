@@ -18,10 +18,19 @@ interface Props {
   uid: string;
 }
 
+type color =
+  | "primary"
+  | "success"
+  | "error"
+  | "secondary"
+  | "info"
+  | "warning"
+  | undefined;
+
 const OwnWish: FC<Props> = ({ initalWish, wid, uid }) => {
   const [wish, setWish] = useState(initalWish);
   const [label, setLabel] = useState("");
-  const [textFieldColor, setTextFieldColor] = useState("primary");
+  const [textFieldColor, setTextFieldColor] = useState<color>("primary");
 
   const handleUpdate = () => {
     updateWish(uid, wid, wish);

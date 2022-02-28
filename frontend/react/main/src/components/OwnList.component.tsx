@@ -15,8 +15,13 @@ import OwnWish from "./OwnWish/OwnWish.component";
 interface Props {}
 
 const OwnList: FC<Props> = () => {
-  // reactfire
   const { status, data } = useSigninCheck();
+
+  useEffect(() => {
+    if (data.signedIn) {
+      createWishListDoc(data.user.uid);
+    }
+  }, []);
   if (!data.user) return null;
 
   const { uid } = data.user;
@@ -24,11 +29,6 @@ const OwnList: FC<Props> = () => {
   const ref = collection(useFirestore(), "wishLists", uid, "wishes");
   const wishListRes = useFirestoreCollectionData(ref);
   console.log(wishListRes);
-  useEffect(() => {
-    if (data.signedIn) {
-      createWishListDoc(data.user.uid);
-    }
-  }, []);
 
   return (
     <div className="base-container">
