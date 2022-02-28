@@ -7,6 +7,7 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getFirestore,
@@ -89,4 +90,20 @@ export const addWish = async (uid: string | null, newWish: string) => {
     createdAt: serverTimestamp(),
     updated: null,
   });
+};
+
+// * update
+export const updateWish = async (uid: string, wid: string, newWish: string) => {
+  const ref = doc(db, "wishLists", uid, "wishes", wid);
+  await setDoc(
+    ref,
+    { wish: newWish, updated: serverTimestamp() },
+    { merge: true }
+  );
+};
+
+// ! delete
+export const deleteWish = async (uid: string, wid: string) => {
+  const ref = doc(db, "wishLists", uid, "wishes", wid);
+  await deleteDoc(ref);
 };

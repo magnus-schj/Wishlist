@@ -10,6 +10,7 @@ import { addWish, createWishListDoc } from "../firebase/firebase.utils";
 import Button from "@mui/material/Button";
 import { collection, doc } from "firebase/firestore";
 import AddWish from "./AddWish.component";
+import OwnWish from "./OwnWish/OwnWish.component";
 
 interface Props {}
 
@@ -37,7 +38,14 @@ const OwnList: FC<Props> = () => {
       <AddWish uid={uid} />
       <div className="base-container">
         {wishListRes.status === "success" ? (
-          wishListRes.data.map(({ wish }) => <p>{wish}</p>)
+          wishListRes.data.map(({ wish, NO_ID_FIELD }) => (
+            <OwnWish
+              key={NO_ID_FIELD}
+              initalWish={wish}
+              wid={NO_ID_FIELD}
+              uid={data.user.uid}
+            />
+          ))
         ) : (
           <div>Laster...</div>
         )}
