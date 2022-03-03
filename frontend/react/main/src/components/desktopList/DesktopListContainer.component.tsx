@@ -14,24 +14,20 @@ const DesktopListContainer: FC<Props> = () => {
   const ref = collection(useFirestore(), "users");
   const res = useFirestoreCollectionData(ref);
   const success = res.status === "success";
-  console.log("here");
-  console.log(res);
   return success ? (
-    <div>
-      <Box>
-        <div className="user-buttons">
-          {res.data.map(({ displayName, NO_ID_FIELD }, i) => (
-            <Button
-              color="primary"
-              key={NO_ID_FIELD}
-              onClick={() => setSelectedList(NO_ID_FIELD)}
-            >
-              {displayName}
-            </Button>
-          ))}
-        </div>
+    <div className="desktop-container">
+      <Box className="user-buttons">
+        {res.data.map(({ displayName, NO_ID_FIELD }, i) => (
+          <Button
+            color="info"
+            key={NO_ID_FIELD}
+            onClick={() => setSelectedList(NO_ID_FIELD)}
+          >
+            {displayName}
+          </Button>
+        ))}
       </Box>
-      <DeskTopList uid={selectedList} />
+      {selectedList && <DeskTopList uid={selectedList} />}
     </div>
   ) : (
     <div>Laster...</div>

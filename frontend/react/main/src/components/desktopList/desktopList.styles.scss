@@ -1,6 +1,18 @@
 @import "../../baseStyles.scss";
 
-.user-buttons {
-  @extend .base-container;
-  align-items: flex-start;
+.desktop-container {
+  display: flex;
+  width: 90vw;
+  padding: 0 1rem;
+
+  // only two children here!
+  .user-buttons {
+    @extend .base-container;
+    align-items: flex-start;
+  }
+
+  .desktop-list {
+    @extend .base-container;
+    flex: 1;
+  }
 }
