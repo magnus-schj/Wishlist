@@ -4,7 +4,6 @@ import { AnimatePresence } from "framer-motion";
 import React, { FC, useEffect, useState } from "react";
 import { createContext } from "react";
 import { useFirestore, useFirestoreDocData, useSigninCheck } from "reactfire";
-import { ToggleListContext } from "../Contexts";
 import { auth, createUserProfileDocument } from "../firebase/firebase.utils";
 import DesktopListContainer from "./desktopList/DesktopListContainer.component";
 import OthersList from "./List.component";
@@ -19,7 +18,6 @@ interface Props {}
 const Root: FC<Props> = () => {
   // state
   const [modalOpen, setModalOpen] = useState(false);
-  const [displayOwnList, setDisplayOwnList] = useState(false);
 
   // reactfire
   const { status, data } = useSigninCheck();
@@ -56,20 +54,18 @@ const Root: FC<Props> = () => {
   if (status === "loading") return <div>Laster...</div>;
   return (
     <div>
-      <ToggleListContext.Provider
-        value={{
-          booleanValue: displayOwnList,
-          setBoolean: () => setDisplayOwnList(!displayOwnList),
-        }}
-      >
-        <NavBar bottom={mobile} open={open} signedIn={data.signedIn} />
-      </ToggleListContext.Provider>
+      <NavBar
+        bottom={mobile}
+        open={open}
+        signedIn={data.signedIn}
+        uid={data.user?.uid}
+      />
 
       <Typography variant="h1" color="initial">
         Wishlist
       </Typography>
 
-      {displayOwnList ? <OwnList /> : <OthersList mobile={mobile} />}
+      <OthersList mobile={mobile} />
       <AnimatePresence
         //  Disable any inital animations of children thart are present when the component is first rendered
         initial={false}

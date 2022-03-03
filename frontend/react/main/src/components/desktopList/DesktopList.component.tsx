@@ -41,13 +41,13 @@ const DeskTopList: FC<Props> = ({ uid }) => {
         {collectionRes.data.map(({ wish, NO_ID_FIELD }, i) => (
           <ListItem
             key={NO_ID_FIELD}
+            // divider if element is not first or last
             divider={i !== 0 || i !== collectionRes.data.length}
           >
             <ListItemText primary={wish} />
           </ListItem>
         ))}
       </List>
-      <ul></ul>
     </div>
   ) : null;
 };

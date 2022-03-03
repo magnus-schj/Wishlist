@@ -1,19 +1,19 @@
-import { AppBar, Toolbar, Button, IconButton } from "@mui/material";
+import { AppBar, Toolbar, Button, IconButton, Typography } from "@mui/material";
+import { doc } from "firebase/firestore";
 import React, { FC } from "react";
-import { useSigninCheck } from "reactfire";
+import { useFirestore, useFirestoreDocData, useSigninCheck } from "reactfire";
 import { auth } from "../firebase/firebase.utils";
+import SignedInAsMessage from "./SignedInAs.component";
 import ToggleList from "./ToggleList.component";
 
 interface Props {
   bottom: boolean;
   open: () => void;
   signedIn: boolean;
+  uid?: string;
 }
 
-const NavBar: FC<Props> = ({ bottom, open, signedIn }) => {
-  // reactfire
-  const { data } = useSigninCheck();
-
+const NavBar: FC<Props> = ({ bottom, open, signedIn, uid }) => {
   return (
     <AppBar
       position="fixed"
@@ -22,7 +22,7 @@ const NavBar: FC<Props> = ({ bottom, open, signedIn }) => {
     >
       <Toolbar>
         <div style={{ flex: 1 }}>
-          {data.signedIn ? (
+          {signedIn ? (
             <Button
               variant="contained"
               color="error"
@@ -40,7 +40,7 @@ const NavBar: FC<Props> = ({ bottom, open, signedIn }) => {
             </Button>
           )}
         </div>
-        {signedIn && <ToggleList />}
+        {uid && <SignedInAsMessage uid={uid} />}
       </Toolbar>
     </AppBar>
   );
