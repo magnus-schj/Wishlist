@@ -1,16 +1,11 @@
 import { Typography, Button, useMediaQuery } from "@mui/material";
-import { doc } from "firebase/firestore";
 import { AnimatePresence } from "framer-motion";
 import React, { FC, useEffect, useState } from "react";
-import { createContext } from "react";
 import { useFirestore, useFirestoreDocData, useSigninCheck } from "reactfire";
 import { auth, createUserProfileDocument } from "../firebase/firebase.utils";
-import DesktopListContainer from "./desktopList/DesktopListContainer.component";
-import OthersList from "./List.component";
-import MobileList from "./MobileList.component";
+import Home from "./Home.component";
 import ModalComponent from "./modal";
 import NavBar from "./NavBar.component";
-import OwnList from "./OwnList.component";
 import SignInAndSignUp from "./SiginInAndSignUp/SignInAndSignUp.component";
 
 interface Props {}
@@ -65,7 +60,7 @@ const Root: FC<Props> = () => {
         Wishlist
       </Typography>
 
-      <OthersList mobile={mobile} />
+      <Home mobile={mobile} />
       <AnimatePresence
         //  Disable any inital animations of children thart are present when the component is first rendered
         initial={false}
