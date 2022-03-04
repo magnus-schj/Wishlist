@@ -9,6 +9,7 @@ import {
 import Typography from "@mui/material/Typography";
 import { Divider, List, ListItem, ListItemText } from "@mui/material";
 import { auth } from "../../firebase/firebase.utils";
+import OwnList from "../OwnList.component";
 
 interface Props {
   userInfo: DocumentData;
@@ -16,8 +17,7 @@ interface Props {
 
 const DesktopPage: FC<Props> = ({ userInfo }) => {
   const { NO_ID_FIELD, displayName } = userInfo;
-  console.log(userInfo);
-  console.log(auth.currentUser?.uid);
+  // gets data from users wishlist
   const ref = collection(useFirestore(), "wishLists", NO_ID_FIELD, "wishes");
   const res = useFirestoreCollectionData(ref);
 
@@ -25,10 +25,9 @@ const DesktopPage: FC<Props> = ({ userInfo }) => {
   const success = res.status === "success";
   if (!success) return null;
 
-  // TODO: bestemme om det er brukeren sin liste eller ikke, implementere derretter
   const currentUserList = NO_ID_FIELD === auth.currentUser?.uid;
   return currentUserList ? (
-    <h1>Din liste!</h1>
+    <OwnList />
   ) : (
     <div className="desktop-list">
       <Typography variant="h3" color="initial">

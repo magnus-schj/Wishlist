@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { collection, doc, DocumentData } from "firebase/firestore";
 import React, { FC, useState } from "react";
 import { useFirestore, useFirestoreCollectionData } from "reactfire";
-import DesktopPage from "../DesktopList/DesktopList.component";
+import DesktopPage from "../DesktopPage/DesktopPage.component";
 import UserButtons from "../UserButtons/UserButtons.component";
 import "./DesktopContainer.styles.scss";
 
