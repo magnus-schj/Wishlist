@@ -1,5 +1,5 @@
 import { collection, doc, DocumentData } from "firebase/firestore";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
   useFirestore,
   useFirestoreCollectionData,
@@ -7,7 +7,14 @@ import {
   useFirestoreDocDataOnce,
 } from "reactfire";
 import Typography from "@mui/material/Typography";
-import { Divider, List, ListItem, ListItemText } from "@mui/material";
+import {
+  Alert,
+  Divider,
+  List,
+  ListItem,
+  ListItemText,
+  Snackbar,
+} from "@mui/material";
 import { auth } from "../../firebase/firebase.utils";
 import OwnList from "../OwnList.component";
 
@@ -16,7 +23,7 @@ interface Props {
 }
 
 const DesktopPage: FC<Props> = ({ userInfo }) => {
-  const { NO_ID_FIELD, displayName } = userInfo;
+  const { NO_ID_FIELD, displayName, vertified } = userInfo;
   // gets data from users wishlist
   const ref = collection(useFirestore(), "wishLists", NO_ID_FIELD, "wishes");
   const res = useFirestoreCollectionData(ref);

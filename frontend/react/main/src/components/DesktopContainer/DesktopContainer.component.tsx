@@ -15,11 +15,14 @@ const DesktopContainer: FC<Props> = () => {
   // data for all users
   const ref = collection(useFirestore(), "users");
   const { status, data } = useFirestoreCollectionData(ref);
+  if (!data) return null;
+  // filters out anyone who is not vertified
+  const filteredData = data.filter(({ vertified }) => vertified === true);
   const success = status === "success";
   return success ? (
     <div className="desktop-container">
       {/* List of users  */}
-      <UserButtons data={data} setSelectedList={setSelectedList} />
+      <UserButtons data={filteredData} setSelectedList={setSelectedList} />
       {selectedList && <DesktopPage userInfo={selectedList} />}
     </div>
   ) : (

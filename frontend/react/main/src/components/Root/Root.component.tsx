@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from "react";
-import "./Root.styles.scss";
 import Home from "../Home.component";
 import NavBar from "../NavBar.component";
 import ModalComponent from "../modal";
@@ -60,7 +59,11 @@ const Root: FC<Props> = () => {
         uid={data.user?.uid}
       />
       {/* body */}
-      <div className="body-wrapper">
+      <div
+        style={{
+          marginTop: mobile ? 0 : "4rem",
+        }}
+      >
         <Home mobile={mobile} />
       </div>
       {/* animations */}
