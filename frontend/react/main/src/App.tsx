@@ -2,7 +2,7 @@ import "./baseStyles.scss";
 
 import { getFirestore } from "firebase/firestore";
 import { useFirebaseApp, FirestoreProvider, AuthProvider } from "reactfire";
-import Root from "./components/Root.component";
+import Root from "./components/Root/Root.component";
 import { auth } from "./firebase/firebase.utils";
 
 function App() {

@@ -1,12 +1,15 @@
-import { Typography, Button, useMediaQuery } from "@mui/material";
-import { AnimatePresence } from "framer-motion";
 import React, { FC, useEffect, useState } from "react";
+import "./Root.styles.scss";
+import Home from "../Home.component";
+import NavBar from "../NavBar.component";
+import ModalComponent from "../modal";
+import SignInAndSignUp from "../SiginInAndSignUp/SignInAndSignUp.component";
+
 import { useFirestore, useFirestoreDocData, useSigninCheck } from "reactfire";
-import { auth, createUserProfileDocument } from "../firebase/firebase.utils";
-import Home from "./Home.component";
-import ModalComponent from "./modal";
-import NavBar from "./NavBar.component";
-import SignInAndSignUp from "./SiginInAndSignUp/SignInAndSignUp.component";
+import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
+import { Typography, Button, useMediaQuery } from "@mui/material";
+
+import { AnimatePresence } from "framer-motion";
 
 interface Props {}
 
@@ -49,18 +52,18 @@ const Root: FC<Props> = () => {
   if (status === "loading") return <div>Laster...</div>;
   return (
     <div>
+      {/* header */}
       <NavBar
         bottom={mobile}
         open={open}
         signedIn={data.signedIn}
         uid={data.user?.uid}
       />
-
-      <Typography variant="h1" color="initial">
-        Wishlist
-      </Typography>
-
-      <Home mobile={mobile} />
+      {/* body */}
+      <div className="body-wrapper">
+        <Home mobile={mobile} />
+      </div>
+      {/* animations */}
       <AnimatePresence
         //  Disable any inital animations of children thart are present when the component is first rendered
         initial={false}
