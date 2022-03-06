@@ -16,7 +16,13 @@ import SignInAndSignUp from "./SiginInAndSignUp/SignInAndSignUp.component";
 interface Props {}
 
 const MobileList: FC<Props> = () => {
-  return <div className="base-container">mobile</div>;
+  return (
+    <div className="base-container">
+      <Typography variant="h3" color="initial">
+        Ønskelister
+      </Typography>
+    </div>
+  );
 };
 
 export default MobileList;
