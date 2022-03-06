@@ -1,9 +1,14 @@
 import { Alert, Snackbar, Typography } from "@mui/material";
-import { doc, DocumentData } from "firebase/firestore";
+import { collection, doc, DocumentData } from "firebase/firestore";
 import React, { FC, useEffect, useState } from "react";
-import { useFirestore, useFirestoreDocData, useSigninCheck } from "reactfire";
+import {
+  useFirestore,
+  useFirestoreCollectionData,
+  useFirestoreDocData,
+  useSigninCheck,
+} from "reactfire";
 import { auth } from "../firebase/firebase.utils";
-import DesktopContainer from "./DesktopContainer/DesktopContainer.component";
+import Desktop from "./Desktop/Desktop.component";
 import MobileList from "./MobileList.component";
 
 interface Props {
@@ -15,23 +20,32 @@ const Home: FC<Props> = ({ mobile }) => {
   // state
   const [snackBarOpen, setSnackBarOpen] = useState(false);
 
-  let res: null | DocumentData = null;
-  let ref = null;
+  // gets current users document if logged in
+  let currentUserRes: null | DocumentData = null;
   if (currentUser) {
-    ref = doc(useFirestore(), "users", currentUser.uid);
-    res = useFirestoreDocData(ref);
+    currentUserRes = useFirestoreDocData(
+      doc(useFirestore(), "users", currentUser.uid)
+    );
   }
 
   useEffect(() => {
-    if (res && res.status === "success") {
-      if (!res.data.vertified) setSnackBarOpen(true);
+    if (currentUserRes && currentUserRes.status === "success") {
+      if (!currentUserRes.data.vertified) setSnackBarOpen(true);
       else setSnackBarOpen(false);
     }
-  }, [res]);
+  }, [currentUserRes]);
 
+  // all user docs
+  const usersRes = useFirestoreCollectionData(
+    collection(useFirestore(), "users")
+  );
+  if (!usersRes.data) return null;
+  const vertifiedUsers = usersRes.data.filter(
+    ({ vertified }) => vertified === true
+  );
   return (
     <>
-      {mobile ? <MobileList /> : <DesktopContainer />}
+      {mobile ? <MobileList /> : <Desktop data={vertifiedUsers} />}
 
       <Snackbar open={snackBarOpen}>
         <Alert severity="warning">

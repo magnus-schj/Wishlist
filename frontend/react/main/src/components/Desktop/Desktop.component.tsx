@@ -5,29 +5,22 @@ import React, { FC, useState } from "react";
 import { useFirestore, useFirestoreCollectionData } from "reactfire";
 import DesktopPage from "../DesktopPage/DesktopPage.component";
 import UserButtons from "../UserButtons/UserButtons.component";
-import "./DesktopContainer.styles.scss";
+import "./Desktop.styles.scss";
 
-interface Props {}
+interface Props {
+  data: DocumentData[];
+}
 
-const DesktopContainer: FC<Props> = () => {
+const Desktop: FC<Props> = ({ data }) => {
   const [selectedList, setSelectedList] = useState<DocumentData | null>(null);
 
-  // data for all users
-  const ref = collection(useFirestore(), "users");
-  const { status, data } = useFirestoreCollectionData(ref);
-  if (!data) return null;
-  // filters out anyone who is not vertified
-  const filteredData = data.filter(({ vertified }) => vertified === true);
-  const success = status === "success";
-  return success ? (
+  return (
     <div className="desktop-container">
       {/* List of users  */}
-      <UserButtons data={filteredData} setSelectedList={setSelectedList} />
+      <UserButtons data={data} setSelectedList={setSelectedList} />
       {selectedList && <DesktopPage userInfo={selectedList} />}
     </div>
-  ) : (
-    <div>Laster...</div>
   );
 };
 
-export default DesktopContainer;
+export default Desktop;

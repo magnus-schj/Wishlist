@@ -28,7 +28,6 @@ const OwnList: FC<Props> = () => {
 
   const ref = collection(useFirestore(), "wishLists", uid, "wishes");
   const wishListRes = useFirestoreCollectionData(ref);
-  console.log(wishListRes);
 
   return (
     <div className="base-container">
