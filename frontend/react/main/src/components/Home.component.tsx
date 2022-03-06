@@ -45,7 +45,11 @@ const Home: FC<Props> = ({ mobile }) => {
   );
   return (
     <>
-      {mobile ? <MobileList /> : <Desktop data={vertifiedUsers} />}
+      {mobile ? (
+        <MobileList data={vertifiedUsers} />
+      ) : (
+        <Desktop data={vertifiedUsers} />
+      )}
 
       <Snackbar open={snackBarOpen}>
         <Alert severity="warning">

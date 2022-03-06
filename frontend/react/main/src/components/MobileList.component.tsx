@@ -4,7 +4,15 @@ import {
   Button,
   AppBar,
   Toolbar,
+  FormControl,
+  FormLabel,
+  FormHelperText,
+  Select,
+  MenuItem,
+  SelectChangeEvent,
+  InputLabel,
 } from "@mui/material";
+import { DocumentData } from "firebase/firestore";
 import { AnimatePresence } from "framer-motion";
 import React, { FC, useEffect, useState } from "react";
 import { useSigninCheck } from "reactfire";
@@ -13,14 +21,35 @@ import ModalComponent from "./modal";
 import NavBar from "./NavBar.component";
 import SignInAndSignUp from "./SiginInAndSignUp/SignInAndSignUp.component";
 
-interface Props {}
+interface Props {
+  data: DocumentData[];
+}
 
-const MobileList: FC<Props> = () => {
+const MobileList: FC<Props> = ({ data }) => {
+  const [selectedList, setSelectedList] = useState("");
   return (
     <div className="base-container">
       <Typography variant="h3" color="initial">
         Ønskelister
       </Typography>
+
+      <FormControl fullWidth>
+        <InputLabel id="selectLabel">Velg en person...</InputLabel>
+        <Select
+          labelId="selectLabel"
+          value={selectedList}
+          onChange={(e) => setSelectedList(e.target.value)}
+        >
+          <MenuItem disabled value="">
+            <em>Velg en person...</em>
+          </MenuItem>
+          {data.map(({ displayName, NO_ID_FIELD }) => (
+            <MenuItem key={NO_ID_FIELD} value={NO_ID_FIELD}>
+              {displayName}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
     </div>
   );
 };
