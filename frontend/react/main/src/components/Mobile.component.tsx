@@ -21,12 +21,13 @@ import { auth } from "../firebase/firebase.utils";
 import ModalComponent from "./modal";
 import NavBar from "./NavBar.component";
 import SignInAndSignUp from "./SiginInAndSignUp/SignInAndSignUp.component";
+import WishList from "./WishList/WishList.component";
 
 interface Props {}
 
 const Mobile: FC<Props> = () => {
   const data = useContext(UserDataContext);
-  const [selectedList, setSelectedList] = useState("");
+  const [selectedUid, setSelectedUid] = useState("");
   return (
     <div className="base-container">
       <Typography variant="h3" color="initial">
@@ -37,8 +38,8 @@ const Mobile: FC<Props> = () => {
         <InputLabel id="selectLabel">Velg en person...</InputLabel>
         <Select
           labelId="selectLabel"
-          value={selectedList}
-          onChange={(e) => setSelectedList(e.target.value)}
+          value={selectedUid}
+          onChange={(e) => setSelectedUid(e.target.value)}
         >
           <MenuItem disabled value="">
             <em>Velg en person...</em>
@@ -51,7 +52,7 @@ const Mobile: FC<Props> = () => {
             ))}
         </Select>
       </FormControl>
-      {/* {selectedList && <WishList uid} */}
+      {selectedUid && <WishList uid={selectedUid} />}
     </div>
   );
 };
