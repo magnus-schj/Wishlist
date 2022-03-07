@@ -46,7 +46,7 @@ const Root: FC<Props> = () => {
   };
 
   // media queries
-  const mobile = useMediaQuery("(max-width: 450px)");
+  const mobile = useMediaQuery("(max-width: 500px)");
 
   if (status === "loading") return <div>Laster...</div>;
   return (

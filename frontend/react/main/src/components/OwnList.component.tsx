@@ -35,7 +35,7 @@ const OwnList: FC<Props> = () => {
         Dine ønsker
       </Typography>
       <AddWish uid={uid} />
-      <div className="base-container">
+      <div className="base-container" style={{ minWidth: "335px" }}>
         {wishListRes.status === "success" ? (
           wishListRes.data.map(({ wish, NO_ID_FIELD }) => (
             <OwnWish

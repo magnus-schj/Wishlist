@@ -5,6 +5,9 @@ import {
   TextField,
   CardActions,
   IconButton,
+  FormControl,
+  FormLabel,
+  FormHelperText,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save";
@@ -44,20 +47,25 @@ const OwnWish: FC<Props> = ({ initalWish, wid, uid }) => {
   };
   return (
     <Card className="own-wish">
-      <CardContent>
+      <CardContent sx={{ flexGrow: 10 }}>
         <TextField
           label={label}
           id={wid}
           value={wish}
           onChange={(e) => setWish(e.target.value)}
           color={textFieldColor}
+          fullWidth
         />
       </CardContent>
-      <CardActions>
-        <IconButton onClick={handleUpdate}>
+      <CardActions sx={{ flexGrow: 1 }}>
+        <IconButton onClick={handleUpdate} sx={{ padding: 0 }}>
           <SaveIcon />
         </IconButton>
-        <IconButton aria-label="delete" onClick={() => deleteWish(uid, wid)}>
+        <IconButton
+          aria-label="delete"
+          onClick={() => deleteWish(uid, wid)}
+          sx={{ padding: 0 }}
+        >
           <DeleteIcon />
         </IconButton>
       </CardActions>
