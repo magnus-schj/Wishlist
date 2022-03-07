@@ -51,6 +51,7 @@ const Mobile: FC<Props> = () => {
             ))}
         </Select>
       </FormControl>
+      {/* {selectedList && <WishList uid} */}
     </div>
   );
 };

@@ -4,21 +4,21 @@ import { FC, useContext } from "react";
 import { UserDataContext } from "../../contexts";
 
 interface Props {
-  setSelectedList: React.Dispatch<React.SetStateAction<DocumentData | null>>;
+  setSelectedUid: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-const UserButtons: FC<Props> = ({ setSelectedList }) => {
+const UserButtons: FC<Props> = ({ setSelectedUid }) => {
   const data = useContext(UserDataContext);
   return (
     <Box className="user-buttons">
       {data &&
-        data.map((userData) => (
+        data.map(({ NO_ID_FIELD, displayName }) => (
           <Button
             color="info"
-            key={userData.NO_ID_FIELD}
-            onClick={() => setSelectedList(userData)}
+            key={NO_ID_FIELD}
+            onClick={() => setSelectedUid(NO_ID_FIELD)}
           >
-            {userData.displayName}
+            {displayName}
           </Button>
         ))}
     </Box>
