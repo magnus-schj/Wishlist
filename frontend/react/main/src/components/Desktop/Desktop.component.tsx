@@ -7,17 +7,15 @@ import DesktopPage from "../DesktopPage/DesktopPage.component";
 import UserButtons from "../UserButtons/UserButtons.component";
 import "./Desktop.styles.scss";
 
-interface Props {
-  data: DocumentData[];
-}
+interface Props {}
 
-const Desktop: FC<Props> = ({ data }) => {
+const Desktop: FC<Props> = () => {
   const [selectedList, setSelectedList] = useState<DocumentData | null>(null);
 
   return (
     <div className="desktop-container">
       {/* List of users  */}
-      <UserButtons data={data} setSelectedList={setSelectedList} />
+      <UserButtons setSelectedList={setSelectedList} />
       {selectedList && <DesktopPage userInfo={selectedList} />}
     </div>
   );

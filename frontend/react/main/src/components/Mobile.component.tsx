@@ -14,18 +14,18 @@ import {
 } from "@mui/material";
 import { DocumentData } from "firebase/firestore";
 import { AnimatePresence } from "framer-motion";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import { useSigninCheck } from "reactfire";
+import { UserDataContext } from "../contexts";
 import { auth } from "../firebase/firebase.utils";
 import ModalComponent from "./modal";
 import NavBar from "./NavBar.component";
 import SignInAndSignUp from "./SiginInAndSignUp/SignInAndSignUp.component";
 
-interface Props {
-  data: DocumentData[];
-}
+interface Props {}
 
-const MobileList: FC<Props> = ({ data }) => {
+const Mobile: FC<Props> = () => {
+  const data = useContext(UserDataContext);
   const [selectedList, setSelectedList] = useState("");
   return (
     <div className="base-container">
@@ -43,15 +43,16 @@ const MobileList: FC<Props> = ({ data }) => {
           <MenuItem disabled value="">
             <em>Velg en person...</em>
           </MenuItem>
-          {data.map(({ displayName, NO_ID_FIELD }) => (
-            <MenuItem key={NO_ID_FIELD} value={NO_ID_FIELD}>
-              {displayName}
-            </MenuItem>
-          ))}
+          {data &&
+            data.map(({ displayName, NO_ID_FIELD }) => (
+              <MenuItem key={NO_ID_FIELD} value={NO_ID_FIELD}>
+                {displayName}
+              </MenuItem>
+            ))}
         </Select>
       </FormControl>
     </div>
   );
 };
 
-export default MobileList;
+export default Mobile;

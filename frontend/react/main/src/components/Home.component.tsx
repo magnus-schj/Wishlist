@@ -7,9 +7,10 @@ import {
   useFirestoreDocData,
   useSigninCheck,
 } from "reactfire";
+import { UserDataContext } from "../contexts";
 import { auth } from "../firebase/firebase.utils";
 import Desktop from "./Desktop/Desktop.component";
-import MobileList from "./MobileList.component";
+import Mobile from "./Mobile.component";
 
 interface Props {
   mobile: boolean;
@@ -40,16 +41,15 @@ const Home: FC<Props> = ({ mobile }) => {
     collection(useFirestore(), "users")
   );
   if (!usersRes.data) return null;
+
   const vertifiedUsers = usersRes.data.filter(
     ({ vertified }) => vertified === true
   );
   return (
     <>
-      {mobile ? (
-        <MobileList data={vertifiedUsers} />
-      ) : (
-        <Desktop data={vertifiedUsers} />
-      )}
+      <UserDataContext.Provider value={vertifiedUsers}>
+        {mobile ? <Mobile /> : <Desktop />}
+      </UserDataContext.Provider>
 
       <Snackbar open={snackBarOpen}>
         <Alert severity="warning">

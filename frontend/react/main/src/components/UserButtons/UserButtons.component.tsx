@@ -1,24 +1,26 @@
 import { Box, Button } from "@mui/material";
 import { DocumentData } from "firebase/firestore";
-import { FC } from "react";
+import { FC, useContext } from "react";
+import { UserDataContext } from "../../contexts";
 
 interface Props {
-  data: DocumentData[];
   setSelectedList: React.Dispatch<React.SetStateAction<DocumentData | null>>;
 }
 
-const UserButtons: FC<Props> = ({ data, setSelectedList }) => {
+const UserButtons: FC<Props> = ({ setSelectedList }) => {
+  const data = useContext(UserDataContext);
   return (
     <Box className="user-buttons">
-      {data.map((userData) => (
-        <Button
-          color="info"
-          key={userData.NO_ID_FIELD}
-          onClick={() => setSelectedList(userData)}
-        >
-          {userData.displayName}
-        </Button>
-      ))}
+      {data &&
+        data.map((userData) => (
+          <Button
+            color="info"
+            key={userData.NO_ID_FIELD}
+            onClick={() => setSelectedList(userData)}
+          >
+            {userData.displayName}
+          </Button>
+        ))}
     </Box>
   );
 };
