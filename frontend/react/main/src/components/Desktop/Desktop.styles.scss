@@ -1,0 +1,12 @@
+@import "../../baseStyles.scss";
+
+.desktop-container {
+  display: flex;
+  width: 90vw;
+  padding: 0 1rem;
+
+  .user-buttons {
+    @extend .base-container;
+    align-items: flex-start;
+  }
+}
