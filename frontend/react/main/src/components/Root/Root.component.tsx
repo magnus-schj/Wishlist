@@ -50,7 +50,7 @@ const Root: FC<Props> = () => {
 
   if (status === "loading") return <div>Laster...</div>;
   return (
-    <div>
+    <div className="base-container">
       {/* header */}
       <NavBar
         bottom={mobile}

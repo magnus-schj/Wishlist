@@ -21,26 +21,20 @@ const NavBar: FC<Props> = ({ bottom, open, signedIn, uid }) => {
       sx={{ top: bottom ? "auto" : 0, bottom: bottom ? 0 : "auto", zIndex: 2 }}
     >
       <Toolbar>
-        <div style={{ flex: 1 }}>
-          {signedIn ? (
-            <Button
-              variant="contained"
-              color="error"
-              onClick={() => auth.signOut()}
-            >
-              Logg ut
-            </Button>
-          ) : (
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => open()}
-            >
-              Logg inn
-            </Button>
-          )}
-        </div>
-        {uid && <SignedInAsMessage uid={uid} />}
+        <div style={{ flex: 1 }}>{uid && <SignedInAsMessage uid={uid} />}</div>
+        {signedIn ? (
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => auth.signOut()}
+          >
+            Logg ut
+          </Button>
+        ) : (
+          <Button variant="contained" color="secondary" onClick={() => open()}>
+            Logg inn
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   );
