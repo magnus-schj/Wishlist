@@ -17,6 +17,10 @@ const UserButtons: FC<Props> = ({ setSelectedUid }) => {
             color="info"
             key={NO_ID_FIELD}
             onClick={() => setSelectedUid(NO_ID_FIELD)}
+            fullWidth
+            sx={{
+              justifyContent: "flex-start",
+            }}
           >
             {displayName}
           </Button>

@@ -12,7 +12,6 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save";
 
-import "./OwnList.styles.scss";
 import { deleteWish, updateWish } from "../../firebase/firebase.utils";
 
 interface Props {

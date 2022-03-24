@@ -4,7 +4,6 @@ import React, { FC } from "react";
 import { useFirestore, useFirestoreDocData, useSigninCheck } from "reactfire";
 import { auth } from "../firebase/firebase.utils";
 import SignedInAsMessage from "./SignedInAs.component";
-import ToggleList from "./ToggleList.component";
 
 interface Props {
   bottom: boolean;

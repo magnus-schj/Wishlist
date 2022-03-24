@@ -15,7 +15,7 @@ const AddWish: FC<Props> = ({ uid }) => {
   };
 
   return (
-    <div>
+    <div className="add-wish">
       <TextField
         id="addWish"
         label="Legg til ønske"

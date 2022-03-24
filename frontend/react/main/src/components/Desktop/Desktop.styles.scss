@@ -2,11 +2,33 @@
 
 .desktop-container {
   display: flex;
-  width: 90vw;
-  padding: 0 1rem;
+  width: 98vw;
+  position: relative;
+  top: 10vh;
 
+  // two children
   .user-buttons {
     @extend .base-container;
+    justify-content: flex-start;
+    height: 80vh;
+    padding: 0;
+    flex-grow: 1;
+  }
+
+  .desktop-list {
     align-items: flex-start;
+    flex-grow: 100;
+
+    .add-wish {
+      display: flex;
+      justify-content: center;
+    }
+
+    .own-wish {
+      display: flex;
+      align-items: stretch;
+      margin: 0.5rem;
+      padding: 0.5em;
+    }
   }
 }

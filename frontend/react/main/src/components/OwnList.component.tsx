@@ -30,8 +30,8 @@ const OwnList: FC<Props> = () => {
   const wishListRes = useFirestoreCollectionData(ref);
 
   return (
-    <div className="base-container">
-      <Typography variant="h4" color="initial">
+    <div className="desktop-list">
+      <Typography variant="h4" color="initial" align="center">
         Dine ønsker
       </Typography>
       <AddWish uid={uid} />
